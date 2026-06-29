@@ -2,7 +2,7 @@
 
 Quiz de perguntas e respostas em PT-BR. App mobile (Android/iOS via Capacitor) + web.
 
-> **Status:** Sprint 0 (setup) concluído. Veja o [`PRD.md`](./PRD.md) e o parecer de revisão em [`PRD-REVIEW.md`](./PRD-REVIEW.md).
+> **Status:** Sprint 1 concluído (modo Normal jogável + perfil/XP/streak + FTUE/gate de idade + auth). Veja o [`PRD.md`](./PRD.md) e o parecer de revisão em [`PRD-REVIEW.md`](./PRD-REVIEW.md).
 
 ---
 
@@ -97,10 +97,17 @@ Log de curadoria desta amostra: [`docs/sample-questions-curation.md`](./docs/sam
 - Normal: **6** perguntas/partida · Stop: **60s** · Challenge: **10 níveis** (com checkpoints)
 - **Android-first**; iOS em sprint posterior (exige conta Apple Developer + Mac).
 
-## Próximos passos (Sprint 1)
+## Sprint 1 — concluído ✅
 
-- Auth completo (Google + e-mail/senha) + **gate de idade/LGPD** (blocker B4) + criação de `users/{uid}` e `users/{uid}/private`.
-- Modo **Normal** end-to-end (pontuação via `submitScore`, XP/nível).
+- Auth Google + e-mail/senha + convidado, com **gate de idade/LGPD** (B4) e criação de `users/{uid}` + `users/{uid}/private`.
+- Modo **Normal** end-to-end (offline-first): categoria → perguntas → feedback + explicação → resultado com pontos/XP.
+- Perfil/XP/**nível** + stats por categoria + **streak diário** + **FTUE** (motor de retenção).
+- Code-splitting de vendors. Verificado com build + lint + smoke test de browser.
+
+## Próximos passos (Sprint 2)
+
+- Implementar `resolveAnswerKey` + `submitScore` reais (gabarito server-side, B1; idempotência, B3) e reconciliar XP/score com o Firestore.
+- Modos competitivos: **Stop** e **Challenge** (sorteio e gabarito server-side).
+- Rankings **Global + Por modo** (escrita via Cloud Function) + App Check.
 - Loader lendo do **Storage** + cache no **Capacitor Filesystem** + delta updates.
-- **Streak diário / FTUE** (motor de retenção).
-- Implementar `resolveAnswerKey` (gabarito server-side, B1) e escrita de rankings.
+- Expandir a base de perguntas (~1.000+) com fonte autoritativa (B5).
