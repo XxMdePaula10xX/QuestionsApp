@@ -2,7 +2,7 @@
 
 Quiz de perguntas e respostas em PT-BR. App mobile (Android/iOS via Capacitor) + web.
 
-> **Status:** Sprint 1 concluído (modo Normal jogável + perfil/XP/streak + FTUE/gate de idade + auth). Veja o [`PRD.md`](./PRD.md) e o parecer de revisão em [`PRD-REVIEW.md`](./PRD-REVIEW.md).
+> **Status:** Sprint 2 concluído (modos Stop e Challenge + pontuação via Cloud Function + rankings + App Check). Veja o [`PRD.md`](./PRD.md) e o parecer de revisão em [`PRD-REVIEW.md`](./PRD-REVIEW.md).
 
 ---
 
@@ -102,12 +102,27 @@ Log de curadoria desta amostra: [`docs/sample-questions-curation.md`](./docs/sam
 - Auth Google + e-mail/senha + convidado, com **gate de idade/LGPD** (B4) e criação de `users/{uid}` + `users/{uid}/private`.
 - Modo **Normal** end-to-end (offline-first): categoria → perguntas → feedback + explicação → resultado com pontos/XP.
 - Perfil/XP/**nível** + stats por categoria + **streak diário** + **FTUE** (motor de retenção).
-- Code-splitting de vendors. Verificado com build + lint + smoke test de browser.
 
-## Próximos passos (Sprint 2)
+## Sprint 2 — concluído ✅
 
-- Implementar `resolveAnswerKey` + `submitScore` reais (gabarito server-side, B1; idempotência, B3) e reconciliar XP/score com o Firestore.
-- Modos competitivos: **Stop** e **Challenge** (sorteio e gabarito server-side).
-- Rankings **Global + Por modo** (escrita via Cloud Function) + App Check.
+- Modo **Stop** (60s contra o tempo, bônus de velocidade, penalidade por erro).
+- Modo **Challenge** (escada de 10 níveis, dificuldade crescente, checkpoints + recompensa).
+- **`submitScore` real** na Cloud Function: gabarito lido do **Storage** (server-side, B1), **idempotente** (B3) e escreve os **rankings** (global/por-modo/semanal).
+- `scoreService` no cliente (chama a Function quando logado; fallback local offline).
+- Tela de **Ranking** lendo `rankings/{scope}/entries` + **App Check** (reCAPTCHA v3) condicional.
+
+### ⚙️ Gabarito server-side (deploy)
+
+A Function lê o gabarito de `questions/*.json` no **Cloud Storage**. Após `firebase deploy`, suba os JSONs (que NÃO devem ir ao device em modos competitivos):
+
+```bash
+gsutil -m cp -r public/questions gs://<seu-bucket>/questions
+```
+
+## Próximos passos (Sprint 3)
+
+- **Amizades** (busca por username + deep link de convite) — definir mútua vs. follow.
+- **Desafio assíncrono** (`submitMatchTurn` com revelação cega, B2) + estado `EXPIRED`/W.O.
+- Rankings **Semanal** (snapshot agendado) + **Entre amigos**; push (FCM) de turno.
 - Loader lendo do **Storage** + cache no **Capacitor Filesystem** + delta updates.
 - Expandir a base de perguntas (~1.000+) com fonte autoritativa (B5).

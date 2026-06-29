@@ -45,6 +45,16 @@ export async function loadCategory(categoryId: CategoryId): Promise<Question[]> 
   return file.questions
 }
 
+/** Embaralha (Fisher-Yates) sem mutar o array original. */
+export function shuffle<T>(arr: T[], rng: () => number = Math.random): T[] {
+  const pool = [...arr]
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1))
+    ;[pool[i], pool[j]] = [pool[j], pool[i]]
+  }
+  return pool
+}
+
 /** Sorteia N perguntas distintas de uma categoria (modo Normal solo). */
 export async function drawQuestions(
   categoryId: CategoryId,
@@ -52,13 +62,13 @@ export async function drawQuestions(
   rng: () => number = Math.random,
 ): Promise<Question[]> {
   const all = await loadCategory(categoryId)
-  const pool = [...all]
-  // Fisher-Yates parcial.
-  for (let i = pool.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1))
-    ;[pool[i], pool[j]] = [pool[j], pool[i]]
-  }
-  return pool.slice(0, Math.min(count, pool.length))
+  return shuffle(all, rng).slice(0, Math.min(count, all.length))
+}
+
+/** Carrega e mescla várias categorias (modo Challenge mistura categorias). */
+export async function loadCategories(ids: CategoryId[]): Promise<Question[]> {
+  const lists = await Promise.all(ids.map((id) => loadCategory(id)))
+  return lists.flat()
 }
 
 export function clearQuestionsCache(): void {

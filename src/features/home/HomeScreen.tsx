@@ -14,8 +14,8 @@ interface ModeCard {
 
 const MODES: ModeCard[] = [
   { to: '/jogar/normal', title: 'Normal', desc: 'Partida clássica, sem pressão', emoji: '🎯', available: true },
-  { to: '/jogar/stop', title: 'Stop', desc: 'Contra o tempo', emoji: '⏱️', available: false },
-  { to: '/jogar/challenge', title: 'Challenge', desc: 'Escada de dificuldade', emoji: '🪜', available: false },
+  { to: '/jogar/stop', title: 'Stop', desc: 'Contra o tempo', emoji: '⏱️', available: true },
+  { to: '/jogar/challenge', title: 'Challenge', desc: 'Escada de dificuldade', emoji: '🪜', available: true },
   { to: '/jogar/desafio', title: 'Desafio', desc: 'Contra um amigo', emoji: '⚔️', available: false },
 ]
 

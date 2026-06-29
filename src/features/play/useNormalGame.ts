@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 import { drawQuestions } from '@/lib/questionsLoader'
 import { GAME_CONFIG } from '@/lib/gameConfig'
+import { submitScore } from '@/lib/scoreService'
 import { useProfileStore } from '@/stores/profileStore'
 import type { CategoryId, Question } from '@/types/question'
 
@@ -14,9 +15,9 @@ export interface GameSummary {
 }
 
 /**
- * Modo Normal (solo, sem pressão de tempo). Pontuação local: o Normal não pesa
- * em ranking competitivo, então o gabarito local é aceitável (revisão, B1).
- * Os modos competitivos validarão via Cloud Function.
+ * Modo Normal (solo, sem pressão de tempo). Feedback imediato usa o gabarito
+ * local; a pontuação final passa pelo scoreService (Cloud Function quando
+ * disponível — B1/B3 —, fallback local em dev/convidado).
  */
 export function useNormalGame() {
   const recordGameResult = useProfileStore((s) => s.recordGameResult)
@@ -25,10 +26,10 @@ export function useNormalGame() {
   const [error, setError] = useState<string | null>(null)
   const [category, setCategory] = useState<CategoryId | null>(null)
   const [questions, setQuestions] = useState<Question[]>([])
+  const [answers, setAnswers] = useState<number[]>([])
   const [index, setIndex] = useState(0)
   const [picked, setPicked] = useState<number | null>(null)
-  const [correct, setCorrect] = useState(0)
-  const [points, setPoints] = useState(0)
+  const [summary, setSummary] = useState<GameSummary | null>(null)
 
   const start = useCallback(async (cat: CategoryId) => {
     setPhase('loading')
@@ -36,8 +37,8 @@ export function useNormalGame() {
     setCategory(cat)
     setIndex(0)
     setPicked(null)
-    setCorrect(0)
-    setPoints(0)
+    setAnswers([])
+    setSummary(null)
     try {
       const qs = await drawQuestions(cat, GAME_CONFIG.normalQuestionCount)
       if (qs.length === 0) throw new Error('Categoria sem perguntas')
@@ -53,32 +54,35 @@ export function useNormalGame() {
     (i: number) => {
       if (picked !== null) return
       setPicked(i)
-      const q = questions[index]
-      if (i === q.answerIndex) {
-        setCorrect((c) => c + 1)
-        setPoints((p) => p + GAME_CONFIG.pointsByDifficulty[q.difficulty])
-      }
+      setAnswers((a) => {
+        const copy = [...a]
+        copy[index] = i
+        return copy
+      })
     },
-    [picked, questions, index],
+    [picked, index],
   )
 
   const next = useCallback(async () => {
     const isLast = index + 1 >= questions.length
-    if (isLast) {
-      if (category) {
-        await recordGameResult({
-          category,
-          correct,
-          answered: questions.length,
-          points,
-        })
-      }
-      setPhase('result')
-    } else {
+    if (!isLast) {
       setIndex((i) => i + 1)
       setPicked(null)
+      return
     }
-  }, [index, questions.length, category, correct, points, recordGameResult])
+    const result = await submitScore({ mode: 'normal', questions, answers })
+    if (category) {
+      await recordGameResult({
+        mode: 'normal',
+        category,
+        correct: result.correct,
+        answered: questions.length,
+        points: result.points,
+      })
+      setSummary({ category, total: questions.length, correct: result.correct, points: result.points })
+    }
+    setPhase('result')
+  }, [index, questions, answers, category, recordGameResult])
 
   const reset = useCallback(() => {
     setPhase('idle')
@@ -86,20 +90,17 @@ export function useNormalGame() {
     setCategory(null)
   }, [])
 
-  const summary: GameSummary | null =
-    category && phase === 'result'
-      ? { category, total: questions.length, correct, points }
-      : null
+  const current = questions[index] ?? null
+  const isCorrect = picked !== null && current ? picked === current.answerIndex : null
 
   return {
     phase,
     error,
-    question: questions[index] ?? null,
+    question: current,
     index,
     total: questions.length,
     picked,
-    correct,
-    points,
+    isCorrect,
     summary,
     start,
     pick,

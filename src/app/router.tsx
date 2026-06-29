@@ -2,6 +2,8 @@ import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { AppLayout } from '@/app/AppLayout'
 import { HomeScreen } from '@/features/home/HomeScreen'
 import { PlayScreen } from '@/features/play/PlayScreen'
+import { StopScreen } from '@/features/stop/StopScreen'
+import { ChallengeScreen } from '@/features/challenge/ChallengeScreen'
 import { RankingScreen } from '@/features/ranking/RankingScreen'
 import { ProfileScreen } from '@/features/profile/ProfileScreen'
 import { LoginScreen } from '@/features/auth/LoginScreen'
@@ -19,7 +21,9 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <HomeScreen /> },
       { path: 'jogar', element: <PlayScreen /> },
-      { path: 'jogar/:mode', element: <PlayScreen /> },
+      { path: 'jogar/normal', element: <PlayScreen /> },
+      { path: 'jogar/stop', element: <StopScreen /> },
+      { path: 'jogar/challenge', element: <ChallengeScreen /> },
       { path: 'ranking', element: <RankingScreen /> },
       { path: 'perfil', element: <ProfileScreen /> },
       { path: '*', element: <Navigate to="/" replace /> },

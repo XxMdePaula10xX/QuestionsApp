@@ -3,6 +3,7 @@ import { getAuth, connectAuthEmulator, type Auth } from 'firebase/auth'
 import { getFirestore, connectFirestoreEmulator, type Firestore } from 'firebase/firestore'
 import { getStorage, connectStorageEmulator, type FirebaseStorage } from 'firebase/storage'
 import { getFunctions, connectFunctionsEmulator, type Functions } from 'firebase/functions'
+import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check'
 
 /**
  * Inicialização do Firebase. A config vem de variáveis VITE_* (.env.local).
@@ -28,13 +29,20 @@ let functionsInstance: Functions | undefined
 
 if (isFirebaseConfigured) {
   app = initializeApp(firebaseConfig)
+
+  // App Check (B1) — reCAPTCHA v3 na web; Play Integrity no Android (nativo).
+  const siteKey = import.meta.env.VITE_RECAPTCHA_V3_SITE_KEY
+  if (siteKey) {
+    initializeAppCheck(app, {
+      provider: new ReCaptchaV3Provider(siteKey),
+      isTokenAutoRefreshEnabled: true,
+    })
+  }
+
   authInstance = getAuth(app)
   dbInstance = getFirestore(app)
   storageInstance = getStorage(app)
   functionsInstance = getFunctions(app, 'southamerica-east1')
-
-  // TODO(B1): habilitar Firebase App Check (reCAPTCHA v3 na web, Play Integrity
-  // no Android) usando VITE_RECAPTCHA_V3_SITE_KEY — pré-requisito do Sprint 2.
 
   if (import.meta.env.VITE_USE_FIREBASE_EMULATORS === 'true') {
     connectAuthEmulator(authInstance, 'http://localhost:9099', { disableWarnings: true })
