@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+functions/node_modules/
+
+# Build output
+dist/
+functions/lib/
+*.tsbuildinfo
+
+# Env / secrets
+.env
+.env.local
+.env.*.local
+*-service-account.json
+google-services.json
+GoogleService-Info.plist
+
+# Capacitor native projects (geradas via `npx cap add`)
+/android/
+/ios/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+
+# Firebase
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+# Test / coverage
+coverage/

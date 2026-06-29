@@ -1,0 +1,37 @@
+# Codemagic CI/CD — Sabido
+# Sprint 0: pipeline Android validado. iOS entra em sprint posterior e exige
+# pré-requisitos com lead time (revisão): conta Apple Developer (US$99/ano),
+# certificados/provisioning, APNs key e Mac para code signing — abrir cedo.
+
+workflows:
+  android-debug:
+    name: Android (debug)
+    instance_type: linux_x2
+    max_build_duration: 60
+    environment:
+      node: 20
+      vars:
+        # Defina no Codemagic (App > Environment variables) ou via secrets:
+        #   VITE_FIREBASE_API_KEY, VITE_FIREBASE_PROJECT_ID, etc.
+        PACKAGE_NAME: 'com.sabido.app'
+    scripts:
+      - name: Instalar dependências
+        script: npm ci
+      - name: Build web (Vite)
+        script: npm run build
+      - name: Adicionar plataforma Android (se ausente) e sincronizar
+        script: |
+          [ -d android ] || npx cap add android
+          npx cap sync android
+      - name: Gerar APK debug
+        script: |
+          cd android
+          ./gradlew assembleDebug
+    artifacts:
+      - android/app/build/outputs/**/*.apk
+
+  # TODO(sprint de publicação): workflow android-release com keystore + assinatura
+  # e upload para o teste fechado da Google Play (12 testers / 14 dias).
+  #
+  # TODO(iOS): workflow ios-release exige integrations.app_store_connect,
+  # certificados e provisioning — adicionar quando a conta Apple estiver pronta.

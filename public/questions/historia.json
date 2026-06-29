@@ -1,0 +1,594 @@
+{
+  "category": "historia",
+  "version": 1,
+  "questions": [
+    {
+      "id": "his_0001",
+      "category": "historia",
+      "difficulty": "facil",
+      "question": "Em que ano foi proclamada a Independência do Brasil?",
+      "options": [
+        "1808",
+        "1822",
+        "1889",
+        "1500"
+      ],
+      "answerIndex": 1,
+      "explanation": "A Independência do Brasil foi proclamada por Dom Pedro I em 7 de setembro de 1822.",
+      "tags": [
+        "Brasil",
+        "Independência"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0002",
+      "category": "historia",
+      "difficulty": "facil",
+      "question": "Quem proclamou a Independência do Brasil às margens do rio Ipiranga?",
+      "options": [
+        "Dom João VI",
+        "Dom Pedro I",
+        "Dom Pedro II",
+        "Tiradentes"
+      ],
+      "answerIndex": 1,
+      "explanation": "Foi Dom Pedro I quem proclamou a Independência em 1822.",
+      "tags": [
+        "Brasil",
+        "Dom Pedro I"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0003",
+      "category": "historia",
+      "difficulty": "facil",
+      "question": "Em que ano os portugueses chegaram ao Brasil, na expedição de Pedro Álvares Cabral?",
+      "options": [
+        "1492",
+        "1500",
+        "1530",
+        "1549"
+      ],
+      "answerIndex": 1,
+      "explanation": "A esquadra de Cabral chegou ao litoral brasileiro em 22 de abril de 1500.",
+      "tags": [
+        "Brasil",
+        "Descobrimento"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0004",
+      "category": "historia",
+      "difficulty": "facil",
+      "question": "Quem foi o último imperador do Brasil?",
+      "options": [
+        "Dom Pedro I",
+        "Dom João VI",
+        "Dom Pedro II",
+        "Marechal Deodoro"
+      ],
+      "answerIndex": 2,
+      "explanation": "Dom Pedro II foi o segundo e último imperador do Brasil, deposto em 1889.",
+      "tags": [
+        "Brasil",
+        "Império"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0005",
+      "category": "historia",
+      "difficulty": "facil",
+      "question": "A Lei Áurea, que aboliu a escravidão no Brasil, foi assinada por qual personagem?",
+      "options": [
+        "Dom Pedro II",
+        "Princesa Isabel",
+        "Marquês de Pombal",
+        "Duque de Caxias"
+      ],
+      "answerIndex": 1,
+      "explanation": "A Princesa Isabel assinou a Lei Áurea em 13 de maio de 1888.",
+      "tags": [
+        "Brasil",
+        "Abolição"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0006",
+      "category": "historia",
+      "difficulty": "facil",
+      "question": "Em que ano foi proclamada a República no Brasil?",
+      "options": [
+        "1822",
+        "1888",
+        "1889",
+        "1891"
+      ],
+      "answerIndex": 2,
+      "explanation": "A República foi proclamada em 15 de novembro de 1889.",
+      "tags": [
+        "Brasil",
+        "República"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0007",
+      "category": "historia",
+      "difficulty": "facil",
+      "question": "Qual líder nazista esteve à frente da Alemanha durante a Segunda Guerra Mundial?",
+      "options": [
+        "Benito Mussolini",
+        "Adolf Hitler",
+        "Joseph Stalin",
+        "Winston Churchill"
+      ],
+      "answerIndex": 1,
+      "explanation": "Adolf Hitler liderou a Alemanha nazista durante a Segunda Guerra Mundial.",
+      "tags": [
+        "Mundial",
+        "Segunda Guerra"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0008",
+      "category": "historia",
+      "difficulty": "facil",
+      "question": "A Segunda Guerra Mundial terminou em que ano?",
+      "options": [
+        "1918",
+        "1939",
+        "1945",
+        "1950"
+      ],
+      "answerIndex": 2,
+      "explanation": "A Segunda Guerra Mundial terminou em 1945 com a rendição da Alemanha e do Japão.",
+      "tags": [
+        "Mundial",
+        "Segunda Guerra"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0009",
+      "category": "historia",
+      "difficulty": "facil",
+      "question": "Qual civilização antiga construiu as grandes pirâmides de Gizé?",
+      "options": [
+        "Os romanos",
+        "Os gregos",
+        "Os egípcios",
+        "Os maias"
+      ],
+      "answerIndex": 2,
+      "explanation": "As pirâmides de Gizé foram construídas pelos antigos egípcios.",
+      "tags": [
+        "Antiguidade",
+        "Egito"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0010",
+      "category": "historia",
+      "difficulty": "facil",
+      "question": "Quem foi o líder da Revolução que estabeleceu a Era Vargas no Brasil em 1930?",
+      "options": [
+        "Juscelino Kubitschek",
+        "Getúlio Vargas",
+        "Tancredo Neves",
+        "Floriano Peixoto"
+      ],
+      "answerIndex": 1,
+      "explanation": "Getúlio Vargas chegou ao poder com a Revolução de 1930.",
+      "tags": [
+        "Brasil",
+        "Era Vargas"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0011",
+      "category": "historia",
+      "difficulty": "medio",
+      "question": "Qual movimento mineiro de 1789 teve Tiradentes como figura central e defendia a independência?",
+      "options": [
+        "Inconfidência Mineira",
+        "Conjuração Baiana",
+        "Revolta de Beckman",
+        "Guerra dos Emboabas"
+      ],
+      "answerIndex": 0,
+      "explanation": "A Inconfidência Mineira de 1789 teve Tiradentes como principal mártir.",
+      "tags": [
+        "Brasil",
+        "Colônia"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0012",
+      "category": "historia",
+      "difficulty": "medio",
+      "question": "O Tratado de Tordesilhas, de 1494, dividiu as terras do Novo Mundo entre quais países?",
+      "options": [
+        "Portugal e Espanha",
+        "Portugal e Inglaterra",
+        "Espanha e França",
+        "Holanda e Portugal"
+      ],
+      "answerIndex": 0,
+      "explanation": "O Tratado de Tordesilhas dividiu as terras descobertas entre Portugal e Espanha.",
+      "tags": [
+        "Mundial",
+        "Grandes Navegações"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0013",
+      "category": "historia",
+      "difficulty": "medio",
+      "question": "Qual evento de 1789 derrubou a monarquia absolutista e marcou o início da Revolução Francesa?",
+      "options": [
+        "A Queda da Bastilha",
+        "A Coroação de Napoleão",
+        "A Noite dos Cristais",
+        "A Comuna de Paris"
+      ],
+      "answerIndex": 0,
+      "explanation": "A Tomada da Bastilha, em 14 de julho de 1789, marcou o início da Revolução Francesa.",
+      "tags": [
+        "Mundial",
+        "Revolução Francesa"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0014",
+      "category": "historia",
+      "difficulty": "medio",
+      "question": "Qual presidente brasileiro foi responsável pela construção e inauguração de Brasília?",
+      "options": [
+        "Getúlio Vargas",
+        "Juscelino Kubitschek",
+        "Jânio Quadros",
+        "Eurico Gaspar Dutra"
+      ],
+      "answerIndex": 1,
+      "explanation": "Juscelino Kubitschek construiu Brasília, inaugurada em 1960.",
+      "tags": [
+        "Brasil",
+        "República"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0015",
+      "category": "historia",
+      "difficulty": "medio",
+      "question": "Em que ano teve início a Primeira Guerra Mundial?",
+      "options": [
+        "1914",
+        "1917",
+        "1918",
+        "1912"
+      ],
+      "answerIndex": 0,
+      "explanation": "A Primeira Guerra Mundial começou em 1914 e terminou em 1918.",
+      "tags": [
+        "Mundial",
+        "Primeira Guerra"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0016",
+      "category": "historia",
+      "difficulty": "medio",
+      "question": "A Guerra do Paraguai, o maior conflito armado da América do Sul, ocorreu durante o reinado de qual governante brasileiro?",
+      "options": [
+        "Dom Pedro I",
+        "Dom Pedro II",
+        "Marechal Deodoro",
+        "Dom João VI"
+      ],
+      "answerIndex": 1,
+      "explanation": "A Guerra do Paraguai (1864-1870) ocorreu durante o Segundo Reinado de Dom Pedro II.",
+      "tags": [
+        "Brasil",
+        "Império"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0017",
+      "category": "historia",
+      "difficulty": "medio",
+      "question": "Quem foi o imperador romano que legalizou o cristianismo e convocou o Concílio de Niceia?",
+      "options": [
+        "Júlio César",
+        "Nero",
+        "Constantino",
+        "Augusto"
+      ],
+      "answerIndex": 2,
+      "explanation": "Constantino legalizou o cristianismo e convocou o Concílio de Niceia em 325.",
+      "tags": [
+        "Antiguidade",
+        "Roma"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0018",
+      "category": "historia",
+      "difficulty": "medio",
+      "question": "Qual período histórico costuma ser delimitado entre a queda do Império Romano do Ocidente (476) e a tomada de Constantinopla (1453)?",
+      "options": [
+        "Idade Antiga",
+        "Idade Média",
+        "Idade Moderna",
+        "Idade Contemporânea"
+      ],
+      "answerIndex": 1,
+      "explanation": "A Idade Média vai da queda de Roma (476) à tomada de Constantinopla (1453).",
+      "tags": [
+        "Mundial",
+        "Idade Média"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0019",
+      "category": "historia",
+      "difficulty": "medio",
+      "question": "A vinda da Família Real portuguesa para o Brasil ocorreu em 1808, motivada por qual fato?",
+      "options": [
+        "A invasão de Napoleão a Portugal",
+        "A Independência do Brasil",
+        "A Guerra dos Sete Anos",
+        "A Revolução do Porto"
+      ],
+      "answerIndex": 0,
+      "explanation": "A Família Real fugiu para o Brasil em 1808 fugindo das tropas de Napoleão.",
+      "tags": [
+        "Brasil",
+        "Período Joanino"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0020",
+      "category": "historia",
+      "difficulty": "medio",
+      "question": "Qual político foi eleito presidente do Brasil em 1985, marcando o fim da ditadura militar, mas faleceu antes de tomar posse?",
+      "options": [
+        "Tancredo Neves",
+        "José Sarney",
+        "Fernando Collor",
+        "Ulysses Guimarães"
+      ],
+      "answerIndex": 0,
+      "explanation": "Tancredo Neves foi eleito indiretamente pelo Colégio Eleitoral em 1985, mas adoeceu e faleceu antes de assumir; quem tomou posse foi seu vice, José Sarney.",
+      "tags": [
+        "Brasil",
+        "Redemocratização"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0021",
+      "category": "historia",
+      "difficulty": "medio",
+      "question": "A Revolução Industrial teve seu início no século XVIII em qual país?",
+      "options": [
+        "França",
+        "Inglaterra",
+        "Alemanha",
+        "Estados Unidos"
+      ],
+      "answerIndex": 1,
+      "explanation": "A Revolução Industrial começou na Inglaterra no século XVIII.",
+      "tags": [
+        "Mundial",
+        "Revolução Industrial"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0022",
+      "category": "historia",
+      "difficulty": "medio",
+      "question": "Qual conjunto de invasores ocupou parte do Nordeste brasileiro, com destaque para Pernambuco, no século XVII?",
+      "options": [
+        "Os franceses",
+        "Os holandeses",
+        "Os espanhóis",
+        "Os ingleses"
+      ],
+      "answerIndex": 1,
+      "explanation": "Os holandeses ocuparam Pernambuco entre 1630 e 1654.",
+      "tags": [
+        "Brasil",
+        "Colônia"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0023",
+      "category": "historia",
+      "difficulty": "medio",
+      "question": "Quem comandou o exército que cruzou os Alpes com elefantes para atacar Roma durante as Guerras Púnicas?",
+      "options": [
+        "Aníbal",
+        "Cipião",
+        "Júlio César",
+        "Alexandre"
+      ],
+      "answerIndex": 0,
+      "explanation": "Aníbal, general cartaginês, cruzou os Alpes para atacar Roma nas Guerras Púnicas.",
+      "tags": [
+        "Antiguidade",
+        "Cartago"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0024",
+      "category": "historia",
+      "difficulty": "dificil",
+      "question": "Qual revolta separatista ocorreu no Rio Grande do Sul entre 1835 e 1845, durante o período regencial e o início do Segundo Reinado?",
+      "options": [
+        "Revolução Farroupilha",
+        "Cabanagem",
+        "Sabinada",
+        "Balaiada"
+      ],
+      "answerIndex": 0,
+      "explanation": "A Revolução Farroupilha (Guerra dos Farrapos) ocorreu no Rio Grande do Sul de 1835 a 1845.",
+      "tags": [
+        "Brasil",
+        "Regência"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0025",
+      "category": "historia",
+      "difficulty": "dificil",
+      "question": "Em qual batalha de 1815 Napoleão Bonaparte foi definitivamente derrotado?",
+      "options": [
+        "Batalha de Austerlitz",
+        "Batalha de Waterloo",
+        "Batalha de Trafalgar",
+        "Batalha de Leipzig"
+      ],
+      "answerIndex": 1,
+      "explanation": "Napoleão foi derrotado definitivamente na Batalha de Waterloo, em 1815.",
+      "tags": [
+        "Mundial",
+        "Napoleão"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0026",
+      "category": "historia",
+      "difficulty": "dificil",
+      "question": "Qual imperador bizantino promoveu a compilação do direito romano conhecida como Corpus Juris Civilis no século VI?",
+      "options": [
+        "Justiniano",
+        "Teodósio",
+        "Constantino",
+        "Carlos Magno"
+      ],
+      "answerIndex": 0,
+      "explanation": "O imperador Justiniano ordenou a compilação do Corpus Juris Civilis no século VI.",
+      "tags": [
+        "Antiguidade",
+        "Bizâncio"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0027",
+      "category": "historia",
+      "difficulty": "dificil",
+      "question": "A Confederação do Equador, movimento separatista de 1824, teve como principal foco qual província?",
+      "options": [
+        "Bahia",
+        "Pernambuco",
+        "Minas Gerais",
+        "São Paulo"
+      ],
+      "answerIndex": 1,
+      "explanation": "A Confederação do Equador de 1824 teve Pernambuco como centro da revolta.",
+      "tags": [
+        "Brasil",
+        "Primeiro Reinado"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "his_0028",
+      "category": "historia",
+      "difficulty": "dificil",
+      "question": "Qual tratado de 1919 estabeleceu as condições de paz e pesadas reparações à Alemanha após a Primeira Guerra Mundial?",
+      "options": [
+        "Tratado de Versalhes",
+        "Tratado de Tordesilhas",
+        "Paz de Vestfália",
+        "Tratado de Madri"
+      ],
+      "answerIndex": 0,
+      "explanation": "O Tratado de Versalhes, de 1919, encerrou formalmente a Primeira Guerra impondo sanções à Alemanha.",
+      "tags": [
+        "Mundial",
+        "Primeira Guerra"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    }
+  ]
+}

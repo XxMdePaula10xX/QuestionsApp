@@ -1,0 +1,594 @@
+{
+  "category": "ciencias",
+  "version": 1,
+  "questions": [
+    {
+      "id": "cie_0001",
+      "category": "ciencias",
+      "difficulty": "facil",
+      "question": "Qual é o planeta mais próximo do Sol no Sistema Solar?",
+      "options": [
+        "Vênus",
+        "Mercúrio",
+        "Marte",
+        "Terra"
+      ],
+      "answerIndex": 1,
+      "explanation": "Mercúrio é o primeiro planeta a partir do Sol, sendo o mais próximo dele.",
+      "tags": [
+        "astronomia",
+        "sistema solar"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0002",
+      "category": "ciencias",
+      "difficulty": "facil",
+      "question": "Qual gás os seres humanos inspiram do ar e é essencial para a respiração?",
+      "options": [
+        "Gás carbônico",
+        "Nitrogênio",
+        "Oxigênio",
+        "Hidrogênio"
+      ],
+      "answerIndex": 2,
+      "explanation": "O oxigênio é o gás captado na respiração e usado pelas células para produzir energia.",
+      "tags": [
+        "corpo humano",
+        "respiração"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0003",
+      "category": "ciencias",
+      "difficulty": "facil",
+      "question": "Qual é o maior órgão do corpo humano?",
+      "options": [
+        "Fígado",
+        "Pele",
+        "Pulmão",
+        "Cérebro"
+      ],
+      "answerIndex": 1,
+      "explanation": "A pele é o maior órgão do corpo, revestindo toda a superfície externa.",
+      "tags": [
+        "corpo humano",
+        "anatomia"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0004",
+      "category": "ciencias",
+      "difficulty": "facil",
+      "question": "Qual é o símbolo químico da água?",
+      "options": [
+        "O2",
+        "CO2",
+        "H2O",
+        "HO2"
+      ],
+      "answerIndex": 2,
+      "explanation": "A molécula de água é formada por dois átomos de hidrogênio e um de oxigênio: H2O.",
+      "tags": [
+        "química",
+        "molécula"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0005",
+      "category": "ciencias",
+      "difficulty": "facil",
+      "question": "Qual animal é conhecido como o maior mamífero da Terra?",
+      "options": [
+        "Elefante-africano",
+        "Baleia-azul",
+        "Tubarão-branco",
+        "Girafa"
+      ],
+      "answerIndex": 1,
+      "explanation": "A baleia-azul é o maior animal e mamífero já conhecido, podendo passar de 30 metros.",
+      "tags": [
+        "animais",
+        "mamíferos"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0006",
+      "category": "ciencias",
+      "difficulty": "facil",
+      "question": "Qual estrela é o centro do nosso Sistema Solar?",
+      "options": [
+        "A Lua",
+        "Sirius",
+        "O Sol",
+        "Alfa Centauri"
+      ],
+      "answerIndex": 2,
+      "explanation": "O Sol é a estrela em torno da qual os planetas do Sistema Solar orbitam.",
+      "tags": [
+        "astronomia",
+        "Sol"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0007",
+      "category": "ciencias",
+      "difficulty": "facil",
+      "question": "Quantos ossos, aproximadamente, tem o corpo de um adulto humano?",
+      "options": [
+        "106",
+        "206",
+        "306",
+        "406"
+      ],
+      "answerIndex": 1,
+      "explanation": "O esqueleto de um adulto humano possui cerca de 206 ossos.",
+      "tags": [
+        "corpo humano",
+        "esqueleto"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0008",
+      "category": "ciencias",
+      "difficulty": "facil",
+      "question": "O processo pelo qual as plantas produzem seu alimento usando luz solar é chamado de:",
+      "options": [
+        "Respiração",
+        "Fotossíntese",
+        "Digestão",
+        "Fermentação"
+      ],
+      "answerIndex": 1,
+      "explanation": "Na fotossíntese, as plantas usam luz, água e gás carbônico para produzir glicose.",
+      "tags": [
+        "biologia",
+        "plantas"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0009",
+      "category": "ciencias",
+      "difficulty": "facil",
+      "question": "Qual é o estado físico da água quando está abaixo de 0°C ao nível do mar?",
+      "options": [
+        "Líquido",
+        "Gasoso",
+        "Sólido",
+        "Plasma"
+      ],
+      "answerIndex": 2,
+      "explanation": "Abaixo de 0°C a água congela e passa ao estado sólido (gelo).",
+      "tags": [
+        "física",
+        "estados da matéria"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0010",
+      "category": "ciencias",
+      "difficulty": "facil",
+      "question": "Qual órgão do corpo humano é responsável por bombear o sangue?",
+      "options": [
+        "Pulmão",
+        "Fígado",
+        "Coração",
+        "Rim"
+      ],
+      "answerIndex": 2,
+      "explanation": "O coração bombeia o sangue por todo o corpo através do sistema circulatório.",
+      "tags": [
+        "corpo humano",
+        "circulação"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0011",
+      "category": "ciencias",
+      "difficulty": "medio",
+      "question": "Qual é o elemento químico mais abundante no Universo?",
+      "options": [
+        "Oxigênio",
+        "Hidrogênio",
+        "Carbono",
+        "Hélio"
+      ],
+      "answerIndex": 1,
+      "explanation": "O hidrogênio é o elemento mais abundante do Universo, formando a maior parte das estrelas.",
+      "tags": [
+        "química",
+        "elementos"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0012",
+      "category": "ciencias",
+      "difficulty": "medio",
+      "question": "Qual é o nome do processo de divisão celular que origina células sexuais (gametas)?",
+      "options": [
+        "Mitose",
+        "Meiose",
+        "Citocinese",
+        "Apoptose"
+      ],
+      "answerIndex": 1,
+      "explanation": "A meiose reduz o número de cromossomos pela metade, formando os gametas.",
+      "tags": [
+        "biologia",
+        "células"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0013",
+      "category": "ciencias",
+      "difficulty": "medio",
+      "question": "Qual planeta do Sistema Solar é conhecido por seus proeminentes e visíveis anéis?",
+      "options": [
+        "Júpiter",
+        "Urano",
+        "Saturno",
+        "Netuno"
+      ],
+      "answerIndex": 2,
+      "explanation": "Embora todos os gigantes gasosos tenham anéis, Saturno é famoso por seu extenso e visível sistema de anéis.",
+      "tags": [
+        "astronomia",
+        "planetas"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0014",
+      "category": "ciencias",
+      "difficulty": "medio",
+      "question": "Qual é a unidade básica da hereditariedade que carrega informações genéticas?",
+      "options": [
+        "Gene",
+        "Ribossomo",
+        "Proteína",
+        "Membrana"
+      ],
+      "answerIndex": 0,
+      "explanation": "O gene é o segmento de DNA que carrega a informação para uma característica.",
+      "tags": [
+        "biologia",
+        "genética"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0015",
+      "category": "ciencias",
+      "difficulty": "medio",
+      "question": "Qual cientista formulou a teoria da evolução das espécies por seleção natural?",
+      "options": [
+        "Isaac Newton",
+        "Gregor Mendel",
+        "Charles Darwin",
+        "Louis Pasteur"
+      ],
+      "answerIndex": 2,
+      "explanation": "Charles Darwin propôs a seleção natural na obra 'A Origem das Espécies', de 1859.",
+      "tags": [
+        "biologia",
+        "evolução"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0016",
+      "category": "ciencias",
+      "difficulty": "medio",
+      "question": "Qual é o pH aproximado de uma solução neutra, como a água pura, a 25°C?",
+      "options": [
+        "0",
+        "7",
+        "10",
+        "14"
+      ],
+      "answerIndex": 1,
+      "explanation": "Uma solução neutra tem pH igual a 7 na escala de 0 a 14.",
+      "tags": [
+        "química",
+        "pH"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0017",
+      "category": "ciencias",
+      "difficulty": "medio",
+      "question": "Qual tipo de animal é a abelha?",
+      "options": [
+        "Aracnídeo",
+        "Inseto",
+        "Crustáceo",
+        "Réptil"
+      ],
+      "answerIndex": 1,
+      "explanation": "A abelha é um inseto, com corpo dividido em cabeça, tórax e abdômen, e três pares de patas.",
+      "tags": [
+        "animais",
+        "insetos"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0018",
+      "category": "ciencias",
+      "difficulty": "medio",
+      "question": "Qual parte da célula é considerada a 'usina de energia' por produzir ATP?",
+      "options": [
+        "Núcleo",
+        "Mitocôndria",
+        "Lisossomo",
+        "Complexo de Golgi"
+      ],
+      "answerIndex": 1,
+      "explanation": "A mitocôndria realiza a respiração celular, produzindo a maior parte do ATP da célula.",
+      "tags": [
+        "biologia",
+        "organelas"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0019",
+      "category": "ciencias",
+      "difficulty": "medio",
+      "question": "Qual gás é o mais abundante na atmosfera da Terra?",
+      "options": [
+        "Oxigênio",
+        "Gás carbônico",
+        "Nitrogênio",
+        "Argônio"
+      ],
+      "answerIndex": 2,
+      "explanation": "O nitrogênio compõe cerca de 78% do ar atmosférico, sendo o gás mais abundante.",
+      "tags": [
+        "química",
+        "atmosfera"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0020",
+      "category": "ciencias",
+      "difficulty": "medio",
+      "question": "Qual é a velocidade aproximada da luz no vácuo?",
+      "options": [
+        "300 mil km/s",
+        "30 mil km/s",
+        "3 milhões km/s",
+        "3 mil km/s"
+      ],
+      "answerIndex": 0,
+      "explanation": "A luz viaja a aproximadamente 300 mil quilômetros por segundo no vácuo.",
+      "tags": [
+        "física",
+        "luz"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0021",
+      "category": "ciencias",
+      "difficulty": "medio",
+      "question": "Qual vitamina é produzida pela pele humana quando exposta à luz solar?",
+      "options": [
+        "Vitamina A",
+        "Vitamina C",
+        "Vitamina D",
+        "Vitamina K"
+      ],
+      "answerIndex": 2,
+      "explanation": "A exposição à radiação ultravioleta do sol estimula a produção de vitamina D na pele.",
+      "tags": [
+        "corpo humano",
+        "vitaminas"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0022",
+      "category": "ciencias",
+      "difficulty": "medio",
+      "question": "Qual é o maior planeta do Sistema Solar?",
+      "options": [
+        "Saturno",
+        "Júpiter",
+        "Netuno",
+        "Urano"
+      ],
+      "answerIndex": 1,
+      "explanation": "Júpiter é o maior planeta do Sistema Solar, um gigante gasoso de grande massa.",
+      "tags": [
+        "astronomia",
+        "planetas"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0023",
+      "category": "ciencias",
+      "difficulty": "dificil",
+      "question": "Qual é o número atômico do elemento carbono na tabela periódica?",
+      "options": [
+        "4",
+        "6",
+        "8",
+        "12"
+      ],
+      "answerIndex": 1,
+      "explanation": "O carbono tem número atômico 6, ou seja, 6 prótons no núcleo.",
+      "tags": [
+        "química",
+        "tabela periódica"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0024",
+      "category": "ciencias",
+      "difficulty": "dificil",
+      "question": "Qual osso é o menor do corpo humano, localizado no ouvido médio?",
+      "options": [
+        "Martelo",
+        "Bigorna",
+        "Estribo",
+        "Esfenoide"
+      ],
+      "answerIndex": 2,
+      "explanation": "O estribo, no ouvido médio, é o menor osso do corpo humano.",
+      "tags": [
+        "corpo humano",
+        "anatomia"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0025",
+      "category": "ciencias",
+      "difficulty": "dificil",
+      "question": "Na física, qual grandeza é medida em pascal (Pa)?",
+      "options": [
+        "Força",
+        "Pressão",
+        "Energia",
+        "Potência"
+      ],
+      "answerIndex": 1,
+      "explanation": "O pascal é a unidade de pressão no Sistema Internacional, equivalente a um newton por metro quadrado.",
+      "tags": [
+        "física",
+        "unidades"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0026",
+      "category": "ciencias",
+      "difficulty": "dificil",
+      "question": "Qual cientista propôs as três leis do movimento e a lei da gravitação universal?",
+      "options": [
+        "Galileu Galilei",
+        "Albert Einstein",
+        "Isaac Newton",
+        "Nikola Tesla"
+      ],
+      "answerIndex": 2,
+      "explanation": "Isaac Newton formulou as três leis do movimento e a lei da gravitação universal no século XVII.",
+      "tags": [
+        "física",
+        "mecânica"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0027",
+      "category": "ciencias",
+      "difficulty": "dificil",
+      "question": "Qual é o nome da molécula que transporta oxigênio nas hemácias do sangue?",
+      "options": [
+        "Hemoglobina",
+        "Albumina",
+        "Mioglobina",
+        "Insulina"
+      ],
+      "answerIndex": 0,
+      "explanation": "A hemoglobina, presente nas hemácias, liga-se ao oxigênio e o transporta pelo corpo; a mioglobina armazena oxigênio nos músculos, não nas hemácias.",
+      "tags": [
+        "corpo humano",
+        "sangue"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "cie_0028",
+      "category": "ciencias",
+      "difficulty": "dificil",
+      "question": "Qual fenômeno descreve a mudança direta de uma substância do estado sólido para o gasoso?",
+      "options": [
+        "Fusão",
+        "Condensação",
+        "Sublimação",
+        "Solidificação"
+      ],
+      "answerIndex": 2,
+      "explanation": "A sublimação é a passagem direta do estado sólido para o gasoso, como ocorre com o gelo seco.",
+      "tags": [
+        "química",
+        "estados da matéria"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    }
+  ]
+}

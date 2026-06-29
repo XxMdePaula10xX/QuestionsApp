@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "id": "geografia",
+      "file": "geografia.json",
+      "count": 27,
+      "version": 1,
+      "sha256": "7e118d29d7e100a64601cd6088ef89bc4a6a62db610cfa05c6dd89b2f54c240b"
+    },
+    {
+      "id": "historia",
+      "file": "historia.json",
+      "count": 28,
+      "version": 1,
+      "sha256": "69233c4051b4a76135e676ad79a3822892ef8bebb30800eeb9fbe0cb28ae1fdd"
+    },
+    {
+      "id": "ciencias",
+      "file": "ciencias.json",
+      "count": 28,
+      "version": 1,
+      "sha256": "0432cbc93e5c64a3eb7d8b1b53f40bf18c2c0b6b2fc42530cd3e61b647d00947"
+    },
+    {
+      "id": "brasil",
+      "file": "brasil.json",
+      "count": 27,
+      "version": 1,
+      "sha256": "820bd8ae784b9f3cb318f3c93f8306a39d905466450c66a2e45cb3035ce93975"
+    }
+  ]
+}

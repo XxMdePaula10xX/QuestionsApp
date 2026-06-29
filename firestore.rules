@@ -1,0 +1,102 @@
+rules_version = '2';
+
+// Regras do Firestore — modelo ENDURECIDO conforme PRD-REVIEW.md.
+// Princípios:
+//  - Dados de jogo (scores/level/xp/stats) só são escritos por Cloud Function
+//    (Admin SDK ignora estas regras). O cliente NUNCA escreve pontuação.
+//  - PII (email) vive em subdocumento privado, fora do perfil de leitura pública (B4).
+//  - Submissões de partida ficam isoladas por jogador: o oponente não lê suas
+//    respostas/tempo antes de jogar (B2).
+//  - Reporte com id determinístico impede flooding do mesmo usuário (revisão).
+// TODO(Sprint 2): exigir App Check em todas as escritas: `&& request.app != null`.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+    function changedKeys() {
+      return request.resource.data.diff(resource.data).affectedKeys();
+    }
+
+    // -------- Perfis públicos (sem PII) --------
+    match /users/{uid} {
+      allow read: if isSignedIn();
+
+      // Criação só do próprio doc, com campos de jogo zerados.
+      allow create: if isOwner(uid)
+        && request.resource.data.level == 1
+        && request.resource.data.xp == 0
+        && request.resource.data.scores.global == 0
+        && request.resource.data.scores.normal == 0
+        && request.resource.data.scores.stop == 0
+        && request.resource.data.scores.challenge == 0;
+
+      // Cliente só edita displayName/photoURL. Pontuação/stats: Cloud Function.
+      allow update: if isOwner(uid)
+        && changedKeys().hasOnly(['displayName', 'photoURL']);
+
+      allow delete: if false; // exclusão de conta via Function (LGPD, B4).
+
+      // PII — só o dono lê/escreve.
+      match /private/{docId} {
+        allow read, write: if isOwner(uid);
+      }
+
+      // Amizades.
+      match /friends/{friendUid} {
+        allow read: if isSignedIn();
+        allow write: if isOwner(uid); // TODO: escrever os dois lados via Function se mútua.
+      }
+    }
+
+    // -------- Partidas assíncronas (desafio) --------
+    match /matches/{matchId} {
+      // Só os 2 players leem o doc (que contém apenas campos públicos).
+      allow read: if isSignedIn() && request.auth.uid in resource.data.players;
+
+      // Criação por um player, partida nova e sem resultado/vencedor.
+      allow create: if isSignedIn()
+        && request.auth.uid in request.resource.data.players
+        && request.resource.data.players.size() == 2
+        && request.resource.data.status == 'WAITING'
+        && !('winnerId' in request.resource.data && request.resource.data.winnerId != null);
+
+      // Transições de estado/resultado: SOMENTE Cloud Function.
+      allow update, delete: if false;
+
+      // Submissões isoladas por jogador (revelação cega — B2).
+      match /submissions/{uid} {
+        allow read: if isOwner(uid);          // ninguém lê a do oponente
+        allow create: if isOwner(uid);        // create-only
+        allow update, delete: if false;       // Function consolida o resultado
+      }
+    }
+
+    // -------- Rankings (agregados) --------
+    match /rankings/{scope}/entries/{uid} {
+      allow read: if isSignedIn();
+      allow write: if false; // só Cloud Function (admin).
+    }
+
+    // -------- Reportes de pergunta --------
+    // id determinístico: reports/{questionId}_{uid} — 1 por usuário/pergunta.
+    match /reports/{reportId} {
+      allow create: if isSignedIn()
+        && request.resource.data.uid == request.auth.uid
+        && reportId == request.resource.data.questionId + '_' + request.auth.uid
+        && request.resource.data.reason in ['errada', 'ambigua', 'segunda_resposta', 'ofensiva', 'outro'];
+      allow read, update, delete: if false; // curadoria via console/admin.
+    }
+
+    // -------- Config (manifest etc.) --------
+    match /config/{docId} {
+      allow read: if isSignedIn();
+      allow write: if false;
+    }
+  }
+}

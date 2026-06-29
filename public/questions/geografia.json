@@ -1,0 +1,573 @@
+{
+  "category": "geografia",
+  "version": 1,
+  "questions": [
+    {
+      "id": "geo_0001",
+      "category": "geografia",
+      "difficulty": "facil",
+      "question": "Qual é a capital do Brasil?",
+      "options": [
+        "Rio de Janeiro",
+        "São Paulo",
+        "Brasília",
+        "Salvador"
+      ],
+      "answerIndex": 2,
+      "explanation": "Brasília é a capital federal do Brasil desde 1960.",
+      "tags": [
+        "Brasil",
+        "capital"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0002",
+      "category": "geografia",
+      "difficulty": "facil",
+      "question": "Qual é o maior oceano do mundo em extensão?",
+      "options": [
+        "Oceano Atlântico",
+        "Oceano Pacífico",
+        "Oceano Índico",
+        "Oceano Ártico"
+      ],
+      "answerIndex": 1,
+      "explanation": "O Oceano Pacífico é o maior e mais profundo oceano do planeta.",
+      "tags": [
+        "oceanos",
+        "geografia física"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0003",
+      "category": "geografia",
+      "difficulty": "facil",
+      "question": "Em qual continente está localizado o Brasil?",
+      "options": [
+        "América do Norte",
+        "América Central",
+        "América do Sul",
+        "Europa"
+      ],
+      "answerIndex": 2,
+      "explanation": "O Brasil é o maior país da América do Sul.",
+      "tags": [
+        "Brasil",
+        "continentes"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0004",
+      "category": "geografia",
+      "difficulty": "facil",
+      "question": "Qual é a capital da França?",
+      "options": [
+        "Lyon",
+        "Marselha",
+        "Paris",
+        "Nice"
+      ],
+      "answerIndex": 2,
+      "explanation": "Paris é a capital e maior cidade da França.",
+      "tags": [
+        "Europa",
+        "capital"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0005",
+      "category": "geografia",
+      "difficulty": "facil",
+      "question": "Qual é o rio que corta a cidade de Manaus e dá nome à maior bacia hidrográfica do mundo?",
+      "options": [
+        "Rio São Francisco",
+        "Rio Amazonas",
+        "Rio Paraná",
+        "Rio Tietê"
+      ],
+      "answerIndex": 1,
+      "explanation": "O Rio Amazonas dá nome à maior bacia hidrográfica do mundo. Em Manaus, o trecho recebe o nome de Rio Negro, que se encontra com o Solimões para formar o Amazonas.",
+      "tags": [
+        "rios",
+        "Brasil"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0006",
+      "category": "geografia",
+      "difficulty": "facil",
+      "question": "Qual é a capital do estado da Bahia?",
+      "options": [
+        "Salvador",
+        "Recife",
+        "Fortaleza",
+        "Maceió"
+      ],
+      "answerIndex": 0,
+      "explanation": "Salvador é a capital da Bahia e foi a primeira capital do Brasil.",
+      "tags": [
+        "Brasil",
+        "capitais estaduais"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0007",
+      "category": "geografia",
+      "difficulty": "facil",
+      "question": "Qual é a capital de Portugal?",
+      "options": [
+        "Porto",
+        "Lisboa",
+        "Coimbra",
+        "Braga"
+      ],
+      "answerIndex": 1,
+      "explanation": "Lisboa é a capital e maior cidade de Portugal.",
+      "tags": [
+        "Europa",
+        "capital"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0008",
+      "category": "geografia",
+      "difficulty": "facil",
+      "question": "Qual destes é o maior país do mundo em área territorial?",
+      "options": [
+        "China",
+        "Canadá",
+        "Estados Unidos",
+        "Rússia"
+      ],
+      "answerIndex": 3,
+      "explanation": "A Rússia é o maior país do mundo em extensão territorial.",
+      "tags": [
+        "países",
+        "extensão"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0009",
+      "category": "geografia",
+      "difficulty": "facil",
+      "question": "Qual é a capital do estado do Rio de Janeiro?",
+      "options": [
+        "Niterói",
+        "Rio de Janeiro",
+        "Petrópolis",
+        "Campos dos Goytacazes"
+      ],
+      "answerIndex": 1,
+      "explanation": "A cidade do Rio de Janeiro é a capital do estado de mesmo nome.",
+      "tags": [
+        "Brasil",
+        "capitais estaduais"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0010",
+      "category": "geografia",
+      "difficulty": "facil",
+      "question": "Qual é o maior país da América do Sul em área?",
+      "options": [
+        "Argentina",
+        "Brasil",
+        "Peru",
+        "Colômbia"
+      ],
+      "answerIndex": 1,
+      "explanation": "O Brasil é o maior país sul-americano em território e população.",
+      "tags": [
+        "América do Sul",
+        "países"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0011",
+      "category": "geografia",
+      "difficulty": "medio",
+      "question": "Qual é a capital da Austrália?",
+      "options": [
+        "Sydney",
+        "Melbourne",
+        "Canberra",
+        "Brisbane"
+      ],
+      "answerIndex": 2,
+      "explanation": "Canberra é a capital da Austrália, embora Sydney seja a maior cidade.",
+      "tags": [
+        "Oceania",
+        "capital"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0012",
+      "category": "geografia",
+      "difficulty": "medio",
+      "question": "Qual é o ponto mais alto do mundo acima do nível do mar?",
+      "options": [
+        "Monte K2",
+        "Monte Kilimanjaro",
+        "Monte Everest",
+        "Monte Aconcágua"
+      ],
+      "answerIndex": 2,
+      "explanation": "O Monte Everest, no Himalaia, é a montanha mais alta do mundo (8.849 m).",
+      "tags": [
+        "montanhas",
+        "geografia física"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0013",
+      "category": "geografia",
+      "difficulty": "medio",
+      "question": "Qual estado brasileiro tem como capital a cidade de Curitiba?",
+      "options": [
+        "Santa Catarina",
+        "Rio Grande do Sul",
+        "Paraná",
+        "São Paulo"
+      ],
+      "answerIndex": 2,
+      "explanation": "Curitiba é a capital do estado do Paraná, na região Sul.",
+      "tags": [
+        "Brasil",
+        "capitais estaduais"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0014",
+      "category": "geografia",
+      "difficulty": "medio",
+      "question": "Qual é o rio tradicionalmente considerado o mais extenso do mundo?",
+      "options": [
+        "Rio Nilo",
+        "Rio Amazonas",
+        "Rio Mississippi",
+        "Rio Yangtzé"
+      ],
+      "answerIndex": 0,
+      "explanation": "O Rio Nilo, na África, é tradicionalmente considerado o rio mais longo do mundo, com cerca de 6.650 km.",
+      "tags": [
+        "rios",
+        "geografia física"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0015",
+      "category": "geografia",
+      "difficulty": "medio",
+      "question": "Qual é a capital do estado de Minas Gerais?",
+      "options": [
+        "Uberlândia",
+        "Juiz de Fora",
+        "Belo Horizonte",
+        "Ouro Preto"
+      ],
+      "answerIndex": 2,
+      "explanation": "Belo Horizonte é a capital de Minas Gerais desde 1897.",
+      "tags": [
+        "Brasil",
+        "capitais estaduais"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0016",
+      "category": "geografia",
+      "difficulty": "medio",
+      "question": "Qual deserto é o maior deserto quente do mundo?",
+      "options": [
+        "Deserto do Atacama",
+        "Deserto do Saara",
+        "Deserto de Gobi",
+        "Deserto da Arábia"
+      ],
+      "answerIndex": 1,
+      "explanation": "O Saara, no norte da África, é o maior deserto quente do mundo.",
+      "tags": [
+        "desertos",
+        "África"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0017",
+      "category": "geografia",
+      "difficulty": "medio",
+      "question": "A Cordilheira dos Andes se estende principalmente ao longo de qual costa da América do Sul?",
+      "options": [
+        "Costa leste (Atlântica)",
+        "Costa oeste (Pacífica)",
+        "Costa norte (Caribe)",
+        "Costa sul"
+      ],
+      "answerIndex": 1,
+      "explanation": "Os Andes se estendem ao longo da costa oeste, voltada para o Oceano Pacífico.",
+      "tags": [
+        "montanhas",
+        "América do Sul"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0018",
+      "category": "geografia",
+      "difficulty": "medio",
+      "question": "Qual é a capital do Japão?",
+      "options": [
+        "Osaka",
+        "Quioto",
+        "Tóquio",
+        "Nagoia"
+      ],
+      "answerIndex": 2,
+      "explanation": "Tóquio é a capital do Japão e uma das maiores metrópoles do mundo.",
+      "tags": [
+        "Ásia",
+        "capital"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0019",
+      "category": "geografia",
+      "difficulty": "medio",
+      "question": "Qual linha imaginária divide a Terra em hemisférios Norte e Sul?",
+      "options": [
+        "Trópico de Câncer",
+        "Linha do Equador",
+        "Meridiano de Greenwich",
+        "Trópico de Capricórnio"
+      ],
+      "answerIndex": 1,
+      "explanation": "A Linha do Equador divide a Terra nos hemisférios Norte e Sul.",
+      "tags": [
+        "geografia física",
+        "coordenadas"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0020",
+      "category": "geografia",
+      "difficulty": "medio",
+      "question": "Qual é a capital do estado do Pará?",
+      "options": [
+        "Manaus",
+        "Belém",
+        "São Luís",
+        "Macapá"
+      ],
+      "answerIndex": 1,
+      "explanation": "Belém é a capital do Pará, próxima à foz do Rio Amazonas.",
+      "tags": [
+        "Brasil",
+        "capitais estaduais"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0021",
+      "category": "geografia",
+      "difficulty": "medio",
+      "question": "Qual país tem o formato de uma bota e é banhado pelo Mar Mediterrâneo?",
+      "options": [
+        "Grécia",
+        "Espanha",
+        "Itália",
+        "Croácia"
+      ],
+      "answerIndex": 2,
+      "explanation": "A Itália tem o característico formato de bota na Península Itálica.",
+      "tags": [
+        "Europa",
+        "países"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0022",
+      "category": "geografia",
+      "difficulty": "dificil",
+      "question": "Qual é a capital do Canadá?",
+      "options": [
+        "Toronto",
+        "Montreal",
+        "Ottawa",
+        "Vancouver"
+      ],
+      "answerIndex": 2,
+      "explanation": "Ottawa é a capital do Canadá, embora Toronto seja a maior cidade.",
+      "tags": [
+        "América do Norte",
+        "capital"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0023",
+      "category": "geografia",
+      "difficulty": "dificil",
+      "question": "Qual estreito separa a Espanha da África no extremo oeste do Mediterrâneo?",
+      "options": [
+        "Estreito de Bering",
+        "Estreito de Gibraltar",
+        "Estreito de Magalhães",
+        "Estreito de Ormuz"
+      ],
+      "answerIndex": 1,
+      "explanation": "O Estreito de Gibraltar separa a Espanha do norte da África.",
+      "tags": [
+        "estreitos",
+        "geografia física"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0024",
+      "category": "geografia",
+      "difficulty": "dificil",
+      "question": "Qual é a capital do estado de Tocantins?",
+      "options": [
+        "Palmas",
+        "Gurupi",
+        "Araguaína",
+        "Porto Nacional"
+      ],
+      "answerIndex": 0,
+      "explanation": "Palmas é a capital do Tocantins, planejada e inaugurada em 1990.",
+      "tags": [
+        "Brasil",
+        "capitais estaduais"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0025",
+      "category": "geografia",
+      "difficulty": "dificil",
+      "question": "Qual é o maior lago de água doce do mundo em superfície?",
+      "options": [
+        "Lago Vitória",
+        "Lago Superior",
+        "Lago Baikal",
+        "Mar Cáspio"
+      ],
+      "answerIndex": 1,
+      "explanation": "O Lago Superior, na América do Norte, é o maior lago de água doce em área. O Mar Cáspio é maior, mas é salgado.",
+      "tags": [
+        "lagos",
+        "geografia física"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0026",
+      "category": "geografia",
+      "difficulty": "dificil",
+      "question": "Qual cordilheira forma o limite tradicional entre a Europa e a Ásia no território russo?",
+      "options": [
+        "Alpes",
+        "Cárpatos",
+        "Montes Urais",
+        "Cáucaso"
+      ],
+      "answerIndex": 2,
+      "explanation": "Os Montes Urais formam o limite tradicional entre Europa e Ásia.",
+      "tags": [
+        "montanhas",
+        "Eurásia"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "geo_0027",
+      "category": "geografia",
+      "difficulty": "dificil",
+      "question": "Qual país africano tem Nairóbi como capital?",
+      "options": [
+        "Tanzânia",
+        "Quênia",
+        "Uganda",
+        "Etiópia"
+      ],
+      "answerIndex": 1,
+      "explanation": "Nairóbi é a capital e maior cidade do Quênia.",
+      "tags": [
+        "África",
+        "capital"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    }
+  ]
+}

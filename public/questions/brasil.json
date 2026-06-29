@@ -1,0 +1,573 @@
+{
+  "category": "brasil",
+  "version": 1,
+  "questions": [
+    {
+      "id": "bra_0001",
+      "category": "brasil",
+      "difficulty": "facil",
+      "question": "Qual cor NÃO aparece na bandeira do Brasil?",
+      "options": [
+        "Verde",
+        "Amarelo",
+        "Vermelho",
+        "Azul"
+      ],
+      "answerIndex": 2,
+      "explanation": "A bandeira brasileira tem verde, amarelo, azul e branco; o vermelho não faz parte dela.",
+      "tags": [
+        "bandeira",
+        "símbolos"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0002",
+      "category": "brasil",
+      "difficulty": "facil",
+      "question": "Qual fruta é base da tradicional caipirinha brasileira?",
+      "options": [
+        "Limão",
+        "Laranja",
+        "Maracujá",
+        "Abacaxi"
+      ],
+      "answerIndex": 0,
+      "explanation": "A caipirinha clássica leva limão, açúcar e cachaça.",
+      "tags": [
+        "culinária",
+        "bebida"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0003",
+      "category": "brasil",
+      "difficulty": "facil",
+      "question": "Qual personagem do folclore brasileiro tem um pé só e usa um gorro vermelho?",
+      "options": [
+        "Saci-Pererê",
+        "Curupira",
+        "Boitatá",
+        "Iara"
+      ],
+      "answerIndex": 0,
+      "explanation": "O Saci-Pererê é conhecido por ter uma perna só e o gorro vermelho mágico.",
+      "tags": [
+        "folclore",
+        "lendas"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0004",
+      "category": "brasil",
+      "difficulty": "facil",
+      "question": "Qual é o prato típico brasileiro feito com feijão preto e diversas carnes de porco?",
+      "options": [
+        "Feijoada",
+        "Moqueca",
+        "Acarajé",
+        "Vatapá"
+      ],
+      "answerIndex": 0,
+      "explanation": "A feijoada é preparada com feijão preto e cortes de carne de porco.",
+      "tags": [
+        "culinária",
+        "prato típico"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0005",
+      "category": "brasil",
+      "difficulty": "facil",
+      "question": "Qual instrumento é fundamental para marcar o ritmo no samba de roda e nas baterias de escola?",
+      "options": [
+        "Surdo",
+        "Violino",
+        "Acordeão",
+        "Piano"
+      ],
+      "answerIndex": 0,
+      "explanation": "O surdo é o tambor grave que sustenta a marcação do samba.",
+      "tags": [
+        "música",
+        "samba"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0006",
+      "category": "brasil",
+      "difficulty": "facil",
+      "question": "Qual seleção venceu a Copa do Mundo de Futebol de 1970, no México?",
+      "options": [
+        "Brasil",
+        "Itália",
+        "Alemanha",
+        "Argentina"
+      ],
+      "answerIndex": 0,
+      "explanation": "O Brasil conquistou o tricampeonato mundial em 1970, no México.",
+      "tags": [
+        "futebol",
+        "copa"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0007",
+      "category": "brasil",
+      "difficulty": "facil",
+      "question": "Que dança e luta afro-brasileira combina golpes, música e movimentos ginásticos em roda?",
+      "options": [
+        "Capoeira",
+        "Frevo",
+        "Maracatu",
+        "Forró"
+      ],
+      "answerIndex": 0,
+      "explanation": "A capoeira mistura luta, dança e música, praticada em roda.",
+      "tags": [
+        "cultura",
+        "capoeira"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0008",
+      "category": "brasil",
+      "difficulty": "facil",
+      "question": "Qual doce brasileiro é feito de leite condensado, chocolate e coberto com granulado?",
+      "options": [
+        "Brigadeiro",
+        "Pudim",
+        "Quindim",
+        "Beijinho"
+      ],
+      "answerIndex": 0,
+      "explanation": "O brigadeiro leva leite condensado e chocolate, enrolado em granulado.",
+      "tags": [
+        "culinária",
+        "doce"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0009",
+      "category": "brasil",
+      "difficulty": "facil",
+      "question": "Qual é o idioma oficial do Brasil?",
+      "options": [
+        "Português",
+        "Espanhol",
+        "Inglês",
+        "Francês"
+      ],
+      "answerIndex": 0,
+      "explanation": "O português é o idioma oficial do Brasil.",
+      "tags": [
+        "idioma",
+        "símbolos"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0010",
+      "category": "brasil",
+      "difficulty": "medio",
+      "question": "Quem é considerada a 'Rainha do Rádio' e ficou famosa internacionalmente com a baiana estilizada e filmes em Hollywood?",
+      "options": [
+        "Carmen Miranda",
+        "Elis Regina",
+        "Clara Nunes",
+        "Gal Costa"
+      ],
+      "answerIndex": 0,
+      "explanation": "Carmen Miranda foi ícone internacional com a figura da baiana e atuou em Hollywood.",
+      "tags": [
+        "música",
+        "MPB"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0011",
+      "category": "brasil",
+      "difficulty": "medio",
+      "question": "Qual cantor e compositor é autor de clássicos como 'Construção' e 'Cálice'?",
+      "options": [
+        "Chico Buarque",
+        "Roberto Carlos",
+        "Caetano Veloso",
+        "Tom Jobim"
+      ],
+      "answerIndex": 0,
+      "explanation": "Chico Buarque compôs 'Construção' e, com Gilberto Gil, 'Cálice'.",
+      "tags": [
+        "MPB",
+        "compositor"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0012",
+      "category": "brasil",
+      "difficulty": "medio",
+      "question": "Qual ritmo nordestino é tradicionalmente tocado com sanfona, zabumba e triângulo?",
+      "options": [
+        "Forró",
+        "Samba",
+        "Bossa nova",
+        "Choro"
+      ],
+      "answerIndex": 0,
+      "explanation": "O forró tradicional usa o trio sanfona, zabumba e triângulo.",
+      "tags": [
+        "música",
+        "forró"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0013",
+      "category": "brasil",
+      "difficulty": "medio",
+      "question": "Qual prato baiano é um bolinho de feijão-fradinho frito no azeite de dendê?",
+      "options": [
+        "Acarajé",
+        "Pão de queijo",
+        "Tapioca",
+        "Coxinha"
+      ],
+      "answerIndex": 0,
+      "explanation": "O acarajé é feito de massa de feijão-fradinho frita no dendê.",
+      "tags": [
+        "culinária",
+        "Bahia"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0014",
+      "category": "brasil",
+      "difficulty": "medio",
+      "question": "Em qual cidade fica o Cristo Redentor, um dos cartões-postais do Brasil?",
+      "options": [
+        "Rio de Janeiro",
+        "São Paulo",
+        "Brasília",
+        "Salvador"
+      ],
+      "answerIndex": 0,
+      "explanation": "O Cristo Redentor está no morro do Corcovado, no Rio de Janeiro.",
+      "tags": [
+        "turismo",
+        "monumento"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0015",
+      "category": "brasil",
+      "difficulty": "medio",
+      "question": "Qual personagem do folclore brasileiro é um menino indígena que protege as matas e tem os pés virados para trás?",
+      "options": [
+        "Curupira",
+        "Saci",
+        "Negrinho do Pastoreio",
+        "Mula sem cabeça"
+      ],
+      "answerIndex": 0,
+      "explanation": "O Curupira protege as florestas e tem os pés virados para trás para confundir caçadores.",
+      "tags": [
+        "folclore",
+        "lendas"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0016",
+      "category": "brasil",
+      "difficulty": "medio",
+      "question": "Qual jogador brasileiro, apelidado de 'O Rei', marcou mais de mil gols na carreira e venceu três Copas do Mundo?",
+      "options": [
+        "Pelé",
+        "Garrincha",
+        "Zico",
+        "Romário"
+      ],
+      "answerIndex": 0,
+      "explanation": "Pelé, 'O Rei', foi tricampeão mundial e referência histórica do futebol brasileiro.",
+      "tags": [
+        "futebol",
+        "Pelé"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0017",
+      "category": "brasil",
+      "difficulty": "medio",
+      "question": "Qual estilo musical surgido no fim dos anos 1950 mistura samba com harmonias do jazz e teve 'Garota de Ipanema' como marco?",
+      "options": [
+        "Bossa nova",
+        "Tropicália",
+        "Axé",
+        "Maracatu"
+      ],
+      "answerIndex": 0,
+      "explanation": "A bossa nova nasceu no fim dos anos 1950 e 'Garota de Ipanema' é seu maior símbolo.",
+      "tags": [
+        "música",
+        "bossa nova"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0018",
+      "category": "brasil",
+      "difficulty": "medio",
+      "question": "Quem é o autor da letra de 'Garota de Ipanema', em parceria musical com Tom Jobim?",
+      "options": [
+        "Vinicius de Moraes",
+        "Noel Rosa",
+        "Cartola",
+        "Dorival Caymmi"
+      ],
+      "answerIndex": 0,
+      "explanation": "Vinicius de Moraes escreveu a letra e Tom Jobim compôs a melodia de 'Garota de Ipanema'.",
+      "tags": [
+        "bossa nova",
+        "poeta"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0019",
+      "category": "brasil",
+      "difficulty": "medio",
+      "question": "Qual prato típico do Espírito Santo e da Bahia é um ensopado de peixe ou frutos do mar?",
+      "options": [
+        "Moqueca",
+        "Baião de dois",
+        "Escondidinho",
+        "Bobó de camarão"
+      ],
+      "answerIndex": 0,
+      "explanation": "A moqueca é um ensopado de peixe ou frutos do mar tradicional do ES e da BA.",
+      "tags": [
+        "culinária",
+        "prato típico"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0020",
+      "category": "brasil",
+      "difficulty": "medio",
+      "question": "Qual festa popular junina é marcada por fogueiras, quadrilha e comidas de milho?",
+      "options": [
+        "Festa de São João",
+        "Réveillon",
+        "Carnaval",
+        "Festa do Divino"
+      ],
+      "answerIndex": 0,
+      "explanation": "As festas juninas, com destaque para São João, têm fogueira, quadrilha e comidas de milho.",
+      "tags": [
+        "festa",
+        "tradição"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0021",
+      "category": "brasil",
+      "difficulty": "medio",
+      "question": "Qual ave colorida, de bico grande, é frequentemente apontada como símbolo da fauna brasileira?",
+      "options": [
+        "Tucano",
+        "Pinguim",
+        "Avestruz",
+        "Pavão"
+      ],
+      "answerIndex": 0,
+      "explanation": "O tucano, com seu bico grande e colorido, é uma ave-símbolo associada ao Brasil.",
+      "tags": [
+        "fauna",
+        "símbolos"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0022",
+      "category": "brasil",
+      "difficulty": "dificil",
+      "question": "Quem compôs a música do Hino Nacional Brasileiro?",
+      "options": [
+        "Francisco Manuel da Silva",
+        "Carlos Gomes",
+        "Heitor Villa-Lobos",
+        "Joaquim Osório Duque-Estrada"
+      ],
+      "answerIndex": 0,
+      "explanation": "A melodia do Hino Nacional foi composta por Francisco Manuel da Silva; a letra é de Osório Duque-Estrada.",
+      "tags": [
+        "hino",
+        "símbolos"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0023",
+      "category": "brasil",
+      "difficulty": "dificil",
+      "question": "Qual compositor é considerado um dos maiores nomes do samba e autor de 'As Rosas Não Falam', tendo a Mangueira como sua escola?",
+      "options": [
+        "Cartola",
+        "Noel Rosa",
+        "Pixinguinha",
+        "Adoniran Barbosa"
+      ],
+      "answerIndex": 0,
+      "explanation": "Cartola, mestre da Mangueira, compôs 'As Rosas Não Falam'.",
+      "tags": [
+        "samba",
+        "compositor"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0024",
+      "category": "brasil",
+      "difficulty": "dificil",
+      "question": "Qual lenda folclórica do Sul do Brasil narra um menino que reaparece para ajudar quem perde objetos?",
+      "options": [
+        "Negrinho do Pastoreio",
+        "Boto cor-de-rosa",
+        "Iara",
+        "Cuca"
+      ],
+      "answerIndex": 0,
+      "explanation": "O Negrinho do Pastoreio é lenda gaúcha de um menino que ajuda a encontrar coisas perdidas.",
+      "tags": [
+        "folclore",
+        "lendas"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0025",
+      "category": "brasil",
+      "difficulty": "dificil",
+      "question": "Qual seleção o Brasil venceu na final da Copa do Mundo de 1970?",
+      "options": [
+        "Itália",
+        "Uruguai",
+        "Alemanha",
+        "Hungria"
+      ],
+      "answerIndex": 0,
+      "explanation": "Na final de 1970, no Estádio Azteca, no México, o Brasil venceu a Itália por 4 a 1.",
+      "tags": [
+        "futebol",
+        "copa 1970"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0026",
+      "category": "brasil",
+      "difficulty": "dificil",
+      "question": "Qual escritor brasileiro criou o Sítio do Picapau Amarelo, com personagens como Emília e Pedrinho?",
+      "options": [
+        "Monteiro Lobato",
+        "Jorge Amado",
+        "Machado de Assis",
+        "Mário de Andrade"
+      ],
+      "answerIndex": 0,
+      "explanation": "Monteiro Lobato criou o universo do Sítio do Picapau Amarelo.",
+      "tags": [
+        "literatura",
+        "cultura"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    },
+    {
+      "id": "bra_0027",
+      "category": "brasil",
+      "difficulty": "dificil",
+      "question": "Qual movimento cultural do fim dos anos 1960, liderado por Caetano Veloso e Gilberto Gil, misturou música, comportamento e vanguarda?",
+      "options": [
+        "Tropicália",
+        "Jovem Guarda",
+        "Clube da Esquina",
+        "Manguebeat"
+      ],
+      "answerIndex": 0,
+      "explanation": "A Tropicália foi o movimento tropicalista encabeçado por Caetano Veloso e Gilberto Gil.",
+      "tags": [
+        "música",
+        "tropicália"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint0",
+      "volatility": "estavel"
+    }
+  ]
+}
