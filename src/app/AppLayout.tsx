@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import { useAuthStore } from '@/stores/authStore'
+import { useProfileStore } from '@/stores/profileStore'
+import { Ftue } from '@/features/onboarding/Ftue'
 
 const NAV = [
   { to: '/', label: 'Início', emoji: '🏠', end: true },
@@ -9,16 +11,21 @@ const NAV = [
 ]
 
 export function AppLayout() {
-  const init = useAuthStore((s) => s.init)
+  const initAuth = useAuthStore((s) => s.init)
+  const loadProfile = useProfileStore((s) => s.load)
+  const profileLoaded = useProfileStore((s) => s.loaded)
+  const ftueDone = useProfileStore((s) => s.profile.ftueDone)
 
   useEffect(() => {
-    // Liga o listener de auth uma vez.
-    const unsub = init()
+    const unsub = initAuth()
+    loadProfile()
     return unsub
-  }, [init])
+  }, [initAuth, loadProfile])
 
   return (
     <div className="mx-auto flex min-h-full max-w-md flex-col bg-gradient-to-b from-brand-50 to-white">
+      {profileLoaded && !ftueDone && <Ftue />}
+
       <main className="flex-1 px-4 pb-24 pt-6">
         <Outlet />
       </main>
