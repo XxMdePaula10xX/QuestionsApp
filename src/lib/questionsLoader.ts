@@ -1,46 +1,68 @@
+import { getBytes, ref } from 'firebase/storage'
+import { storage, isFirebaseConfigured } from '@/lib/firebase'
+import { cacheRead, cacheWrite } from '@/lib/questionsCache'
 import type { CategoryFile, CategoryId, Question, QuestionsManifest } from '@/types/question'
 
 /**
- * Loader de perguntas (Seção 3/4 do PRD).
+ * Loader de perguntas (Seção 3/4 do PRD; Sprint 4 = caminho de produção).
  *
- * Estratégia:
- *  - Em produção, o manifest e os JSONs por categoria vivem no Firebase Storage
- *    (versionados). O device baixa, valida checksum e cacheia no Capacitor
- *    Filesystem (NÃO localStorage — recomendação da revisão), com delta updates
- *    baseados no `version` por categoria do manifest.
- *  - No Sprint 0 / web, servimos do bundle estático em /public/questions.
- *
- * Este módulo é o esqueleto: hoje busca do bundle local (fetch). Os TODOs
- * marcam onde entram Storage + cache nativo no Sprint 1.
+ * Ordem de resolução por categoria:
+ *  1. Cache no device (Capacitor Filesystem) se a versão bate com o manifest
+ *     → delta update: só rebaixa quando muda a versão.
+ *  2. Download do Firebase Storage (quando configurado) → grava no cache.
+ *  3. Fallback ao bundle estático em /public/questions (dev/offline/1ª carga).
  */
 
-const QUESTIONS_BASE = '/questions'
+const BUNDLE_BASE = '/questions'
 
 const manifestCache: { value: QuestionsManifest | null } = { value: null }
 const categoryCache = new Map<CategoryId, Question[]>()
 
+async function fetchBundle<T>(file: string): Promise<T> {
+  const res = await fetch(`${BUNDLE_BASE}/${file}`)
+  if (!res.ok) throw new Error(`Falha ao carregar ${file}: ${res.status}`)
+  return (await res.json()) as T
+}
+
+async function fetchFromStorage<T>(file: string): Promise<T | null> {
+  if (!isFirebaseConfigured || !storage) return null
+  try {
+    const bytes = await getBytes(ref(storage, `questions/${file}`))
+    return JSON.parse(new TextDecoder().decode(bytes)) as T
+  } catch {
+    return null // sem permissão/offline → cai no bundle
+  }
+}
+
 export async function loadManifest(): Promise<QuestionsManifest> {
   if (manifestCache.value) return manifestCache.value
-  // TODO(Sprint 1): baixar do Storage + cache no Filesystem com fallback ao bundle.
-  const res = await fetch(`${QUESTIONS_BASE}/manifest.json`)
-  if (!res.ok) throw new Error(`Falha ao carregar manifest: ${res.status}`)
-  const manifest = (await res.json()) as QuestionsManifest
+  const fromStorage = await fetchFromStorage<QuestionsManifest>('manifest.json')
+  const manifest = fromStorage ?? (await fetchBundle<QuestionsManifest>('manifest.json'))
+  if (fromStorage) await cacheWrite('manifest.json', manifest)
   manifestCache.value = manifest
   return manifest
 }
 
 export async function loadCategory(categoryId: CategoryId): Promise<Question[]> {
-  const cached = categoryCache.get(categoryId)
-  if (cached) return cached
+  const mem = categoryCache.get(categoryId)
+  if (mem) return mem
 
   const manifest = await loadManifest()
   const entry = manifest.categories.find((c) => c.id === categoryId)
   if (!entry) throw new Error(`Categoria desconhecida no manifest: ${categoryId}`)
 
-  // TODO(Sprint 1): checar versão cacheada vs manifest; validar entry.sha256.
-  const res = await fetch(`${QUESTIONS_BASE}/${entry.file}`)
-  if (!res.ok) throw new Error(`Falha ao carregar categoria ${categoryId}: ${res.status}`)
-  const file = (await res.json()) as CategoryFile
+  // 1. Cache local, válido se a versão bate (delta update).
+  const cached = await cacheRead<CategoryFile>(entry.file)
+  if (cached && cached.version === entry.version) {
+    categoryCache.set(categoryId, cached.questions)
+    return cached.questions
+  }
+
+  // 2. Storage → grava no cache. 3. Fallback bundle.
+  const fromStorage = await fetchFromStorage<CategoryFile>(entry.file)
+  const file = fromStorage ?? (await fetchBundle<CategoryFile>(entry.file))
+  if (fromStorage) await cacheWrite(entry.file, file)
+
   categoryCache.set(categoryId, file.questions)
   return file.questions
 }

@@ -20,6 +20,7 @@ export default defineConfig({
         manualChunks: {
           react: ['react', 'react-dom', 'react-router-dom'],
           firebase: ['firebase/app', 'firebase/auth', 'firebase/firestore', 'firebase/storage', 'firebase/functions'],
+          'firebase-extra': ['firebase/messaging', 'firebase/app-check'],
           motion: ['framer-motion'],
         },
       },

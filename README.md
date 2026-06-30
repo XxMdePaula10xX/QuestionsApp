@@ -2,7 +2,7 @@
 
 Quiz de perguntas e respostas em PT-BR. App mobile (Android/iOS via Capacitor) + web.
 
-> **Status:** Sprint 3 concluído (desafio assíncrono + amizades + Functions de match/W.O./snapshot semanal). Veja o [`PRD.md`](./PRD.md) e o parecer de revisão em [`PRD-REVIEW.md`](./PRD-REVIEW.md).
+> **Status:** Sprint 4 concluído (7 categorias, loader via Storage + cache, reporte, push, prep de publicação). **MVP completo.** Veja o [`PRD.md`](./PRD.md) e o parecer de revisão em [`PRD-REVIEW.md`](./PRD-REVIEW.md).
 
 ---
 
@@ -127,9 +127,17 @@ gsutil -m cp -r public/questions gs://<seu-bucket>/questions
 - Rules endurecidas: matches/submissões/amizades **só via Function**; tokens FCM por usuário.
 - Push (FCM): `notify()` server-side pronto (envia para `users/{uid}/tokens`).
 
-## Próximos passos (Sprint 4)
+## Sprint 4 — concluído ✅
 
-- Loader lendo do **Storage** + cache no **Capacitor Filesystem** + delta updates.
-- Expandir a base de perguntas (~5.000) com **fonte autoritativa** por categoria (B5).
-- **Reporte de perguntas** + fila de curadoria; registro do token FCM no cliente (service worker + VAPID).
-- Polimento, empty states, e **publicação** (teste fechado Google Play: 12 testers/14 dias).
+- **7 categorias completas** (194 perguntas-amostra; Esporte/Arte/Entretenimento geradas + validadas).
+- **Loader de produção**: download do **Storage** → cache no **Capacitor Filesystem** → **delta updates** por versão do manifest → fallback ao bundle (`questionsLoader` + `questionsCache`).
+- **Reporte de pergunta** (folha de motivos) → `reports/{questionId}_{uid}` (Firestore) ou fila local offline.
+- **Push (FCM)**: registro do token no cliente (`push.ts` + `firebase-messaging-sw.js`), guardado por VAPID/permissão.
+- **Publicação**: `PRIVACY.md` (LGPD), `docs/store-listing.md` (checklist Play/Apple), workflow **android-release** assinado no `codemagic.yaml`.
+
+## Pós-MVP (próximos passos)
+
+- Substituir as perguntas-amostra de IA por conteúdo com **fonte autoritativa** e escalar para ~5.000 (B5).
+- Medição de tempo server-side no desafio (anti-spoof); `timeMs` real no `submitMatchTurn`.
+- Ranking **entre amigos** (aba dedicada lendo entries dos amigos).
+- Caminho até 30k perguntas; multiplayer em tempo real; perguntas com imagem.

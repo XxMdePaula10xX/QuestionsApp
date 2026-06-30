@@ -1,0 +1,594 @@
+{
+  "category": "arte",
+  "version": 1,
+  "questions": [
+    {
+      "id": "art_0001",
+      "category": "arte",
+      "difficulty": "facil",
+      "question": "Quem pintou a 'Mona Lisa'?",
+      "options": [
+        "Michelangelo",
+        "Leonardo da Vinci",
+        "Rafael Sanzio",
+        "Sandro Botticelli"
+      ],
+      "answerIndex": 1,
+      "explanation": "A 'Mona Lisa' (La Gioconda) foi pintada por Leonardo da Vinci.",
+      "tags": [
+        "pintura",
+        "renascimento"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0002",
+      "category": "arte",
+      "difficulty": "facil",
+      "question": "Qual escritor brasileiro é autor de 'Dom Casmurro'?",
+      "options": [
+        "José de Alencar",
+        "Machado de Assis",
+        "Graciliano Ramos",
+        "Jorge Amado"
+      ],
+      "answerIndex": 1,
+      "explanation": "'Dom Casmurro' foi escrito por Machado de Assis.",
+      "tags": [
+        "literatura",
+        "Machado"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0003",
+      "category": "arte",
+      "difficulty": "facil",
+      "question": "Em que cidade fica a Torre Eiffel?",
+      "options": [
+        "Londres",
+        "Roma",
+        "Paris",
+        "Berlim"
+      ],
+      "answerIndex": 2,
+      "explanation": "A Torre Eiffel está localizada em Paris, na França.",
+      "tags": [
+        "arquitetura",
+        "Paris"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0004",
+      "category": "arte",
+      "difficulty": "facil",
+      "question": "Qual artista pintou o teto da Capela Sistina?",
+      "options": [
+        "Michelangelo",
+        "Caravaggio",
+        "Donatello",
+        "Ticiano"
+      ],
+      "answerIndex": 0,
+      "explanation": "Michelangelo pintou os afrescos do teto da Capela Sistina.",
+      "tags": [
+        "pintura",
+        "Vaticano"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0005",
+      "category": "arte",
+      "difficulty": "facil",
+      "question": "Quem é o autor da peça 'Romeu e Julieta'?",
+      "options": [
+        "Molière",
+        "William Shakespeare",
+        "Dante Alighieri",
+        "Goethe"
+      ],
+      "answerIndex": 1,
+      "explanation": "'Romeu e Julieta' foi escrita por William Shakespeare.",
+      "tags": [
+        "literatura",
+        "teatro"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0006",
+      "category": "arte",
+      "difficulty": "facil",
+      "question": "A escultura 'O Pensador' é obra de qual artista?",
+      "options": [
+        "Auguste Rodin",
+        "Edgar Degas",
+        "Camille Claudel",
+        "Constantin Brancusi"
+      ],
+      "answerIndex": 0,
+      "explanation": "'O Pensador' é uma escultura de Auguste Rodin.",
+      "tags": [
+        "escultura",
+        "Rodin"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0007",
+      "category": "arte",
+      "difficulty": "facil",
+      "question": "Qual pintor holandês é conhecido pela obra 'A Noite Estrelada'?",
+      "options": [
+        "Rembrandt",
+        "Johannes Vermeer",
+        "Vincent van Gogh",
+        "Piet Mondrian"
+      ],
+      "answerIndex": 2,
+      "explanation": "'A Noite Estrelada' foi pintada por Vincent van Gogh.",
+      "tags": [
+        "pintura",
+        "pos-impressionismo"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0008",
+      "category": "arte",
+      "difficulty": "facil",
+      "question": "Quem compôs a Nona Sinfonia, que inclui o 'Hino à Alegria'?",
+      "options": [
+        "Wolfgang Mozart",
+        "Ludwig van Beethoven",
+        "Johann Sebastian Bach",
+        "Frédéric Chopin"
+      ],
+      "answerIndex": 1,
+      "explanation": "A Nona Sinfonia foi composta por Ludwig van Beethoven.",
+      "tags": [
+        "musica",
+        "classica"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0009",
+      "category": "arte",
+      "difficulty": "facil",
+      "question": "Qual desses é um famoso pintor espanhol associado ao cubismo?",
+      "options": [
+        "Salvador Dalí",
+        "Pablo Picasso",
+        "Joan Miró",
+        "Francisco Goya"
+      ],
+      "answerIndex": 1,
+      "explanation": "Pablo Picasso foi um dos fundadores do cubismo.",
+      "tags": [
+        "pintura",
+        "cubismo"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0010",
+      "category": "arte",
+      "difficulty": "facil",
+      "question": "O livro 'O Pequeno Príncipe' foi escrito por qual autor?",
+      "options": [
+        "Júlio Verne",
+        "Antoine de Saint-Exupéry",
+        "Victor Hugo",
+        "Albert Camus"
+      ],
+      "answerIndex": 1,
+      "explanation": "'O Pequeno Príncipe' é obra de Antoine de Saint-Exupéry.",
+      "tags": [
+        "literatura",
+        "frances"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0011",
+      "category": "arte",
+      "difficulty": "medio",
+      "question": "Qual pintora brasileira é autora da obra 'Abaporu', ícone do modernismo?",
+      "options": [
+        "Anita Malfatti",
+        "Tarsila do Amaral",
+        "Djanira da Motta",
+        "Tomie Ohtake"
+      ],
+      "answerIndex": 1,
+      "explanation": "'Abaporu' foi pintada por Tarsila do Amaral em 1928.",
+      "tags": [
+        "modernismo",
+        "Tarsila"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0012",
+      "category": "arte",
+      "difficulty": "medio",
+      "question": "A Semana de Arte Moderna brasileira ocorreu em qual cidade?",
+      "options": [
+        "Rio de Janeiro",
+        "São Paulo",
+        "Belo Horizonte",
+        "Salvador"
+      ],
+      "answerIndex": 1,
+      "explanation": "A Semana de Arte Moderna de 1922 aconteceu no Teatro Municipal de São Paulo.",
+      "tags": [
+        "modernismo",
+        "1922"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0013",
+      "category": "arte",
+      "difficulty": "medio",
+      "question": "Quem escreveu o romance 'Cem Anos de Solidão'?",
+      "options": [
+        "Mario Vargas Llosa",
+        "Gabriel García Márquez",
+        "Jorge Luis Borges",
+        "Julio Cortázar"
+      ],
+      "answerIndex": 1,
+      "explanation": "'Cem Anos de Solidão' é obra de Gabriel García Márquez.",
+      "tags": [
+        "literatura",
+        "realismo-magico"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0014",
+      "category": "arte",
+      "difficulty": "medio",
+      "question": "Qual movimento artístico é caracterizado por relógios derretidos e imagens oníricas, tendo Salvador Dalí como expoente?",
+      "options": [
+        "Impressionismo",
+        "Surrealismo",
+        "Expressionismo",
+        "Fauvismo"
+      ],
+      "answerIndex": 1,
+      "explanation": "O surrealismo explora o sonho e o inconsciente, com Dalí como figura central.",
+      "tags": [
+        "surrealismo",
+        "movimento"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0015",
+      "category": "arte",
+      "difficulty": "medio",
+      "question": "Quem é o autor de 'Grande Sertão: Veredas'?",
+      "options": [
+        "Guimarães Rosa",
+        "Érico Veríssimo",
+        "Clarice Lispector",
+        "Carlos Drummond de Andrade"
+      ],
+      "answerIndex": 0,
+      "explanation": "'Grande Sertão: Veredas' foi escrito por João Guimarães Rosa.",
+      "tags": [
+        "literatura",
+        "Rosa"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0016",
+      "category": "arte",
+      "difficulty": "medio",
+      "question": "A obra arquitetônica do Congresso Nacional em Brasília foi projetada por qual arquiteto?",
+      "options": [
+        "Lúcio Costa",
+        "Oscar Niemeyer",
+        "Affonso Eduardo Reidy",
+        "Lina Bo Bardi"
+      ],
+      "answerIndex": 1,
+      "explanation": "O Congresso Nacional foi projetado por Oscar Niemeyer.",
+      "tags": [
+        "arquitetura",
+        "Niemeyer"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0017",
+      "category": "arte",
+      "difficulty": "medio",
+      "question": "Qual compositor austríaco escreveu a ópera 'As Bodas de Fígaro'?",
+      "options": [
+        "Joseph Haydn",
+        "Wolfgang Amadeus Mozart",
+        "Richard Wagner",
+        "Giuseppe Verdi"
+      ],
+      "answerIndex": 1,
+      "explanation": "'As Bodas de Fígaro' é uma ópera de Wolfgang Amadeus Mozart.",
+      "tags": [
+        "musica",
+        "opera"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0018",
+      "category": "arte",
+      "difficulty": "medio",
+      "question": "O movimento impressionista teve como uma de suas obras seminais 'Impressão, Nascer do Sol', de qual pintor?",
+      "options": [
+        "Edgar Degas",
+        "Claude Monet",
+        "Pierre-Auguste Renoir",
+        "Édouard Manet"
+      ],
+      "answerIndex": 1,
+      "explanation": "'Impressão, Nascer do Sol' de Claude Monet deu nome ao impressionismo.",
+      "tags": [
+        "impressionismo",
+        "Monet"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0019",
+      "category": "arte",
+      "difficulty": "medio",
+      "question": "Quem escreveu o romance brasileiro 'Vidas Secas'?",
+      "options": [
+        "Jorge Amado",
+        "Graciliano Ramos",
+        "Rachel de Queiroz",
+        "José Lins do Rego"
+      ],
+      "answerIndex": 1,
+      "explanation": "'Vidas Secas' foi escrito por Graciliano Ramos.",
+      "tags": [
+        "literatura",
+        "regionalismo"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0020",
+      "category": "arte",
+      "difficulty": "medio",
+      "question": "A escultura 'Davi', em mármore, exposta em Florença, é obra de quem?",
+      "options": [
+        "Lorenzo Ghiberti",
+        "Michelangelo",
+        "Gian Lorenzo Bernini",
+        "Donatello"
+      ],
+      "answerIndex": 1,
+      "explanation": "O 'Davi' de mármore em Florença foi esculpido por Michelangelo.",
+      "tags": [
+        "escultura",
+        "renascimento"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0021",
+      "category": "arte",
+      "difficulty": "medio",
+      "question": "Qual autora brasileira escreveu 'A Hora da Estrela'?",
+      "options": [
+        "Cecília Meireles",
+        "Clarice Lispector",
+        "Lygia Fagundes Telles",
+        "Hilda Hilst"
+      ],
+      "answerIndex": 1,
+      "explanation": "'A Hora da Estrela' é o último romance de Clarice Lispector.",
+      "tags": [
+        "literatura",
+        "Clarice"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0022",
+      "category": "arte",
+      "difficulty": "medio",
+      "question": "Quem pintou 'A Última Ceia', mural em Milão?",
+      "options": [
+        "Rafael",
+        "Leonardo da Vinci",
+        "Ticiano",
+        "Giotto"
+      ],
+      "answerIndex": 1,
+      "explanation": "'A Última Ceia' foi pintada por Leonardo da Vinci no convento de Santa Maria delle Grazie.",
+      "tags": [
+        "pintura",
+        "renascimento"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0023",
+      "category": "arte",
+      "difficulty": "dificil",
+      "question": "Qual escritor russo é autor de 'Crime e Castigo'?",
+      "options": [
+        "Liev Tolstói",
+        "Fiódor Dostoiévski",
+        "Anton Tchékhov",
+        "Ivan Turguêniev"
+      ],
+      "answerIndex": 1,
+      "explanation": "'Crime e Castigo' foi escrito por Fiódor Dostoiévski.",
+      "tags": [
+        "literatura",
+        "russa"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0024",
+      "category": "arte",
+      "difficulty": "dificil",
+      "question": "O afresco 'A Escola de Atenas', no Vaticano, é obra de qual artista renascentista?",
+      "options": [
+        "Rafael Sanzio",
+        "Michelangelo",
+        "Leonardo da Vinci",
+        "Sandro Botticelli"
+      ],
+      "answerIndex": 0,
+      "explanation": "'A Escola de Atenas' foi pintada por Rafael Sanzio nas Estâncias do Vaticano.",
+      "tags": [
+        "pintura",
+        "Rafael"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0025",
+      "category": "arte",
+      "difficulty": "dificil",
+      "question": "Qual arquiteto catalão projetou a basílica da Sagrada Família, em Barcelona?",
+      "options": [
+        "Le Corbusier",
+        "Antoni Gaudí",
+        "Ludwig Mies van der Rohe",
+        "Frank Lloyd Wright"
+      ],
+      "answerIndex": 1,
+      "explanation": "A Sagrada Família foi projetada por Antoni Gaudí.",
+      "tags": [
+        "arquitetura",
+        "Gaudi"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0026",
+      "category": "arte",
+      "difficulty": "dificil",
+      "question": "Quem compôs o ciclo de óperas 'O Anel do Nibelungo' (Ring)?",
+      "options": [
+        "Giuseppe Verdi",
+        "Richard Wagner",
+        "Giacomo Puccini",
+        "Gioachino Rossini"
+      ],
+      "answerIndex": 1,
+      "explanation": "'O Anel do Nibelungo' foi composto por Richard Wagner.",
+      "tags": [
+        "musica",
+        "opera"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0027",
+      "category": "arte",
+      "difficulty": "dificil",
+      "question": "O movimento artístico 'De Stijl', com linhas retas e cores primárias, está associado a qual pintor?",
+      "options": [
+        "Wassily Kandinsky",
+        "Piet Mondrian",
+        "Kazimir Malevich",
+        "Paul Klee"
+      ],
+      "answerIndex": 1,
+      "explanation": "Piet Mondrian foi figura central do movimento neoplasticista De Stijl.",
+      "tags": [
+        "pintura",
+        "abstracionismo"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "art_0028",
+      "category": "arte",
+      "difficulty": "dificil",
+      "question": "Qual poeta italiano escreveu 'A Divina Comédia'?",
+      "options": [
+        "Francesco Petrarca",
+        "Dante Alighieri",
+        "Giovanni Boccaccio",
+        "Ludovico Ariosto"
+      ],
+      "answerIndex": 1,
+      "explanation": "'A Divina Comédia' foi escrita por Dante Alighieri.",
+      "tags": [
+        "literatura",
+        "medieval"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    }
+  ]
+}

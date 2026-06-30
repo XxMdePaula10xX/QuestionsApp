@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useStopGame } from './useStopGame'
-import { getCategoryMeta, SPRINT0_CATEGORIES } from '@/lib/categories'
+import { getCategoryMeta, PLAYABLE_CATEGORIES } from '@/lib/categories'
 import { GAME_CONFIG } from '@/lib/gameConfig'
 import { useProfileStore } from '@/stores/profileStore'
 
@@ -26,7 +26,7 @@ export function StopScreen() {
             {best > 0 && <span className="font-semibold"> Recorde: {best}.</span>}
           </p>
           <div className="grid grid-cols-2 gap-3">
-            {SPRINT0_CATEGORIES.map((id) => {
+            {PLAYABLE_CATEGORIES.map((id) => {
               const meta = getCategoryMeta(id)
               return (
                 <button key={id} onClick={() => game.start(id)} className="card flex h-28 flex-col items-start justify-between text-left active:scale-[0.98]">

@@ -1,0 +1,594 @@
+{
+  "category": "entretenimento",
+  "version": 1,
+  "questions": [
+    {
+      "id": "ent_0001",
+      "category": "entretenimento",
+      "difficulty": "facil",
+      "question": "Qual estúdio de animação criou o personagem Mickey Mouse?",
+      "options": [
+        "Warner Bros.",
+        "Disney",
+        "Pixar",
+        "DreamWorks"
+      ],
+      "answerIndex": 1,
+      "explanation": "Mickey Mouse foi criado por Walt Disney e Ub Iwerks em 1928.",
+      "tags": [
+        "animacao",
+        "disney"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0002",
+      "category": "entretenimento",
+      "difficulty": "facil",
+      "question": "Na franquia 'Star Wars', qual é o nome do mestre Jedi pequeno e de orelhas pontudas?",
+      "options": [
+        "Obi-Wan",
+        "Yoda",
+        "Mace Windu",
+        "Qui-Gon"
+      ],
+      "answerIndex": 1,
+      "explanation": "Yoda é um dos mestres Jedi mais sábios da saga.",
+      "tags": [
+        "cinema",
+        "star-wars"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0003",
+      "category": "entretenimento",
+      "difficulty": "facil",
+      "question": "Qual banda britânica tem como integrantes John Lennon, Paul McCartney, George Harrison e Ringo Starr?",
+      "options": [
+        "The Rolling Stones",
+        "The Beatles",
+        "Queen",
+        "Pink Floyd"
+      ],
+      "answerIndex": 1,
+      "explanation": "Os quatro formaram os Beatles, banda de Liverpool dos anos 1960.",
+      "tags": [
+        "musica",
+        "beatles"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0004",
+      "category": "entretenimento",
+      "difficulty": "facil",
+      "question": "No clássico de 1994 'O Rei Leão', qual é o nome do leãozinho protagonista?",
+      "options": [
+        "Simba",
+        "Mufasa",
+        "Scar",
+        "Nala"
+      ],
+      "answerIndex": 0,
+      "explanation": "Simba é o filhote que se torna rei das Terras do Reino.",
+      "tags": [
+        "animacao",
+        "disney"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0005",
+      "category": "entretenimento",
+      "difficulty": "facil",
+      "question": "Qual empresa japonesa criou o personagem Mario, dos jogos de plataforma?",
+      "options": [
+        "Sega",
+        "Sony",
+        "Nintendo",
+        "Capcom"
+      ],
+      "answerIndex": 2,
+      "explanation": "Mario é o mascote da Nintendo, criado por Shigeru Miyamoto.",
+      "tags": [
+        "games",
+        "nintendo"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0006",
+      "category": "entretenimento",
+      "difficulty": "facil",
+      "question": "Na série de animação 'Os Simpsons', qual é a cor da pele dos personagens?",
+      "options": [
+        "Verde",
+        "Amarela",
+        "Azul",
+        "Rosa"
+      ],
+      "answerIndex": 1,
+      "explanation": "A família Simpson é famosa pela pele amarela.",
+      "tags": [
+        "tv",
+        "animacao"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0007",
+      "category": "entretenimento",
+      "difficulty": "facil",
+      "question": "Qual cantor é conhecido como o 'Rei do Pop'?",
+      "options": [
+        "Elvis Presley",
+        "Michael Jackson",
+        "Prince",
+        "Freddie Mercury"
+      ],
+      "answerIndex": 1,
+      "explanation": "Michael Jackson recebeu o título de Rei do Pop.",
+      "tags": [
+        "musica",
+        "pop"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0008",
+      "category": "entretenimento",
+      "difficulty": "facil",
+      "question": "No filme 'Toy Story', qual é o nome do brinquedo cowboy?",
+      "options": [
+        "Buzz Lightyear",
+        "Woody",
+        "Rex",
+        "Slinky"
+      ],
+      "answerIndex": 1,
+      "explanation": "Woody é o boneco cowboy protagonista da Pixar.",
+      "tags": [
+        "animacao",
+        "pixar"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0009",
+      "category": "entretenimento",
+      "difficulty": "facil",
+      "question": "Qual super-herói da Marvel é também conhecido como Homem-Aranha?",
+      "options": [
+        "Tony Stark",
+        "Peter Parker",
+        "Steve Rogers",
+        "Bruce Banner"
+      ],
+      "answerIndex": 1,
+      "explanation": "Peter Parker é a identidade secreta do Homem-Aranha.",
+      "tags": [
+        "quadrinhos",
+        "marvel"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0010",
+      "category": "entretenimento",
+      "difficulty": "facil",
+      "question": "Qual desenho brasileiro tem um menino chamado Cebolinha que troca o R pelo L?",
+      "options": [
+        "Turma da Monica",
+        "Sitio do Picapau Amarelo",
+        "Os Trapalhoes",
+        "Castelo Ra-Tim-Bum"
+      ],
+      "answerIndex": 0,
+      "explanation": "Cebolinha é personagem da Turma da Monica, de Mauricio de Sousa.",
+      "tags": [
+        "brasil",
+        "quadrinhos"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0011",
+      "category": "entretenimento",
+      "difficulty": "medio",
+      "question": "Quem dirigiu o filme 'Cidade de Deus' (2002), indicado ao Oscar?",
+      "options": [
+        "Walter Salles",
+        "Fernando Meirelles",
+        "Jose Padilha",
+        "Glauber Rocha"
+      ],
+      "answerIndex": 1,
+      "explanation": "Fernando Meirelles codirigiu 'Cidade de Deus' com Katia Lund.",
+      "tags": [
+        "cinema",
+        "brasil"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0012",
+      "category": "entretenimento",
+      "difficulty": "medio",
+      "question": "Qual banda de rock lançou o álbum 'The Dark Side of the Moon' em 1973?",
+      "options": [
+        "Led Zeppelin",
+        "Pink Floyd",
+        "The Who",
+        "Deep Purple"
+      ],
+      "answerIndex": 1,
+      "explanation": "'The Dark Side of the Moon' é um dos discos mais vendidos do Pink Floyd.",
+      "tags": [
+        "musica",
+        "rock"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0013",
+      "category": "entretenimento",
+      "difficulty": "medio",
+      "question": "No filme 'O Poderoso Chefão' (1972), qual ator interpreta o patriarca Vito Corleone?",
+      "options": [
+        "Al Pacino",
+        "Marlon Brando",
+        "Robert De Niro",
+        "James Caan"
+      ],
+      "answerIndex": 1,
+      "explanation": "Marlon Brando ganhou o Oscar pelo papel de Vito Corleone.",
+      "tags": [
+        "cinema",
+        "classico"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0014",
+      "category": "entretenimento",
+      "difficulty": "medio",
+      "question": "Qual jogo da Sega tem um ouriço azul que corre em alta velocidade coletando anéis dourados?",
+      "options": [
+        "Sonic the Hedgehog",
+        "Crash Bandicoot",
+        "Mega Man",
+        "Pac-Man"
+      ],
+      "answerIndex": 0,
+      "explanation": "Sonic, o ouriço azul da Sega, coleta anéis dourados.",
+      "tags": [
+        "games",
+        "sega"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0015",
+      "category": "entretenimento",
+      "difficulty": "medio",
+      "question": "Qual seriado de TV se passa na cidade fictícia de Springfield com a família Simpson?",
+      "options": [
+        "Family Guy",
+        "Os Simpsons",
+        "South Park",
+        "Futurama"
+      ],
+      "answerIndex": 1,
+      "explanation": "Os Simpsons vivem em Springfield desde 1989.",
+      "tags": [
+        "tv",
+        "animacao"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0016",
+      "category": "entretenimento",
+      "difficulty": "medio",
+      "question": "Quem compôs a música clássica 'As Quatro Estações'?",
+      "options": [
+        "Bach",
+        "Vivaldi",
+        "Mozart",
+        "Beethoven"
+      ],
+      "answerIndex": 1,
+      "explanation": "Antonio Vivaldi compôs 'As Quatro Estações' por volta de 1725.",
+      "tags": [
+        "musica",
+        "classica"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0017",
+      "category": "entretenimento",
+      "difficulty": "medio",
+      "question": "No filme 'De Volta para o Futuro' (1985), qual carro é transformado em máquina do tempo?",
+      "options": [
+        "Ferrari Testarossa",
+        "DeLorean DMC-12",
+        "Ford Mustang",
+        "Chevrolet Camaro"
+      ],
+      "answerIndex": 1,
+      "explanation": "O DeLorean foi adaptado pelo Doutor Brown como máquina do tempo.",
+      "tags": [
+        "cinema",
+        "classico"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0018",
+      "category": "entretenimento",
+      "difficulty": "medio",
+      "question": "Qual cantora brasileira é conhecida como a 'Rainha do Rock' nacional, com a banda Tutti Frutti?",
+      "options": [
+        "Elis Regina",
+        "Rita Lee",
+        "Gal Costa",
+        "Marisa Monte"
+      ],
+      "answerIndex": 1,
+      "explanation": "Rita Lee é reconhecida como a Rainha do Rock brasileiro.",
+      "tags": [
+        "musica",
+        "brasil"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0019",
+      "category": "entretenimento",
+      "difficulty": "medio",
+      "question": "Qual filme de animação japonês de 2001, dirigido por Hayao Miyazaki, ganhou o Oscar?",
+      "options": [
+        "Meu Amigo Totoro",
+        "A Viagem de Chihiro",
+        "Princesa Mononoke",
+        "O Castelo Animado"
+      ],
+      "answerIndex": 1,
+      "explanation": "'A Viagem de Chihiro' venceu o Oscar de Melhor Animação.",
+      "tags": [
+        "animacao",
+        "ghibli"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0020",
+      "category": "entretenimento",
+      "difficulty": "medio",
+      "question": "Na série 'Friends', em qual cidade os seis amigos moram?",
+      "options": [
+        "Los Angeles",
+        "Nova York",
+        "Chicago",
+        "Boston"
+      ],
+      "answerIndex": 1,
+      "explanation": "'Friends' se passa em Manhattan, Nova York.",
+      "tags": [
+        "tv",
+        "sitcom"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0021",
+      "category": "entretenimento",
+      "difficulty": "medio",
+      "question": "Qual banda lançou a música 'Bohemian Rhapsody', do álbum de 1975?",
+      "options": [
+        "The Rolling Stones",
+        "Queen",
+        "Aerosmith",
+        "Eagles"
+      ],
+      "answerIndex": 1,
+      "explanation": "'Bohemian Rhapsody' é do Queen, com Freddie Mercury.",
+      "tags": [
+        "musica",
+        "rock"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0022",
+      "category": "entretenimento",
+      "difficulty": "medio",
+      "question": "Qual ator interpretou o Coringa em 'Batman: O Cavaleiro das Trevas' (2008) e ganhou o Oscar póstumo?",
+      "options": [
+        "Jack Nicholson",
+        "Heath Ledger",
+        "Jared Leto",
+        "Joaquin Phoenix"
+      ],
+      "answerIndex": 1,
+      "explanation": "Heath Ledger venceu o Oscar de Melhor Ator Coadjuvante pelo papel.",
+      "tags": [
+        "cinema",
+        "dc"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0023",
+      "category": "entretenimento",
+      "difficulty": "dificil",
+      "question": "Quem dirigiu o clássico do cinema 'Cidadão Kane' (1941)?",
+      "options": [
+        "Alfred Hitchcock",
+        "Orson Welles",
+        "Billy Wilder",
+        "John Ford"
+      ],
+      "answerIndex": 1,
+      "explanation": "Orson Welles dirigiu, escreveu e estrelou 'Cidadão Kane' aos 25 anos.",
+      "tags": [
+        "cinema",
+        "classico"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0024",
+      "category": "entretenimento",
+      "difficulty": "dificil",
+      "question": "Qual compositor brasileiro é autor de 'Bachianas Brasileiras'?",
+      "options": [
+        "Tom Jobim",
+        "Heitor Villa-Lobos",
+        "Pixinguinha",
+        "Ernesto Nazareth"
+      ],
+      "answerIndex": 1,
+      "explanation": "Heitor Villa-Lobos compôs as 'Bachianas Brasileiras' entre 1930 e 1945.",
+      "tags": [
+        "musica",
+        "brasil"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0025",
+      "category": "entretenimento",
+      "difficulty": "dificil",
+      "question": "Em que ano foi lançado o primeiro jogo 'The Legend of Zelda' no Japão?",
+      "options": [
+        "1983",
+        "1986",
+        "1989",
+        "1991"
+      ],
+      "answerIndex": 1,
+      "explanation": "'The Legend of Zelda' foi lançado em 1986 no Famicom Disk System.",
+      "tags": [
+        "games",
+        "nintendo"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0026",
+      "category": "entretenimento",
+      "difficulty": "dificil",
+      "question": "Qual diretor é conhecido pelos filmes 'Pulp Fiction' e 'Cães de Aluguel'?",
+      "options": [
+        "Martin Scorsese",
+        "Quentin Tarantino",
+        "Coen Brothers",
+        "David Fincher"
+      ],
+      "answerIndex": 1,
+      "explanation": "Quentin Tarantino dirigiu ambos os filmes nos anos 1990.",
+      "tags": [
+        "cinema",
+        "diretor"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0027",
+      "category": "entretenimento",
+      "difficulty": "dificil",
+      "question": "Qual foi o primeiro longa-metragem de animação totalmente em computação gráfica, lançado em 1995?",
+      "options": [
+        "Shrek",
+        "Toy Story",
+        "Formiguinhaz",
+        "A Bug's Life"
+      ],
+      "answerIndex": 1,
+      "explanation": "'Toy Story', da Pixar, foi o primeiro longa inteiramente em CGI.",
+      "tags": [
+        "animacao",
+        "pixar"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "ent_0028",
+      "category": "entretenimento",
+      "difficulty": "dificil",
+      "question": "Qual banda brasileira, liderada por Renato Russo, gravou o álbum 'Dois' (1986) com a música 'Eduardo e Mônica'?",
+      "options": [
+        "Titãs",
+        "Legião Urbana",
+        "Capital Inicial",
+        "Os Paralamas do Sucesso"
+      ],
+      "answerIndex": 1,
+      "explanation": "'Eduardo e Mônica' está no álbum 'Dois' da Legião Urbana.",
+      "tags": [
+        "musica",
+        "brasil"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    }
+  ]
+}

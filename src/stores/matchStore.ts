@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import type { CategoryId } from '@/types/question'
 import type { Match } from '@/types/models'
 import { loadCategories, getQuestionsByIds, shuffle } from '@/lib/questionsLoader'
-import { SPRINT0_CATEGORIES } from '@/lib/categories'
+import { PLAYABLE_CATEGORIES } from '@/lib/categories'
 import { GAME_CONFIG } from '@/lib/gameConfig'
 import { botPlay, decideWinner, scoreAnswers } from '@/lib/matchEngine'
 import { loadJSON, saveJSON } from '@/lib/persist'
@@ -50,7 +50,7 @@ export const useMatchStore = create<MatchState>((set, get) => ({
   },
 
   createBotMatch: async (category) => {
-    const pool = category ? await loadCategories([category]) : await loadCategories(SPRINT0_CATEGORIES)
+    const pool = category ? await loadCategories([category]) : await loadCategories(PLAYABLE_CATEGORIES)
     const qs = shuffle(pool).slice(0, GAME_CONFIG.matchQuestionCount)
     const now = Date.now()
     const me = myUid()
@@ -76,14 +76,14 @@ export const useMatchStore = create<MatchState>((set, get) => ({
   resolveQuestions: async (matchId) => {
     const m = get().matches.find((x) => x.id === matchId)
     if (!m) throw new Error('Partida não encontrada')
-    const from = m.category ? [m.category] : SPRINT0_CATEGORIES
+    const from = m.category ? [m.category] : PLAYABLE_CATEGORIES
     return getQuestionsByIds(m.questionIds, from)
   },
 
   submitTurn: async (matchId, answers, timeMs) => {
     const m = get().matches.find((x) => x.id === matchId)
     if (!m) throw new Error('Partida não encontrada')
-    const from = m.category ? [m.category] : SPRINT0_CATEGORIES
+    const from = m.category ? [m.category] : PLAYABLE_CATEGORIES
     const questions = await getQuestionsByIds(m.questionIds, from)
     const me = myUid()
 

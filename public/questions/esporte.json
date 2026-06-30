@@ -1,0 +1,593 @@
+{
+  "category": "esporte",
+  "version": 1,
+  "questions": [
+    {
+      "id": "esp_0001",
+      "category": "esporte",
+      "difficulty": "facil",
+      "question": "Em qual esporte o Brasil conquistou o tricampeonato mundial em 1958, 1962 e 1970?",
+      "options": [
+        "Vôlei",
+        "Futebol",
+        "Basquete",
+        "Handebol"
+      ],
+      "answerIndex": 1,
+      "explanation": "A seleção brasileira de futebol venceu as Copas de 1958, 1962 e 1970, conquistando o tricampeonato.",
+      "tags": [
+        "futebol",
+        "copa"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0002",
+      "category": "esporte",
+      "difficulty": "facil",
+      "question": "Quantos jogadores de cada time ficam em campo durante uma partida oficial de futebol?",
+      "options": [
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "answerIndex": 2,
+      "explanation": "Cada equipe joga com 11 jogadores, incluindo o goleiro.",
+      "tags": [
+        "futebol",
+        "regras"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0003",
+      "category": "esporte",
+      "difficulty": "facil",
+      "question": "Qual país sediou a Copa do Mundo de futebol de 2014?",
+      "options": [
+        "Brasil",
+        "Alemanha",
+        "África do Sul",
+        "Rússia"
+      ],
+      "answerIndex": 0,
+      "explanation": "O Brasil sediou a Copa do Mundo de 2014.",
+      "tags": [
+        "copa",
+        "brasil"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0004",
+      "category": "esporte",
+      "difficulty": "facil",
+      "question": "Quantos pontos vale uma cesta de três pontos no basquete?",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answerIndex": 2,
+      "explanation": "Um arremesso convertido de fora da linha de três pontos vale 3 pontos.",
+      "tags": [
+        "basquete",
+        "regras"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0005",
+      "category": "esporte",
+      "difficulty": "facil",
+      "question": "Qual piloto brasileiro foi tricampeão mundial de Fórmula 1, com títulos em 1988, 1990 e 1991?",
+      "options": [
+        "Rubens Barrichello",
+        "Nelson Piquet",
+        "Ayrton Senna",
+        "Emerson Fittipaldi"
+      ],
+      "answerIndex": 2,
+      "explanation": "Ayrton Senna foi campeão mundial de F1 em 1988, 1990 e 1991.",
+      "tags": [
+        "f1",
+        "senna"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0006",
+      "category": "esporte",
+      "difficulty": "facil",
+      "question": "Quantos sets uma equipe precisa vencer para ganhar uma partida de vôlei em melhor de cinco?",
+      "options": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "answerIndex": 1,
+      "explanation": "No vôlei melhor de cinco sets, vence quem ganhar 3 sets primeiro.",
+      "tags": [
+        "volei",
+        "regras"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0007",
+      "category": "esporte",
+      "difficulty": "facil",
+      "question": "De quantos em quantos anos são realizados os Jogos Olímpicos de verão?",
+      "options": [
+        "2 anos",
+        "3 anos",
+        "4 anos",
+        "5 anos"
+      ],
+      "answerIndex": 2,
+      "explanation": "As Olimpíadas de verão ocorrem a cada quatro anos.",
+      "tags": [
+        "olimpiadas"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0008",
+      "category": "esporte",
+      "difficulty": "facil",
+      "question": "Em que cidade brasileira foram realizados os Jogos Olímpicos de 2016?",
+      "options": [
+        "São Paulo",
+        "Brasília",
+        "Rio de Janeiro",
+        "Salvador"
+      ],
+      "answerIndex": 2,
+      "explanation": "O Rio de Janeiro sediou os Jogos Olímpicos de 2016.",
+      "tags": [
+        "olimpiadas",
+        "rio"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0009",
+      "category": "esporte",
+      "difficulty": "facil",
+      "question": "Qual jogador é conhecido como 'O Rei do Futebol'?",
+      "options": [
+        "Pelé",
+        "Garrincha",
+        "Romário",
+        "Zico"
+      ],
+      "answerIndex": 0,
+      "explanation": "Pelé é mundialmente reconhecido como 'O Rei do Futebol'.",
+      "tags": [
+        "futebol",
+        "pele"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0010",
+      "category": "esporte",
+      "difficulty": "facil",
+      "question": "No tênis, como é chamado o ponto em que o sacador pode fechar o jogo (game)?",
+      "options": [
+        "Match point",
+        "Game point",
+        "Break point",
+        "Tie point"
+      ],
+      "answerIndex": 1,
+      "explanation": "O ponto que decide um game é chamado de game point.",
+      "tags": [
+        "tenis",
+        "regras"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0011",
+      "category": "esporte",
+      "difficulty": "medio",
+      "question": "Qual seleção venceu a primeira Copa do Mundo de futebol, em 1930?",
+      "options": [
+        "Brasil",
+        "Argentina",
+        "Uruguai",
+        "Itália"
+      ],
+      "answerIndex": 2,
+      "explanation": "O Uruguai foi campeão da primeira Copa do Mundo, em 1930, que sediou em casa.",
+      "tags": [
+        "copa",
+        "uruguai"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0012",
+      "category": "esporte",
+      "difficulty": "medio",
+      "question": "Em qual Copa do Mundo o Brasil conquistou seu tetracampeonato?",
+      "options": [
+        "1986",
+        "1994",
+        "1998",
+        "2002"
+      ],
+      "answerIndex": 1,
+      "explanation": "O Brasil foi tetracampeão na Copa de 1994, nos Estados Unidos, vencendo a Itália nos pênaltis.",
+      "tags": [
+        "copa",
+        "tetra"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0013",
+      "category": "esporte",
+      "difficulty": "medio",
+      "question": "Qual seleção o Brasil venceu na final da Copa do Mundo de 2002?",
+      "options": [
+        "Alemanha",
+        "França",
+        "Argentina",
+        "Itália"
+      ],
+      "answerIndex": 0,
+      "explanation": "O Brasil venceu a Alemanha por 2 a 0 na final de 2002, conquistando o pentacampeonato.",
+      "tags": [
+        "copa",
+        "penta"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0014",
+      "category": "esporte",
+      "difficulty": "medio",
+      "question": "Qual nadador é o maior medalhista olímpico da história, com 23 medalhas de ouro?",
+      "options": [
+        "Ian Thorpe",
+        "Michael Phelps",
+        "Mark Spitz",
+        "César Cielo"
+      ],
+      "answerIndex": 1,
+      "explanation": "Michael Phelps acumulou 23 medalhas de ouro olímpicas na natação.",
+      "tags": [
+        "natacao",
+        "olimpiadas"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0015",
+      "category": "esporte",
+      "difficulty": "medio",
+      "question": "Qual piloto brasileiro foi o primeiro campeão mundial de Fórmula 1, em 1972?",
+      "options": [
+        "Ayrton Senna",
+        "Nelson Piquet",
+        "Emerson Fittipaldi",
+        "Carlos Pace"
+      ],
+      "answerIndex": 2,
+      "explanation": "Emerson Fittipaldi foi o primeiro brasileiro campeão mundial de F1, em 1972.",
+      "tags": [
+        "f1",
+        "fittipaldi"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0016",
+      "category": "esporte",
+      "difficulty": "medio",
+      "question": "Pela seleção brasileira de vôlei masculino, em qual Olimpíada o Brasil conquistou seu primeiro ouro, em Barcelona?",
+      "options": [
+        "1988",
+        "1992",
+        "1996",
+        "2004"
+      ],
+      "answerIndex": 1,
+      "explanation": "O Brasil conquistou o ouro olímpico no vôlei masculino em Barcelona 1992.",
+      "tags": [
+        "volei",
+        "olimpiadas"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0017",
+      "category": "esporte",
+      "difficulty": "medio",
+      "question": "Qual tenista é conhecido como 'Guga' e venceu Roland Garros três vezes?",
+      "options": [
+        "Thomaz Bellucci",
+        "Gustavo Kuerten",
+        "Fernando Meligeni",
+        "Marcelo Melo"
+      ],
+      "answerIndex": 1,
+      "explanation": "Gustavo Kuerten, o Guga, venceu Roland Garros em 1997, 2000 e 2001.",
+      "tags": [
+        "tenis",
+        "guga"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0018",
+      "category": "esporte",
+      "difficulty": "medio",
+      "question": "Em que país foi realizada a Copa do Mundo de 1970, vencida pelo Brasil?",
+      "options": [
+        "Espanha",
+        "México",
+        "Argentina",
+        "Chile"
+      ],
+      "answerIndex": 1,
+      "explanation": "A Copa de 1970, em que o Brasil foi tricampeão, foi disputada no México.",
+      "tags": [
+        "copa",
+        "1970"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0019",
+      "category": "esporte",
+      "difficulty": "medio",
+      "question": "Qual clube brasileiro venceu a primeira edição do Mundial de Clubes da FIFA, em 2000?",
+      "options": [
+        "São Paulo",
+        "Corinthians",
+        "Palmeiras",
+        "Flamengo"
+      ],
+      "answerIndex": 1,
+      "explanation": "O Corinthians venceu o primeiro Mundial de Clubes da FIFA, em 2000.",
+      "tags": [
+        "futebol",
+        "mundial"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0020",
+      "category": "esporte",
+      "difficulty": "medio",
+      "question": "Qual atleta jamaicano é detentor do recorde mundial dos 100 metros rasos, batido em 2009?",
+      "options": [
+        "Carl Lewis",
+        "Usain Bolt",
+        "Yohan Blake",
+        "Justin Gatlin"
+      ],
+      "answerIndex": 1,
+      "explanation": "Usain Bolt estabeleceu o recorde mundial dos 100m com 9s58 em 2009.",
+      "tags": [
+        "atletismo",
+        "bolt"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0021",
+      "category": "esporte",
+      "difficulty": "medio",
+      "question": "Quantos pontos vale a tabela (cesta convertida) de dois pontos somada a um lance livre no basquete?",
+      "options": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "answerIndex": 1,
+      "explanation": "Uma cesta de 2 pontos mais 1 lance livre somam 3 pontos.",
+      "tags": [
+        "basquete",
+        "regras"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0022",
+      "category": "esporte",
+      "difficulty": "medio",
+      "question": "Qual era a posição de Pelé em campo?",
+      "options": [
+        "Goleiro",
+        "Zagueiro",
+        "Atacante",
+        "Lateral"
+      ],
+      "answerIndex": 2,
+      "explanation": "Pelé atuava como atacante, sendo um dos maiores artilheiros da história.",
+      "tags": [
+        "futebol",
+        "pele"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0023",
+      "category": "esporte",
+      "difficulty": "dificil",
+      "question": "Quem marcou o gol número 1000 da carreira de Pelé, em 1969, no Maracanã?",
+      "options": [
+        "Foi o próprio Pelé, de pênalti",
+        "Foi Coutinho",
+        "Foi Tostão",
+        "Foi Garrincha"
+      ],
+      "answerIndex": 0,
+      "explanation": "Pelé marcou seu milésimo gol de pênalti, pelo Santos, em 1969, no Maracanã.",
+      "tags": [
+        "futebol",
+        "pele"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0024",
+      "category": "esporte",
+      "difficulty": "dificil",
+      "question": "Qual seleção venceu a Copa do Mundo de 1954, na chamada 'Final de Berna'?",
+      "options": [
+        "Hungria",
+        "Alemanha Ocidental",
+        "Brasil",
+        "Itália"
+      ],
+      "answerIndex": 1,
+      "explanation": "A Alemanha Ocidental venceu a Hungria por 3 a 2 na final de 1954, o 'Milagre de Berna'.",
+      "tags": [
+        "copa",
+        "1954"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0025",
+      "category": "esporte",
+      "difficulty": "dificil",
+      "question": "Qual piloto brasileiro venceu o GP do Brasil de F1 de 1975, em Interlagos, e deu nome ao traçado do autódromo?",
+      "options": [
+        "José Carlos Pace",
+        "Nelson Piquet",
+        "Wilson Fittipaldi",
+        "Chico Landi"
+      ],
+      "answerIndex": 0,
+      "explanation": "José Carlos Pace venceu o GP do Brasil de 1975, e o Autódromo de Interlagos leva seu nome.",
+      "tags": [
+        "f1",
+        "pace"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0026",
+      "category": "esporte",
+      "difficulty": "dificil",
+      "question": "Em qual edição dos Jogos Olímpicos o brasileiro Joaquim Cruz conquistou o ouro nos 800 metros do atletismo?",
+      "options": [
+        "Moscou 1980",
+        "Los Angeles 1984",
+        "Seul 1988",
+        "Barcelona 1992"
+      ],
+      "answerIndex": 1,
+      "explanation": "Joaquim Cruz venceu os 800 metros nas Olimpíadas de Los Angeles, em 1984.",
+      "tags": [
+        "atletismo",
+        "olimpiadas"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0027",
+      "category": "esporte",
+      "difficulty": "dificil",
+      "question": "Qual jogador alemão marcou o gol do título da Copa do Mundo de 2014 na prorrogação da final contra a Argentina?",
+      "options": [
+        "Thomas Müller",
+        "Mario Götze",
+        "Miroslav Klose",
+        "Toni Kroos"
+      ],
+      "answerIndex": 1,
+      "explanation": "Mario Götze marcou o gol da vitória alemã por 1 a 0 na prorrogação da final de 2014.",
+      "tags": [
+        "copa",
+        "2014"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    },
+    {
+      "id": "esp_0028",
+      "category": "esporte",
+      "difficulty": "dificil",
+      "question": "Qual seleção venceu a primeira edição da Copa do Mundo de futebol feminino, em 1991?",
+      "options": [
+        "Estados Unidos",
+        "Noruega",
+        "Alemanha",
+        "China"
+      ],
+      "answerIndex": 0,
+      "explanation": "Os Estados Unidos venceram a primeira Copa do Mundo feminina, em 1991, na China.",
+      "tags": [
+        "futebol",
+        "feminino"
+      ],
+      "version": 1,
+      "source": "amostra-ia-sprint4",
+      "volatility": "estavel"
+    }
+  ]
+}

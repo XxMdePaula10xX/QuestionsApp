@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useNormalGame } from './useNormalGame'
-import { getCategoryMeta, SPRINT0_CATEGORIES } from '@/lib/categories'
+import { ReportButton } from './ReportButton'
+import { getCategoryMeta, PLAYABLE_CATEGORIES } from '@/lib/categories'
 
 export function PlayScreen() {
   const game = useNormalGame()
@@ -22,7 +23,7 @@ export function PlayScreen() {
           )}
           <p className="text-sm text-gray-500">Escolha uma categoria:</p>
           <div className="grid grid-cols-2 gap-3">
-            {SPRINT0_CATEGORIES.map((id) => {
+            {PLAYABLE_CATEGORIES.map((id) => {
               const meta = getCategoryMeta(id)
               return (
                 <button
@@ -100,6 +101,7 @@ export function PlayScreen() {
                   <button className="btn-primary" onClick={game.next}>
                     {game.index + 1 < game.total ? 'Próxima' : 'Ver resultado'}
                   </button>
+                  <ReportButton questionId={game.question.id} />
                 </motion.div>
               )}
             </motion.div>

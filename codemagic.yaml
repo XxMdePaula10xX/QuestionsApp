@@ -30,8 +30,42 @@ workflows:
     artifacts:
       - android/app/build/outputs/**/*.apk
 
-  # TODO(sprint de publicação): workflow android-release com keystore + assinatura
-  # e upload para o teste fechado da Google Play (12 testers / 14 dias).
-  #
+  android-release:
+    name: Android (release assinado)
+    instance_type: linux_x2
+    max_build_duration: 60
+    environment:
+      node: 20
+      groups:
+        - firebase   # VITE_FIREBASE_* configurados no Codemagic
+        - keystore   # CM_KEYSTORE, CM_KEYSTORE_PASSWORD, CM_KEY_ALIAS, CM_KEY_PASSWORD
+      vars:
+        PACKAGE_NAME: 'com.sabido.app'
+    scripts:
+      - name: Instalar dependências
+        script: npm ci
+      - name: Build web (Vite)
+        script: npm run build
+      - name: Sincronizar Android
+        script: |
+          [ -d android ] || npx cap add android
+          npx cap sync android
+      - name: Decodificar keystore
+        script: echo "$CM_KEYSTORE" | base64 --decode > "$CM_BUILD_DIR/keystore.jks"
+      - name: Gerar AAB assinado
+        script: |
+          cd android
+          ./gradlew bundleRelease \
+            -Pandroid.injected.signing.store.file="$CM_BUILD_DIR/keystore.jks" \
+            -Pandroid.injected.signing.store.password="$CM_KEYSTORE_PASSWORD" \
+            -Pandroid.injected.signing.key.alias="$CM_KEY_ALIAS" \
+            -Pandroid.injected.signing.key.password="$CM_KEY_PASSWORD"
+    artifacts:
+      - android/app/build/outputs/**/*.aab
+    # publishing:
+    #   google_play:        # habilitar quando a conta Play estiver pronta
+    #     credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+    #     track: internal    # teste fechado: 12 testers / 14 dias
+
   # TODO(iOS): workflow ios-release exige integrations.app_store_connect,
   # certificados e provisioning — adicionar quando a conta Apple estiver pronta.

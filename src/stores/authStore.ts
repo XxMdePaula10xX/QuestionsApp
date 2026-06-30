@@ -11,6 +11,7 @@ import {
 } from 'firebase/auth'
 import { auth, isFirebaseConfigured } from '@/lib/firebase'
 import { ensureProfile, type OnboardingData } from '@/lib/userRepo'
+import { registerForPush } from '@/lib/push'
 
 interface AuthState {
   user: User | null
@@ -36,6 +37,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       if (user) {
         try {
           await ensureProfile(user)
+          void registerForPush()
         } catch {
           /* offline / regras — ignora */
         }

@@ -6,7 +6,7 @@ import {
   challengeRewardForLevel,
   safeChallengeLevel,
 } from '@/lib/gameConfig'
-import { SPRINT0_CATEGORIES } from '@/lib/categories'
+import { PLAYABLE_CATEGORIES } from '@/lib/categories'
 import { useProfileStore } from '@/stores/profileStore'
 import type { Question } from '@/types/question'
 
@@ -55,7 +55,7 @@ export function useChallengeGame() {
     setPicked(null)
     setSummary(null)
     try {
-      const all = await loadCategories(SPRINT0_CATEGORIES)
+      const all = await loadCategories(PLAYABLE_CATEGORIES)
       const byDiff = {
         facil: shuffle(all.filter((q) => q.difficulty === 'facil')),
         medio: shuffle(all.filter((q) => q.difficulty === 'medio')),

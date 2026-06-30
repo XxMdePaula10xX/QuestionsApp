@@ -19,8 +19,16 @@ export const CATEGORIES: CategoryMeta[] = [
   { id: 'brasil', nome: 'Brasil', emoji: '🇧🇷', color: 'bg-cat-brasil' },
 ]
 
-/** Categorias com conteúdo disponível na amostra do Sprint 0. */
-export const SPRINT0_CATEGORIES: CategoryId[] = ['geografia', 'historia', 'ciencias', 'brasil']
+/** Categorias com conteúdo disponível (as 7 do PRD, a partir do Sprint 4). */
+export const PLAYABLE_CATEGORIES: CategoryId[] = [
+  'geografia',
+  'historia',
+  'ciencias',
+  'esporte',
+  'arte',
+  'entretenimento',
+  'brasil',
+]
 
 export function getCategoryMeta(id: CategoryId): CategoryMeta {
   return CATEGORIES.find((c) => c.id === id) ?? CATEGORIES[0]

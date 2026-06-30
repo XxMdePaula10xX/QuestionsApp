@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "categories": [
     {
       "id": "geografia",
@@ -21,6 +21,27 @@
       "count": 28,
       "version": 1,
       "sha256": "0432cbc93e5c64a3eb7d8b1b53f40bf18c2c0b6b2fc42530cd3e61b647d00947"
+    },
+    {
+      "id": "esporte",
+      "file": "esporte.json",
+      "count": 28,
+      "version": 1,
+      "sha256": "226b89c3168bea2b6d4e03105a4ca2b2f71d9d29409f26be234e5846ffbbd2f0"
+    },
+    {
+      "id": "arte",
+      "file": "arte.json",
+      "count": 28,
+      "version": 1,
+      "sha256": "45be0585f07b43392c2250b15f841bde60f3b5856aff88520e81d677bd8a7b51"
+    },
+    {
+      "id": "entretenimento",
+      "file": "entretenimento.json",
+      "count": 28,
+      "version": 1,
+      "sha256": "9e0d5c199b596cbee476a217483c7be71715be03f5925cc3740e587a203b10d3"
     },
     {
       "id": "brasil",
