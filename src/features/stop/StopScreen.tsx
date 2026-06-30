@@ -68,8 +68,10 @@ export function StopScreen() {
                   if (answered && isCorrect) style = 'bg-green-500 text-white'
                   else if (answered && isPicked) style = 'bg-red-500 text-white'
                   return (
-                    <button key={i} disabled={answered} onClick={() => game.pick(i)} className={`rounded-2xl px-4 py-3 text-left font-medium transition ${style}`}>
-                      {opt}
+                    <button key={i} disabled={answered} onClick={() => game.pick(i)} className={`flex items-center justify-between gap-2 rounded-2xl px-4 py-3 text-left font-medium transition ${style}`}>
+                      <span>{opt}</span>
+                      {answered && isCorrect && <span aria-hidden>✓</span>}
+                      {answered && isPicked && !isCorrect && <span aria-hidden>✗</span>}
                     </button>
                   )
                 })}

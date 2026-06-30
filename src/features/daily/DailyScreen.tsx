@@ -35,8 +35,10 @@ export function DailyScreen() {
           else if (revealed && isPicked) style = 'bg-red-500 text-white'
           else if (revealed) style = 'bg-white text-gray-400 ring-1 ring-black/5'
           return (
-            <button key={i} disabled={revealed} onClick={() => answer(i)} className={`rounded-2xl px-4 py-3 text-left font-medium transition ${style}`}>
-              {opt}
+            <button key={i} disabled={revealed} onClick={() => answer(i)} className={`flex items-center justify-between gap-2 rounded-2xl px-4 py-3 text-left font-medium transition ${style}`}>
+              <span>{opt}</span>
+              {revealed && isCorrect && <span aria-hidden>✓</span>}
+              {revealed && isPicked && !isCorrect && <span aria-hidden>✗</span>}
             </button>
           )
         })}

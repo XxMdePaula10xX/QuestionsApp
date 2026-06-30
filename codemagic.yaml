@@ -67,5 +67,51 @@ workflows:
     #     credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
     #     track: internal    # teste fechado: 12 testers / 14 dias
 
-  # TODO(iOS): workflow ios-release exige integrations.app_store_connect,
-  # certificados e provisioning — adicionar quando a conta Apple estiver pronta.
+  ios-release:
+    name: iOS (TestFlight / App Store)
+    # Runner macOS (você está no Windows; o build iOS roda na nuvem do Codemagic).
+    instance_type: mac_mini_m2
+    max_build_duration: 90
+    integrations:
+      # Configure em Codemagic > Teams > Integrations > App Store Connect (API key).
+      app_store_connect: SabidoASC
+    environment:
+      node: 20
+      xcode: latest
+      cocoapods: default
+      groups:
+        - firebase   # VITE_FIREBASE_* configurados no Codemagic
+      vars:
+        BUNDLE_ID: 'com.sabido.app'
+        APP_STORE_APP_ID: '0000000000'   # ID numérico do app no App Store Connect
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.sabido.app
+    scripts:
+      - name: Instalar dependências
+        script: npm ci
+      - name: Build web (Vite)
+        script: npm run build
+      - name: Adicionar plataforma iOS (se ausente) e sincronizar
+        script: |
+          [ -d ios ] || npx cap add ios
+          npx cap sync ios
+      - name: Injetar Privacy Manifest
+        script: cp resources/PrivacyInfo.xcprivacy ios/App/App/PrivacyInfo.xcprivacy
+      - name: Gerar ícones/splash nativos
+        script: npx @capacitor/assets generate --ios --iconBackgroundColor '#1f66f0' --splashBackgroundColor '#1f66f0' || true
+      - name: Aplicar perfis de assinatura
+        script: xcode-project use-profiles
+      - name: Build IPA assinado
+        script: |
+          xcode-project build-ipa \
+            --workspace ios/App/App.xcworkspace \
+            --scheme App
+    artifacts:
+      - build/ios/ipa/*.ipa
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        # submit_to_app_store: false   # ligue quando for promover de TestFlight p/ produção
+

@@ -85,9 +85,11 @@ export function PlayScreen() {
                       key={i}
                       disabled={answered}
                       onClick={() => game.pick(i)}
-                      className={`rounded-2xl px-4 py-3 text-left font-medium transition active:scale-[0.99] ${style}`}
+                      className={`flex items-center justify-between gap-2 rounded-2xl px-4 py-3 text-left font-medium transition active:scale-[0.99] ${style}`}
                     >
-                      {opt}
+                      <span>{opt}</span>
+                      {answered && isCorrect && <span aria-hidden>✓</span>}
+                      {answered && isPicked && !isCorrect && <span aria-hidden>✗</span>}
                     </button>
                   )
                 })}

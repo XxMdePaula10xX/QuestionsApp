@@ -6,9 +6,11 @@ import { useMatchStore } from '@/stores/matchStore'
 import { useDailyStore } from '@/stores/dailyStore'
 import { Ftue } from '@/features/onboarding/Ftue'
 import { AchievementToast } from '@/features/achievements/AchievementToast'
+import { needsMyTurn } from '@/lib/matchEngine'
 
 const NAV = [
   { to: '/', label: 'Início', emoji: '🏠', end: true },
+  { to: '/desafios', label: 'Desafios', emoji: '⚔️', end: false },
   { to: '/ranking', label: 'Ranking', emoji: '🏆', end: false },
   { to: '/perfil', label: 'Perfil', emoji: '👤', end: false },
 ]
@@ -21,6 +23,8 @@ export function AppLayout() {
   const ftueDone = useProfileStore((s) => s.profile.ftueDone)
   const initMatches = useMatchStore((s) => s.init)
   const loadDaily = useDailyStore((s) => s.load)
+  const myUid = user?.uid ?? 'me'
+  const turnsCount = useMatchStore((s) => s.matches.filter((m) => needsMyTurn(m, myUid)).length)
 
   useEffect(() => {
     const unsub = initAuth()
@@ -51,12 +55,17 @@ export function AppLayout() {
                 to={item.to}
                 end={item.end}
                 className={({ isActive }) =>
-                  `flex flex-col items-center gap-0.5 py-2 text-xs font-medium ${
+                  `relative flex flex-col items-center gap-0.5 py-2 text-xs font-medium ${
                     isActive ? 'text-brand-600' : 'text-gray-400'
                   }`
                 }
               >
                 <span className="text-xl">{item.emoji}</span>
+                {item.to === '/desafios' && turnsCount > 0 && (
+                  <span className="absolute right-[22%] top-1 grid h-4 min-w-4 place-items-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white">
+                    {turnsCount}
+                  </span>
+                )}
                 {item.label}
               </NavLink>
             </li>
