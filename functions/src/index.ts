@@ -459,13 +459,22 @@ export const weeklyLeagueUpdate = onSchedule('10 0 * * 1', async () => {
   const snap = await db.collection('rankings').doc(`weekly_${lastWeek}`).collection('entries').orderBy('score', 'desc').get()
   const n = snap.size
   if (n === 0) return
-  const batch = db.batch()
+  // Commit em lotes de 400 (limite de 500 escritas por batch do Firestore).
+  let batch = db.batch()
+  let count = 0
+  const commits: Promise<unknown>[] = []
   snap.docs.forEach((d, i) => {
     const percentile = 1 - i / n // 1 = topo
     const tier = Math.min(LEAGUE_TIERS - 1, Math.floor(percentile * LEAGUE_TIERS))
     batch.set(db.collection('users').doc(d.id), { league: tier, leagueWeek: lastWeek }, { merge: true })
+    if (++count >= 400) {
+      commits.push(batch.commit())
+      batch = db.batch()
+      count = 0
+    }
   })
-  await batch.commit()
+  if (count > 0) commits.push(batch.commit())
+  await Promise.all(commits)
 })
 
 // =================== #10 Curadoria-Relâmpago ===================
@@ -482,7 +491,9 @@ export const aggregateReports = onSchedule('0 */6 * * *', async () => {
     byQuestion.set(r.questionId, e)
   })
   const suspended: string[] = []
-  const batch = db.batch()
+  let batch = db.batch()
+  let count = 0
+  const commits: Promise<unknown>[] = []
   for (const [questionId, e] of byQuestion) {
     if (e.reporters.size < REPORT_THRESHOLD) continue
     suspended.push(questionId)
@@ -491,11 +502,17 @@ export const aggregateReports = onSchedule('0 */6 * * *', async () => {
       { questionId, reporters: e.reporters.size, reasons: e.reasons, status: 'suspenso', updatedAt: FieldValue.serverTimestamp() },
       { merge: true },
     )
+    if (++count >= 400) {
+      commits.push(batch.commit())
+      batch = db.batch()
+      count = 0
+    }
     // TODO(LLM-juiz): com uma API de LLM, revalidar fato + unicidade e propor
     // enunciado/answerIndex/explanation corrigidos para aprovação em 1 clique,
     // incrementando `version`. Requer chave de API (não incluída no repo).
   }
   // Índice de suspensas lido pelo cliente para excluir do pool (best-effort).
   batch.set(db.collection('curation').doc('_index'), { suspended, updatedAt: FieldValue.serverTimestamp() }, { merge: true })
-  await batch.commit()
+  commits.push(batch.commit())
+  await Promise.all(commits)
 })

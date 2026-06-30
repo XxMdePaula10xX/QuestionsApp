@@ -1,9 +1,9 @@
 import { create } from 'zustand'
 import { httpsCallable } from 'firebase/functions'
 import type { Question } from '@/types/question'
-import { loadCategories } from '@/lib/questionsLoader'
+import { loadCategory } from '@/lib/questionsLoader'
 import { PLAYABLE_CATEGORIES } from '@/lib/categories'
-import { dailyKey, pickDailyQuestion } from '@/lib/daily'
+import { dailyKey, pickDailyCategory, pickDailyQuestion } from '@/lib/daily'
 import { loadJSON, saveJSON } from '@/lib/persist'
 import { functions, isFirebaseConfigured, auth } from '@/lib/firebase'
 import { useProfileStore } from '@/stores/profileStore'
@@ -35,8 +35,10 @@ export const useDailyStore = create<DailyState>((set, get) => ({
 
   load: async () => {
     const date = dailyKey()
-    const all = await loadCategories(PLAYABLE_CATEGORIES)
-    const question = pickDailyQuestion(all, date)
+    // Carrega só a categoria do dia (não o catálogo inteiro) — perf no startup.
+    const cat = pickDailyCategory(date, PLAYABLE_CATEGORIES)
+    const pool = await loadCategory(cat)
+    const question = pickDailyQuestion(pool, date)
     const stored = await loadJSON<DailyPersist | null>('daily', null)
     const answeredToday = stored?.date === date
     set({

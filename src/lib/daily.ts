@@ -1,4 +1,4 @@
-import type { Question } from '@/types/question'
+import type { CategoryId, Question } from '@/types/question'
 import { todayKey } from '@/lib/streak'
 
 /** Chave do dia (fuso local) — base do "Pergunta do Dia". */
@@ -17,15 +17,19 @@ function hashString(s: string): number {
 }
 
 /**
- * Escolhe DETERMINISTICAMENTE a pergunta do dia a partir da data — cliente e
- * servidor chegam à mesma pergunta sem precisar coordenar. Prioriza a categoria
- * "Brasil" (caderno cultural diário), com fallback ao catálogo todo.
+ * Escolhe DETERMINISTICAMENTE a categoria do dia (mesma para todos os devices
+ * com o mesmo manifest), com viés para "Brasil" (caderno cultural diário).
+ * Carregar só 1 categoria evita puxar todo o catálogo no startup.
  */
-export function pickDailyQuestion(all: Question[], dateKey: string): Question | null {
-  if (all.length === 0) return null
-  const h = hashString(dateKey)
-  const brasil = all.filter((q) => q.category === 'brasil')
-  const pool = brasil.length > 0 && h % 3 !== 0 ? brasil : all
-  const sorted = [...pool].sort((a, b) => a.id.localeCompare(b.id)) // ordem estável
-  return sorted[h % sorted.length]
+export function pickDailyCategory(dateKey: string, categories: CategoryId[]): CategoryId {
+  const h = hashString(dateKey + ':cat')
+  if (h % 3 !== 0 && categories.includes('brasil')) return 'brasil'
+  return categories[h % categories.length]
+}
+
+/** Escolhe deterministicamente a pergunta do dia dentro de um conjunto. */
+export function pickDailyQuestion(questions: Question[], dateKey: string): Question | null {
+  if (questions.length === 0) return null
+  const sorted = [...questions].sort((a, b) => a.id.localeCompare(b.id)) // ordem estável
+  return sorted[hashString(dateKey) % sorted.length]
 }
