@@ -41,6 +41,7 @@ function docToMatch(id: string, x: Record<string, unknown>): Match {
     winnerId: (x.winnerId as string | null) ?? null,
     createdAt: (x.createdAt as number) ?? 0,
     expiresAt: (x.expiresAt as number) ?? 0,
+    open: (x.open as boolean) ?? false,
   }
 }
 
@@ -53,6 +54,10 @@ interface MatchState {
   init: (uid: string | null) => void
   /** opponent: uid de um amigo, null = aleatório, 'bot' = treino local. */
   createMatch: (opponent: string | null | 'bot', category: CategoryId | null) => Promise<string>
+  /** Cria um desafio ABERTO por link (online). Retorna o matchId. */
+  createOpenMatch: (category: CategoryId | null) => Promise<string>
+  /** Entra num desafio aberto pelo id (online). */
+  joinOpenMatch: (matchId: string) => Promise<void>
   resolveQuestions: (matchId: string) => Promise<Question[]>
   submitTurn: (matchId: string, answers: number[], timeMs: number) => Promise<Match>
 }
@@ -120,6 +125,18 @@ export const useMatchStore = create<MatchState>((set, get) => ({
     set({ matches })
     await saveJSON(KEY, matches)
     return match.id
+  },
+
+  createOpenMatch: async (category) => {
+    if (!(get().online && functions)) throw new Error('Entre com uma conta para criar um desafio aberto')
+    const res = await httpsCallable<{ category: string | null }, { matchId: string }>(functions, 'createOpenMatch')({ category })
+    return res.data.matchId
+  },
+
+  joinOpenMatch: async (matchId) => {
+    if (!(get().online && functions)) throw new Error('Entre com uma conta para entrar no desafio')
+    await httpsCallable<{ matchId: string }, unknown>(functions, 'joinOpenMatch')({ matchId })
+    // o onSnapshot passará a incluir esta partida (agora você é player).
   },
 
   resolveQuestions: async (matchId) => {

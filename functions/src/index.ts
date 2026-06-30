@@ -219,8 +219,9 @@ export const submitMatchTurn = onCall<SubmitTurnPayload>(async (request) => {
       throw new HttpsError('failed-precondition', 'Partida encerrada')
     }
 
-    const otherUid = match.players.find((p) => p !== uid)!
-    const [mySubSnap, otherSubSnap] = await Promise.all([tx.get(mySubRef), tx.get(matchRef.collection('submissions').doc(otherUid))])
+    const otherUid = match.players.find((p) => p !== uid)
+    const mySubSnap = await tx.get(mySubRef)
+    const otherSubSnap = otherUid ? await tx.get(matchRef.collection('submissions').doc(otherUid)) : null
     if (mySubSnap.exists) return { alreadySubmitted: true } // idempotente (B3)
 
     // Pontua server-side com o gabarito (B1).
@@ -232,7 +233,7 @@ export const submitMatchTurn = onCall<SubmitTurnPayload>(async (request) => {
     const timeMs = 0 // TODO: medir server-side (revisão) — placeholder.
     tx.set(mySubRef, { answers, correct, timeMs, submittedAt: FieldValue.serverTimestamp() })
 
-    if (otherSubSnap.exists) {
+    if (otherUid && otherSubSnap && otherSubSnap.exists) {
       // Ambos terminaram → revela resultado (B2).
       const other = otherSubSnap.data() as { correct: number; timeMs: number }
       const total = match.questionIds.length
@@ -372,4 +373,129 @@ export const respondFriendRequest = onCall<{ fromUid: string; accept: boolean }>
     await reqRef.delete()
   }
   return { ok: true, accepted: accept }
+})
+
+// =================== #5 Pergunta do Dia Nacional ===================
+export const answerDaily = onCall<{ date: string; questionId: string; answerIndex: number }>(async (request) => {
+  const uid = requireAuth(request)
+  const { date, questionId, answerIndex } = request.data
+  if (!date || !questionId) throw new HttpsError('invalid-argument', 'Payload inválido')
+  const key = await loadAnswerKey()
+  const correct = key.get(questionId)?.index === answerIndex
+
+  const ansRef = db.collection('users').doc(uid).collection('dailyAnswers').doc(date)
+  const aggRef = db.collection('daily').doc(date)
+  return db.runTransaction(async (tx) => {
+    const ans = await tx.get(ansRef)
+    const agg = await tx.get(aggRef)
+    let total = (agg.get('total') as number) ?? 0
+    let corr = (agg.get('correct') as number) ?? 0
+    if (!ans.exists) {
+      tx.set(ansRef, { questionId, correct, at: FieldValue.serverTimestamp() })
+      tx.set(aggRef, { questionId, total: FieldValue.increment(1), correct: FieldValue.increment(correct ? 1 : 0), updatedAt: FieldValue.serverTimestamp() }, { merge: true })
+      total += 1
+      corr += correct ? 1 : 0
+    }
+    return { total, correct: corr, pctCorrect: total ? Math.round((corr / total) * 100) : 0 }
+  })
+})
+
+// =================== #2 Desafio Aberto (1-para-muitos) ===================
+function pickQuestionIds(key: Map<string, KeyEntry>, n: number): string[] {
+  const ids = [...key.keys()]
+  for (let i = ids.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[ids[i], ids[j]] = [ids[j], ids[i]]
+  }
+  return ids.slice(0, n)
+}
+
+export const createOpenMatch = onCall<{ category: string | null }>(async (request) => {
+  const uid = requireAuth(request)
+  const key = await loadAnswerKey()
+  const me = await db.collection('users').doc(uid).get()
+  const now = Date.now()
+  const ref = db.collection('matches').doc()
+  await ref.set({
+    players: [uid],
+    playerNames: { [uid]: me.get('displayName') ?? 'Jogador' },
+    category: request.data.category ?? null,
+    questionIds: pickQuestionIds(key, MATCH_QUESTIONS),
+    status: 'WAITING',
+    results: {},
+    winnerId: null,
+    open: true,
+    createdAt: now,
+    expiresAt: now + MATCH_EXPIRY_MS,
+  })
+  return { matchId: ref.id }
+})
+
+export const joinOpenMatch = onCall<{ matchId: string }>(async (request) => {
+  const uid = requireAuth(request)
+  const ref = db.collection('matches').doc(request.data.matchId)
+  return db.runTransaction(async (tx) => {
+    const snap = await tx.get(ref)
+    if (!snap.exists) throw new HttpsError('not-found', 'Desafio não encontrado')
+    const m = snap.data() as { players: string[]; open?: boolean }
+    if (!m.open) throw new HttpsError('failed-precondition', 'Este desafio não é aberto')
+    if (m.players.includes(uid)) return { matchId: request.data.matchId, already: true }
+    if (m.players.length >= 2) throw new HttpsError('failed-precondition', 'Este desafio já tem oponente')
+    const me = await tx.get(db.collection('users').doc(uid))
+    tx.update(ref, {
+      players: [...m.players, uid],
+      [`playerNames.${uid}`]: me.get('displayName') ?? 'Jogador',
+      open: false,
+    })
+    return { matchId: request.data.matchId }
+  })
+})
+
+// =================== #6 Brasileirão de Quiz (ligas) ===================
+const LEAGUE_TIERS = 5 // 0=Várzea ... 4=Libertadores
+/** Atribui ligas pela posição relativa no ranking semanal (percentil). */
+export const weeklyLeagueUpdate = onSchedule('10 0 * * 1', async () => {
+  const lastWeek = weekId(new Date(Date.now() - 7 * 86_400_000))
+  const snap = await db.collection('rankings').doc(`weekly_${lastWeek}`).collection('entries').orderBy('score', 'desc').get()
+  const n = snap.size
+  if (n === 0) return
+  const batch = db.batch()
+  snap.docs.forEach((d, i) => {
+    const percentile = 1 - i / n // 1 = topo
+    const tier = Math.min(LEAGUE_TIERS - 1, Math.floor(percentile * LEAGUE_TIERS))
+    batch.set(db.collection('users').doc(d.id), { league: tier, leagueWeek: lastWeek }, { merge: true })
+  })
+  await batch.commit()
+})
+
+// =================== #10 Curadoria-Relâmpago ===================
+const REPORT_THRESHOLD = 3
+/** Agrega reportes; suspende perguntas acima do limiar e enfileira pra curadoria. */
+export const aggregateReports = onSchedule('0 */6 * * *', async () => {
+  const snap = await db.collection('reports').where('status', '==', 'aberto').get()
+  const byQuestion = new Map<string, { reporters: Set<string>; reasons: Record<string, number> }>()
+  snap.docs.forEach((d) => {
+    const r = d.data() as { questionId: string; uid: string; reason: string }
+    const e = byQuestion.get(r.questionId) ?? { reporters: new Set(), reasons: {} }
+    e.reporters.add(r.uid)
+    e.reasons[r.reason] = (e.reasons[r.reason] ?? 0) + 1
+    byQuestion.set(r.questionId, e)
+  })
+  const suspended: string[] = []
+  const batch = db.batch()
+  for (const [questionId, e] of byQuestion) {
+    if (e.reporters.size < REPORT_THRESHOLD) continue
+    suspended.push(questionId)
+    batch.set(
+      db.collection('curation').doc(questionId),
+      { questionId, reporters: e.reporters.size, reasons: e.reasons, status: 'suspenso', updatedAt: FieldValue.serverTimestamp() },
+      { merge: true },
+    )
+    // TODO(LLM-juiz): com uma API de LLM, revalidar fato + unicidade e propor
+    // enunciado/answerIndex/explanation corrigidos para aprovação em 1 clique,
+    // incrementando `version`. Requer chave de API (não incluída no repo).
+  }
+  // Índice de suspensas lido pelo cliente para excluir do pool (best-effort).
+  batch.set(db.collection('curation').doc('_index'), { suspended, updatedAt: FieldValue.serverTimestamp() }, { merge: true })
+  await batch.commit()
 })

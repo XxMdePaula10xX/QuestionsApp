@@ -4,6 +4,7 @@ import type { GameMode } from '@/types/models'
 import { loadJSON, saveJSON } from '@/lib/persist'
 import { applyPlay, effectiveStreak, type StreakState } from '@/lib/streak'
 import { levelProgress, xpForCorrect } from '@/lib/leveling'
+import { ACHIEVEMENTS, unlockedIds, type Achievement, type AchievementContext } from '@/lib/achievements'
 
 export interface LocalProfile {
   xp: number
@@ -15,6 +16,20 @@ export interface LocalProfile {
   ftueDone: boolean
   /** ids de perguntas já vistas — para NUNCA repetir (#2). */
   seen: string[]
+  /** ids de conquistas desbloqueadas. */
+  achievements: string[]
+}
+
+function buildContext(p: LocalProfile): AchievementContext {
+  return {
+    level: levelProgress(p.xp).level,
+    gamesPlayed: p.stats.gamesPlayed,
+    totalCorrect: p.stats.totalCorrect,
+    streakLongest: p.streak.longest,
+    bestStop: p.bests.stop,
+    bestChallengeLevel: p.bests.challengeLevel,
+    statsByCategory: p.statsByCategory,
+  }
 }
 
 const EMPTY: LocalProfile = {
@@ -25,6 +40,7 @@ const EMPTY: LocalProfile = {
   streak: { current: 0, longest: 0, lastPlayedDate: null },
   ftueDone: false,
   seen: [],
+  achievements: [],
 }
 
 const KEY = 'profile'
@@ -44,6 +60,9 @@ interface ProfileState {
   loaded: boolean
   /** Set das perguntas vistas (memoizado por referência de `seen`). */
   seenRef: { arr: string[]; set: Set<string> }
+  /** conquistas recém-desbloqueadas, para o toast (transiente). */
+  justUnlocked: Achievement[]
+  clearJustUnlocked: () => void
   load: () => Promise<void>
   recordGameResult: (r: GameResult) => Promise<void>
   /** Marca perguntas como vistas (chamado pelos modos ao apresentá-las). */
@@ -59,6 +78,9 @@ export const useProfileStore = create<ProfileState>((set, get) => ({
   profile: EMPTY,
   loaded: false,
   seenRef: { arr: [], set: new Set() },
+  justUnlocked: [],
+
+  clearJustUnlocked: () => set({ justUnlocked: [] }),
 
   load: async () => {
     const stored = await loadJSON<LocalProfile>(KEY, EMPTY)
@@ -91,7 +113,16 @@ export const useProfileStore = create<ProfileState>((set, get) => ({
       },
       streak: applyPlay(p.streak),
     }
-    set({ profile: next })
+    // Avalia conquistas com o estado já atualizado.
+    const nowUnlocked = unlockedIds(buildContext(next))
+    const fresh = nowUnlocked.filter((id) => !next.achievements.includes(id))
+    if (fresh.length > 0) {
+      next.achievements = [...next.achievements, ...fresh]
+      const objs = ACHIEVEMENTS.filter((a) => fresh.includes(a.id))
+      set({ profile: next, justUnlocked: [...get().justUnlocked, ...objs] })
+    } else {
+      set({ profile: next })
+    }
     await saveJSON(KEY, next)
   },
 

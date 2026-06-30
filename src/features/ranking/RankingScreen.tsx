@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { fetchRanking, type RankingScope } from '@/lib/rankingRepo'
 import { isFirebaseConfigured } from '@/lib/firebase'
 import { useProfileStore } from '@/stores/profileStore'
@@ -39,6 +40,11 @@ export function RankingScreen() {
   return (
     <div className="flex flex-col gap-5">
       <h1 className="text-2xl font-bold text-brand-700">Ranking</h1>
+
+      <Link to="/ligas" className="card flex items-center justify-between bg-gradient-to-r from-brand-600 to-brand-800 text-white">
+        <span className="font-bold">🏆 Brasileirão de Quiz</span>
+        <span className="text-sm text-brand-100">Sua liga →</span>
+      </Link>
 
       {/* Suas marcas locais — sempre visíveis. */}
       <div className="card flex justify-around text-center">

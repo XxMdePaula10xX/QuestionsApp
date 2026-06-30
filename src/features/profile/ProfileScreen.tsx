@@ -90,6 +90,13 @@ export function ProfileScreen() {
         <span className="text-brand-600">Ver →</span>
       </Link>
 
+      <Link to="/conquistas" className="card flex items-center justify-between">
+        <span className="font-semibold text-gray-800">
+          🏅 Conquistas <span className="text-sm text-gray-400">({profile.achievements.length})</span>
+        </span>
+        <span className="text-brand-600">Ver →</span>
+      </Link>
+
       {user ? (
         <>
           <button className="btn-ghost bg-red-50 text-red-600 hover:bg-red-100" onClick={() => signOut()}>

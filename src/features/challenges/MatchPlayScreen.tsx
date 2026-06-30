@@ -113,15 +113,34 @@ export function MatchPlayScreen() {
 }
 
 function WaitingView({ match, me }: { match: Match; me: string }) {
-  const opp = match.players.find((p) => p !== me) ?? '?'
+  const opp = match.players.find((p) => p !== me)
+  const isOpen = match.open && match.players.length < 2
+  const link = `${window.location.origin}/entrar/${match.id}`
+
+  function share() {
+    const text = `Te desafiei no Sabido! Bate meu placar: ${link}`
+    if (navigator.share) navigator.share({ title: 'Sabido', text, url: link }).catch(() => {})
+    else navigator.clipboard?.writeText(link)
+  }
+
   return (
     <Centered>
-      <span className="text-5xl">⏳</span>
+      <span className="text-5xl">{isOpen ? '🔗' : '⏳'}</span>
       <p className="mt-3 text-lg font-bold text-gray-800">Respostas enviadas!</p>
-      <p className="mt-1 text-sm text-gray-500">
-        Aguardando {match.playerNames[opp] ?? 'o oponente'} jogar. Você será avisado quando terminar.
-      </p>
-      <Link to="/desafios" className="btn-primary mt-6">
+      {isOpen ? (
+        <>
+          <p className="mt-1 text-sm text-gray-500">Mande o link no grupo — quem aceitar joga as MESMAS perguntas e tenta te superar.</p>
+          <button className="btn-primary mt-6" onClick={share}>
+            🔗 Compartilhar desafio
+          </button>
+          <p className="mt-2 max-w-full truncate text-xs text-gray-400">{link}</p>
+        </>
+      ) : (
+        <p className="mt-1 text-sm text-gray-500">
+          Aguardando {(opp && match.playerNames[opp]) ?? 'o oponente'} jogar. Você será avisado quando terminar.
+        </p>
+      )}
+      <Link to="/desafios" className="mt-6 text-sm text-brand-600">
         Voltar aos desafios
       </Link>
     </Centered>

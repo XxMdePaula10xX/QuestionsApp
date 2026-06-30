@@ -32,6 +32,8 @@ export interface UserProfile {
   }
   createdAt: number
   schemaVersion: number
+  /** liga atual (0=Várzea ... 4=Libertadores) — atribuída por Cloud Function. */
+  league?: number
 }
 
 /** users/{uid}/private/{uid} — PII, read só do próprio uid (blocker B4). */
@@ -97,6 +99,8 @@ export interface Match {
   expiresAt: number
   /** marca partidas locais contra o bot (fallback offline). */
   isBot?: boolean
+  /** desafio aberto por link (1-para-muitos) até alguém entrar. */
+  open?: boolean
 }
 
 /** matches/{id}/submissions/{uid} — privado, read só do próprio uid. */

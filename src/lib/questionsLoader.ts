@@ -1,5 +1,6 @@
 import { getBytes, ref } from 'firebase/storage'
-import { storage, isFirebaseConfigured } from '@/lib/firebase'
+import { doc, getDoc } from 'firebase/firestore'
+import { db, storage, isFirebaseConfigured } from '@/lib/firebase'
 import { cacheRead, cacheWrite } from '@/lib/questionsCache'
 import type { CategoryFile, CategoryId, Question, QuestionsManifest } from '@/types/question'
 
@@ -17,6 +18,19 @@ const STORAGE_TIMEOUT_MS = 5000
 
 const manifestCache: { value: QuestionsManifest | null } = { value: null }
 const categoryCache = new Map<CategoryId, Question[]>()
+
+// Perguntas suspensas pela curadoria (#10) — excluídas do pool. Best-effort.
+const suspended = new Set<string>()
+async function refreshSuspended(): Promise<void> {
+  if (!isFirebaseConfigured || !db) return
+  try {
+    const snap = await getDoc(doc(db, 'curation', '_index'))
+    const list = snap.data()?.suspended as string[] | undefined
+    list?.forEach((id) => suspended.add(id))
+  } catch {
+    /* sem permissão/offline — ignora */
+  }
+}
 
 async function fetchBundle<T>(file: string): Promise<T> {
   const res = await fetch(`${BUNDLE_BASE}/${file}`)
@@ -48,6 +62,7 @@ export async function loadManifest(): Promise<QuestionsManifest> {
   void fetchFromStorage<QuestionsManifest>('manifest.json').then((remote) => {
     if (remote) manifestCache.value = remote
   })
+  void refreshSuspended()
   return manifest
 }
 
@@ -70,6 +85,7 @@ export async function loadCategory(categoryId: CategoryId): Promise<Question[]> 
     questions = file.questions
     void cacheWrite(entry.file, file)
   }
+  if (suspended.size > 0) questions = questions.filter((q) => !suspended.has(q.id))
   categoryCache.set(categoryId, questions)
 
   // 3. Refresh do Storage em segundo plano — atualiza o cache p/ a próxima vez.

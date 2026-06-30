@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { useAuthStore } from '@/stores/authStore'
 import { useProfileStore } from '@/stores/profileStore'
 import { useMatchStore } from '@/stores/matchStore'
+import { useDailyStore } from '@/stores/dailyStore'
 import { levelProgress } from '@/lib/leveling'
 
 interface ModeCard {
@@ -18,6 +19,7 @@ const MODES: ModeCard[] = [
   { to: '/jogar/stop', title: 'Stop', desc: 'Contra o tempo', emoji: '⏱️', available: true },
   { to: '/jogar/challenge', title: 'Challenge', desc: 'Escada de dificuldade', emoji: '🪜', available: true },
   { to: '/desafios', title: 'Desafio', desc: 'Contra um amigo', emoji: '⚔️', available: true },
+  { to: '/sala', title: 'Sala', desc: 'Ao vivo com a galera', emoji: '🎉', available: true },
 ]
 
 export function HomeScreen() {
@@ -26,6 +28,7 @@ export function HomeScreen() {
   const streak = useProfileStore((s) => s.currentStreak())
   const prog = levelProgress(profile.xp)
   const yourTurn = useMatchStore((s) => s.matches.filter((m) => m.status === 'WAITING').length)
+  const dailyAnswered = useDailyStore((s) => s.answeredToday)
 
   return (
     <div className="flex flex-col gap-6">
@@ -54,6 +57,18 @@ export function HomeScreen() {
           {prog.intoLevel}/{prog.span} XP para o nível {prog.level + 1}
         </span>
       </div>
+
+      {/* Pergunta do Dia (ideia #5) */}
+      <Link to="/diaria" className={`card flex items-center justify-between ${dailyAnswered ? 'opacity-70' : 'ring-2 ring-brand-300'}`}>
+        <div className="flex items-center gap-3">
+          <span className="text-3xl">⭐</span>
+          <div>
+            <p className="font-bold text-gray-800">Pergunta do Dia</p>
+            <p className="text-xs text-gray-500">{dailyAnswered ? 'Você já respondeu hoje ✓' : 'A mesma para o Brasil inteiro'}</p>
+          </div>
+        </div>
+        {!dailyAnswered && <span className="rounded-full bg-brand-600 px-3 py-1 text-xs font-bold text-white">Jogar</span>}
+      </Link>
 
       <section>
         <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-400">Modos de jogo</h2>

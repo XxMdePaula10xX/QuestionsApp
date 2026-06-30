@@ -95,6 +95,30 @@ service cloud.firestore {
       allow read, update, delete: if false; // curadoria via console/admin.
     }
 
+    // -------- Salas (modo presencial ao vivo, casual/não-ranqueado) --------
+    match /rooms/{code} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && request.resource.data.hostUid == request.auth.uid;
+      allow update: if isSignedIn() && resource.data.hostUid == request.auth.uid; // só o anfitrião conduz
+      allow delete: if false;
+      match /players/{uid} {
+        allow read: if isSignedIn();
+        allow write: if isOwner(uid); // cada jogador escreve só o próprio doc
+      }
+    }
+
+    // -------- Curadoria (suspensão de perguntas reportadas) --------
+    match /curation/{docId} {
+      allow read: if isSignedIn();
+      allow write: if false; // só Cloud Function
+    }
+
+    // -------- Pergunta do Dia (agregado nacional) --------
+    match /daily/{date} {
+      allow read: if isSignedIn();
+      allow write: if false; // só Cloud Function (answerDaily)
+    }
+
     // -------- Config (manifest etc.) --------
     match /config/{docId} {
       allow read: if isSignedIn();

@@ -13,7 +13,7 @@ function meUid() {
 
 export function ChallengesScreen() {
   const navigate = useNavigate()
-  const { matches, loaded, online, createMatch } = useMatchStore()
+  const { matches, loaded, online, createMatch, createOpenMatch } = useMatchStore()
   const user = useAuthStore((s) => s.user)
   const [choosing, setChoosing] = useState(false)
   const [friends, setFriends] = useState<Friend[]>([])
@@ -34,6 +34,20 @@ export function ChallengesScreen() {
     } catch (e) {
       const msg = e instanceof Error ? e.message : 'Erro ao criar desafio'
       setError(/oponente/i.test(msg) ? 'Ainda não há outros jogadores. Convide um amigo ou crie uma segunda conta para testar.' : msg)
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  async function startOpen() {
+    setBusy(true)
+    setError(null)
+    try {
+      const id = await createOpenMatch(null)
+      setChoosing(false)
+      navigate(`/desafios/${id}`)
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Erro ao criar desafio aberto')
     } finally {
       setBusy(false)
     }
@@ -64,6 +78,9 @@ export function ChallengesScreen() {
             <>
               <button className="rounded-2xl bg-brand-50 px-4 py-3 text-left font-medium text-brand-700" disabled={busy} onClick={() => start(null)}>
                 🎲 Oponente aleatório
+              </button>
+              <button className="rounded-2xl bg-brand-50 px-4 py-3 text-left font-medium text-brand-700" disabled={busy} onClick={startOpen}>
+                🔗 Desafio aberto (mandar link no grupo)
               </button>
               {friends.map((f) => (
                 <button key={f.uid} className="rounded-2xl bg-black/5 px-4 py-3 text-left font-medium text-gray-700" disabled={busy} onClick={() => start(f.uid)}>
