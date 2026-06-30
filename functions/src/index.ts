@@ -16,6 +16,7 @@ import { initializeApp } from 'firebase-admin/app'
 import { getFirestore, FieldValue, type Transaction } from 'firebase-admin/firestore'
 import { getStorage } from 'firebase-admin/storage'
 import { getMessaging } from 'firebase-admin/messaging'
+import { getAuth } from 'firebase-admin/auth'
 
 initializeApp()
 const db = getFirestore()
@@ -309,6 +310,33 @@ export const sendFriendRequest = onCall<{ toUid: string }>(async (request) => {
     createdAt: Date.now(),
   })
   await notify(toUid, 'Pedido de amizade 👋', `${me.get('displayName') ?? 'Alguém'} quer ser seu amigo.`)
+  return { ok: true }
+})
+
+// =================== Exclusão de conta (LGPD art. 18 — blocker B4) ===================
+export const deleteAccount = onCall(async (request) => {
+  const uid = requireAuth(request)
+
+  // 1. Remove a amizade do lado dos amigos (relação é mútua).
+  const friendsSnap = await db.collection('users').doc(uid).collection('friends').get()
+  await Promise.all(
+    friendsSnap.docs.map((d) => db.collection('users').doc(d.id).collection('friends').doc(uid).delete().catch(() => {})),
+  )
+
+  // 2. Remove as entradas de ranking em todos os escopos.
+  const scopes = await db.collection('rankings').listDocuments()
+  await Promise.all(scopes.map((s) => s.collection('entries').doc(uid).delete().catch(() => {})))
+
+  // 3. Remove os reportes feitos pelo usuário.
+  const reportsSnap = await db.collection('reports').where('uid', '==', uid).get()
+  await Promise.all(reportsSnap.docs.map((d) => d.ref.delete().catch(() => {})))
+
+  // 4. Apaga o doc do usuário + subcoleções (private, sessions, friends, tokens, friendRequests).
+  await db.recursiveDelete(db.collection('users').doc(uid))
+
+  // 5. Apaga a conta de autenticação.
+  await getAuth().deleteUser(uid)
+
   return { ok: true }
 })
 

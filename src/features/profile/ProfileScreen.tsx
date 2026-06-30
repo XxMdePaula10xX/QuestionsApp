@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuthStore } from '@/stores/authStore'
 import { useProfileStore } from '@/stores/profileStore'
@@ -8,8 +9,26 @@ import type { CategoryId } from '@/types/question'
 export function ProfileScreen() {
   const user = useAuthStore((s) => s.user)
   const signOut = useAuthStore((s) => s.signOut)
+  const deleteAccount = useAuthStore((s) => s.deleteAccount)
   const profile = useProfileStore((s) => s.profile)
   const resetProgress = useProfileStore((s) => s.resetProgress)
+  const [confirmDelete, setConfirmDelete] = useState(false)
+  const [deleting, setDeleting] = useState(false)
+  const [delError, setDelError] = useState<string | null>(null)
+
+  async function handleDelete() {
+    setDeleting(true)
+    setDelError(null)
+    try {
+      await deleteAccount()
+      await resetProgress()
+    } catch (e) {
+      setDelError(e instanceof Error ? e.message : 'Não foi possível excluir a conta.')
+    } finally {
+      setDeleting(false)
+      setConfirmDelete(false)
+    }
+  }
 
   const prog = levelProgress(profile.xp)
   const acc =
@@ -72,9 +91,37 @@ export function ProfileScreen() {
       </Link>
 
       {user ? (
-        <button className="btn-ghost bg-red-50 text-red-600 hover:bg-red-100" onClick={() => signOut()}>
-          Sair da conta
-        </button>
+        <>
+          <button className="btn-ghost bg-red-50 text-red-600 hover:bg-red-100" onClick={() => signOut()}>
+            Sair da conta
+          </button>
+
+          {!confirmDelete ? (
+            <button className="text-xs text-red-400 underline" onClick={() => setConfirmDelete(true)}>
+              Excluir minha conta
+            </button>
+          ) : (
+            <div className="card flex flex-col gap-3 ring-1 ring-red-200">
+              <p className="text-sm text-gray-700">
+                Isso apaga sua conta, perfil, estatísticas, amizades e posição nos rankings.{' '}
+                <strong>Não dá para desfazer.</strong>
+              </p>
+              {delError && <p className="text-xs text-red-500">{delError}</p>}
+              <div className="flex gap-2">
+                <button
+                  className="btn flex-1 bg-red-600 text-white disabled:opacity-50"
+                  disabled={deleting}
+                  onClick={handleDelete}
+                >
+                  {deleting ? 'Excluindo…' : 'Excluir definitivamente'}
+                </button>
+                <button className="btn flex-1 bg-black/5 text-gray-600" disabled={deleting} onClick={() => setConfirmDelete(false)}>
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          )}
+        </>
       ) : (
         <a href="/login" className="btn-primary">
           Entrar
