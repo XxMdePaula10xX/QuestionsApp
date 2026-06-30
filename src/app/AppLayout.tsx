@@ -13,17 +13,22 @@ const NAV = [
 
 export function AppLayout() {
   const initAuth = useAuthStore((s) => s.init)
+  const user = useAuthStore((s) => s.user)
   const loadProfile = useProfileStore((s) => s.load)
   const profileLoaded = useProfileStore((s) => s.loaded)
   const ftueDone = useProfileStore((s) => s.profile.ftueDone)
-  const loadMatches = useMatchStore((s) => s.load)
+  const initMatches = useMatchStore((s) => s.init)
 
   useEffect(() => {
     const unsub = initAuth()
     loadProfile()
-    loadMatches()
     return unsub
-  }, [initAuth, loadProfile, loadMatches])
+  }, [initAuth, loadProfile])
+
+  // (Re)conecta a fonte de partidas conforme o login (Firestore quando logado).
+  useEffect(() => {
+    initMatches(user?.uid ?? null)
+  }, [user, initMatches])
 
   return (
     <div className="mx-auto flex min-h-full max-w-md flex-col bg-gradient-to-b from-brand-50 to-white">

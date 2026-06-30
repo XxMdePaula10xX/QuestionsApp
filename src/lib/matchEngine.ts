@@ -1,5 +1,18 @@
 import type { Question } from '@/types/question'
-import type { MatchResult } from '@/types/models'
+import type { Match, MatchResult } from '@/types/models'
+
+/** É a vez deste jogador? (precisa jogar seu turno) */
+export function needsMyTurn(match: Match, uid: string): boolean {
+  if (match.status === 'WAITING') return true
+  if (match.status === 'A_DONE') return uid === match.players[1]
+  if (match.status === 'B_DONE') return uid === match.players[0]
+  return false
+}
+
+/** Partida encerrada (com resultado)? */
+export function isFinished(match: Match): boolean {
+  return match.status === 'FINISHED' || match.status === 'EXPIRED'
+}
 
 /**
  * Lógica pura do desafio assíncrono (mesma regra usada na Cloud Function).

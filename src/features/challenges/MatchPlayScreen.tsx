@@ -2,52 +2,48 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useMatchStore } from '@/stores/matchStore'
-import { auth } from '@/lib/firebase'
+import { useAuthStore } from '@/stores/authStore'
+import { needsMyTurn, isFinished } from '@/lib/matchEngine'
 import type { Match } from '@/types/models'
 import type { Question } from '@/types/question'
 
 function meUid() {
-  return auth?.currentUser?.uid ?? 'me'
+  return useAuthStore.getState().user?.uid ?? 'me'
 }
 
 export function MatchPlayScreen() {
   const { matchId } = useParams()
   const navigate = useNavigate()
-  const { matches, loaded, load, resolveQuestions, submitTurn } = useMatchStore()
+  const { matches, loaded, resolveQuestions, submitTurn } = useMatchStore()
 
   const [questions, setQuestions] = useState<Question[] | null>(null)
   const [index, setIndex] = useState(0)
   const [answers, setAnswers] = useState<number[]>([])
-  const [result, setResult] = useState<Match | null>(null)
+  const [submitted, setSubmitted] = useState(false)
   const startRef = useRef<number>(0)
 
-  useEffect(() => {
-    if (!loaded) load()
-  }, [loaded, load])
-
   const match = matches.find((m) => m.id === matchId)
+  const me = meUid()
+  const myTurn = match ? needsMyTurn(match, me) : false
 
-  // Partida já finalizada → mostra resultado direto.
+  // Carrega perguntas quando é a vez do jogador.
   useEffect(() => {
-    if (match && match.status === 'FINISHED') setResult(match)
-  }, [match])
-
-  // Carrega perguntas para jogar o turno.
-  useEffect(() => {
-    if (match && match.status === 'WAITING' && !questions && matchId) {
+    if (match && myTurn && !questions && matchId) {
       resolveQuestions(matchId).then((qs) => {
         setQuestions(qs)
         startRef.current = Date.now()
       })
     }
-  }, [match, questions, matchId, resolveQuestions])
+  }, [match, myTurn, questions, matchId, resolveQuestions])
 
-  if (!loaded) return <div className="p-6 text-center text-gray-400">Carregando…</div>
+  if (!loaded) return <Centered>Carregando…</Centered>
   if (!match) return <NotFound />
 
-  if (result) return <ResultView match={result} navigate={navigate} />
-
-  if (!questions) return <div className="p-6 text-center text-gray-400">Preparando desafio…</div>
+  // Encerrada → resultado.
+  if (isFinished(match)) return <ResultView match={match} navigate={navigate} />
+  // Já joguei e aguardo o oponente.
+  if (submitted || !myTurn) return <WaitingView match={match} me={me} />
+  if (!questions) return <Centered>Preparando desafio…</Centered>
 
   const q = questions[index]
   const picked = answers[index]
@@ -67,9 +63,9 @@ export function MatchPlayScreen() {
       return
     }
     const timeMs = Date.now() - startRef.current
-    const filled = questions!.map((_, i) => (answers[i] ?? -1))
-    const finished = await submitTurn(matchId!, filled, timeMs)
-    setResult(finished)
+    const filled = questions!.map((_, i) => answers[i] ?? -1)
+    setSubmitted(true)
+    await submitTurn(matchId!, filled, timeMs)
   }
 
   return (
@@ -111,9 +107,24 @@ export function MatchPlayScreen() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Em modos competitivos não revelamos o gabarito durante a partida (B1). */}
       <p className="text-center text-xs text-gray-300">O resultado aparece quando os dois jogadores terminam.</p>
     </div>
+  )
+}
+
+function WaitingView({ match, me }: { match: Match; me: string }) {
+  const opp = match.players.find((p) => p !== me) ?? '?'
+  return (
+    <Centered>
+      <span className="text-5xl">⏳</span>
+      <p className="mt-3 text-lg font-bold text-gray-800">Respostas enviadas!</p>
+      <p className="mt-1 text-sm text-gray-500">
+        Aguardando {match.playerNames[opp] ?? 'o oponente'} jogar. Você será avisado quando terminar.
+      </p>
+      <Link to="/desafios" className="btn-primary mt-6">
+        Voltar aos desafios
+      </Link>
+    </Centered>
   )
 }
 
@@ -158,14 +169,18 @@ function Score({ name, res, highlight }: { name: string; res?: { correct: number
   )
 }
 
+function Centered({ children }: { children: React.ReactNode }) {
+  return <div className="flex min-h-[70vh] flex-col items-center justify-center gap-1 p-10 text-center">{children}</div>
+}
+
 function NotFound() {
   return (
-    <div className="flex flex-col items-center gap-4 p-10 text-center text-gray-400">
+    <Centered>
       <span className="text-4xl">🤔</span>
-      <p>Desafio não encontrado.</p>
-      <Link to="/desafios" className="text-brand-600">
+      <p className="mt-2 text-gray-500">Desafio não encontrado.</p>
+      <Link to="/desafios" className="mt-3 text-brand-600">
         Voltar
       </Link>
-    </div>
+    </Centered>
   )
 }
