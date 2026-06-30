@@ -15,6 +15,18 @@ export interface OnboardingData {
   birthYear: number
 }
 
+/** handle a partir do nome + sufixo do uid (uniqueness real é validada na Function). */
+function makeUsername(displayName: string, uid: string): string {
+  const base =
+    displayName
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[̀-ͯ]/g, '')
+      .replace(/[^a-z0-9]/g, '')
+      .slice(0, 12) || 'jogador'
+  return `${base}${uid.slice(0, 4).toLowerCase()}`
+}
+
 export async function ensureProfile(user: User, onboarding?: OnboardingData): Promise<void> {
   if (!db) return
   const ref = doc(db, 'users', user.uid)
@@ -23,6 +35,7 @@ export async function ensureProfile(user: User, onboarding?: OnboardingData): Pr
     const profile: UserProfile = {
       uid: user.uid,
       displayName: user.displayName ?? 'Jogador',
+      username: makeUsername(user.displayName ?? 'jogador', user.uid),
       photoURL: user.photoURL ?? null,
       level: 1,
       xp: 0,

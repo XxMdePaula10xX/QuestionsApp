@@ -23,6 +23,10 @@ export const GAME_CONFIG = {
     medio: 200,
     dificil: 300,
   },
+
+  /** Desafio assíncrono: perguntas por partida e expiração (W.O.). */
+  matchQuestionCount: 5,
+  matchExpiryDays: 3,
 } as const
 
 export type Difficulty = keyof typeof GAME_CONFIG.pointsByDifficulty

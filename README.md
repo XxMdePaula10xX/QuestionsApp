@@ -2,7 +2,7 @@
 
 Quiz de perguntas e respostas em PT-BR. App mobile (Android/iOS via Capacitor) + web.
 
-> **Status:** Sprint 2 concluído (modos Stop e Challenge + pontuação via Cloud Function + rankings + App Check). Veja o [`PRD.md`](./PRD.md) e o parecer de revisão em [`PRD-REVIEW.md`](./PRD-REVIEW.md).
+> **Status:** Sprint 3 concluído (desafio assíncrono + amizades + Functions de match/W.O./snapshot semanal). Veja o [`PRD.md`](./PRD.md) e o parecer de revisão em [`PRD-REVIEW.md`](./PRD-REVIEW.md).
 
 ---
 
@@ -119,10 +119,17 @@ A Function lê o gabarito de `questions/*.json` no **Cloud Storage**. Após `fir
 gsutil -m cp -r public/questions gs://<seu-bucket>/questions
 ```
 
-## Próximos passos (Sprint 3)
+## Sprint 3 — concluído ✅
 
-- **Amizades** (busca por username + deep link de convite) — definir mútua vs. follow.
-- **Desafio assíncrono** (`submitMatchTurn` com revelação cega, B2) + estado `EXPIRED`/W.O.
-- Rankings **Semanal** (snapshot agendado) + **Entre amigos**; push (FCM) de turno.
+- **Desafio assíncrono** jogável (tela de Desafios, turno, resultado). Offline: contra um **bot**; em produção, via Cloud Functions com **revelação cega (B2)**.
+- Cloud Functions: `createMatch` (matchmaking server-side), `submitMatchTurn` (pontua server-side, revela só ao FINISHED), `expireMatches` (W.O. agendado), `weeklyRankingSnapshot` (snapshot semanal), `sendFriendRequest`/`respondFriendRequest` (amizade **mútua** nos dois lados).
+- Tela de **Amigos**: link de convite (deep link), busca por **username**, pedidos pendentes.
+- Rules endurecidas: matches/submissões/amizades **só via Function**; tokens FCM por usuário.
+- Push (FCM): `notify()` server-side pronto (envia para `users/{uid}/tokens`).
+
+## Próximos passos (Sprint 4)
+
 - Loader lendo do **Storage** + cache no **Capacitor Filesystem** + delta updates.
-- Expandir a base de perguntas (~1.000+) com fonte autoritativa (B5).
+- Expandir a base de perguntas (~5.000) com **fonte autoritativa** por categoria (B5).
+- **Reporte de perguntas** + fila de curadoria; registro do token FCM no cliente (service worker + VAPID).
+- Polimento, empty states, e **publicação** (teste fechado Google Play: 12 testers/14 dias).

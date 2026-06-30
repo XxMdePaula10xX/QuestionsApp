@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import { useAuthStore } from '@/stores/authStore'
 import { useProfileStore } from '@/stores/profileStore'
+import { useMatchStore } from '@/stores/matchStore'
 import { Ftue } from '@/features/onboarding/Ftue'
 
 const NAV = [
@@ -15,12 +16,14 @@ export function AppLayout() {
   const loadProfile = useProfileStore((s) => s.load)
   const profileLoaded = useProfileStore((s) => s.loaded)
   const ftueDone = useProfileStore((s) => s.profile.ftueDone)
+  const loadMatches = useMatchStore((s) => s.load)
 
   useEffect(() => {
     const unsub = initAuth()
     loadProfile()
+    loadMatches()
     return unsub
-  }, [initAuth, loadProfile])
+  }, [initAuth, loadProfile, loadMatches])
 
   return (
     <div className="mx-auto flex min-h-full max-w-md flex-col bg-gradient-to-b from-brand-50 to-white">

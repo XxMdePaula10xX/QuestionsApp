@@ -10,6 +10,14 @@
       ]
     },
     {
+      "collectionGroup": "matches",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "status", "order": "ASCENDING" },
+        { "fieldPath": "expiresAt", "order": "ASCENDING" }
+      ]
+    },
+    {
       "collectionGroup": "entries",
       "queryScope": "COLLECTION",
       "fields": [{ "fieldPath": "score", "order": "DESCENDING" }]

@@ -6,6 +6,9 @@ import { StopScreen } from '@/features/stop/StopScreen'
 import { ChallengeScreen } from '@/features/challenge/ChallengeScreen'
 import { RankingScreen } from '@/features/ranking/RankingScreen'
 import { ProfileScreen } from '@/features/profile/ProfileScreen'
+import { ChallengesScreen } from '@/features/challenges/ChallengesScreen'
+import { MatchPlayScreen } from '@/features/challenges/MatchPlayScreen'
+import { FriendsScreen } from '@/features/friends/FriendsScreen'
 import { LoginScreen } from '@/features/auth/LoginScreen'
 
 /**
@@ -24,6 +27,9 @@ export const router = createBrowserRouter([
       { path: 'jogar/normal', element: <PlayScreen /> },
       { path: 'jogar/stop', element: <StopScreen /> },
       { path: 'jogar/challenge', element: <ChallengeScreen /> },
+      { path: 'desafios', element: <ChallengesScreen /> },
+      { path: 'desafios/:matchId', element: <MatchPlayScreen /> },
+      { path: 'amigos', element: <FriendsScreen /> },
       { path: 'ranking', element: <RankingScreen /> },
       { path: 'perfil', element: <ProfileScreen /> },
       { path: '*', element: <Navigate to="/" replace /> },

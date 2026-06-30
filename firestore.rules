@@ -47,10 +47,19 @@ service cloud.firestore {
         allow read, write: if isOwner(uid);
       }
 
-      // Amizades.
+      // Amizades mútuas — escritas nos DOIS lados pela Cloud Function.
       match /friends/{friendUid} {
         allow read: if isSignedIn();
-        allow write: if isOwner(uid); // TODO: escrever os dois lados via Function se mútua.
+        allow write: if false;
+      }
+      // Pedidos de amizade — criados/respondidos via Function; dono só lê.
+      match /friendRequests/{fromUid} {
+        allow read: if isOwner(uid);
+        allow write: if false;
+      }
+      // Tokens FCM do próprio usuário (push "sua vez").
+      match /tokens/{token} {
+        allow read, write: if isOwner(uid);
       }
     }
 
@@ -59,21 +68,14 @@ service cloud.firestore {
       // Só os 2 players leem o doc (que contém apenas campos públicos).
       allow read: if isSignedIn() && request.auth.uid in resource.data.players;
 
-      // Criação por um player, partida nova e sem resultado/vencedor.
-      allow create: if isSignedIn()
-        && request.auth.uid in request.resource.data.players
-        && request.resource.data.players.size() == 2
-        && request.resource.data.status == 'WAITING'
-        && !('winnerId' in request.resource.data && request.resource.data.winnerId != null);
-
-      // Transições de estado/resultado: SOMENTE Cloud Function.
-      allow update, delete: if false;
+      // Criação e transições: SOMENTE Cloud Function (createMatch/submitMatchTurn).
+      allow create, update, delete: if false;
 
       // Submissões isoladas por jogador (revelação cega — B2).
+      // Escrita só pela Function (pontua server-side); cada jogador lê só a sua.
       match /submissions/{uid} {
-        allow read: if isOwner(uid);          // ninguém lê a do oponente
-        allow create: if isOwner(uid);        // create-only
-        allow update, delete: if false;       // Function consolida o resultado
+        allow read: if isOwner(uid);    // ninguém lê a do oponente
+        allow write: if false;          // Function consolida o resultado
       }
     }
 

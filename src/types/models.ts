@@ -13,6 +13,8 @@ export type GameMode = 'normal' | 'stop' | 'challenge'
 export interface UserProfile {
   uid: string
   displayName: string
+  /** handle único para busca/convite de amigos. */
+  username: string
   photoURL: string | null
   level: number
   xp: number
@@ -48,6 +50,61 @@ export interface RankingEntry {
   photoURL: string | null
   score: number
   updatedAt: number
+}
+
+/** users/{uid}/friends/{friendUid} — amizade mútua. */
+export interface Friend {
+  uid: string
+  displayName: string
+  username: string
+  photoURL: string | null
+  since: number
+}
+
+/** users/{uid}/friendRequests/{fromUid} — pedido (escrito por Cloud Function). */
+export interface FriendRequest {
+  fromUid: string
+  fromName: string
+  fromUsername: string
+  createdAt: number
+}
+
+export type MatchStatus = 'WAITING' | 'A_DONE' | 'B_DONE' | 'FINISHED' | 'EXPIRED'
+
+/** Resumo público de um jogador — só preenchido pela Function ao FINISHED (B2). */
+export interface MatchResult {
+  correct: number
+  total: number
+  timeMs: number
+  finishedAt: number
+}
+
+/**
+ * matches/{matchId} — desafio assíncrono. Doc com campos PÚBLICOS apenas.
+ * As respostas de cada jogador ficam em matches/{id}/submissions/{uid} (privado),
+ * e `results` só é revelado quando ambos terminam (revelação cega — B2).
+ */
+export interface Match {
+  id: string
+  players: string[] // [A, B]
+  playerNames: Record<string, string>
+  category: CategoryId | null
+  questionIds: string[]
+  status: MatchStatus
+  results: Record<string, MatchResult>
+  winnerId: string | null
+  createdAt: number
+  expiresAt: number
+  /** marca partidas locais contra o bot (fallback offline). */
+  isBot?: boolean
+}
+
+/** matches/{id}/submissions/{uid} — privado, read só do próprio uid. */
+export interface MatchSubmission {
+  answers: number[]
+  correct: number
+  timeMs: number
+  submittedAt: number
 }
 
 /** reports/{questionId}_{uid} — id determinístico contra flooding (revisão). */

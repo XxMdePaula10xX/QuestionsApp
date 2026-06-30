@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { useAuthStore } from '@/stores/authStore'
 import { useProfileStore } from '@/stores/profileStore'
 import { levelProgress } from '@/lib/leveling'
@@ -64,6 +65,11 @@ export function ProfileScreen() {
           ))
         )}
       </div>
+
+      <Link to="/amigos" className="card flex items-center justify-between">
+        <span className="font-semibold text-gray-800">👥 Amigos</span>
+        <span className="text-brand-600">Ver →</span>
+      </Link>
 
       {user ? (
         <button className="btn-ghost bg-red-50 text-red-600 hover:bg-red-100" onClick={() => signOut()}>

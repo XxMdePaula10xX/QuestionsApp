@@ -71,6 +71,13 @@ export async function loadCategories(ids: CategoryId[]): Promise<Question[]> {
   return lists.flat()
 }
 
+/** Resolve perguntas por id (na ordem dada) entre as categorias informadas. */
+export async function getQuestionsByIds(ids: string[], from: CategoryId[]): Promise<Question[]> {
+  const all = await loadCategories(from)
+  const byId = new Map(all.map((q) => [q.id, q]))
+  return ids.map((id) => byId.get(id)).filter((q): q is Question => Boolean(q))
+}
+
 export function clearQuestionsCache(): void {
   manifestCache.value = null
   categoryCache.clear()

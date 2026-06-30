@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useAuthStore } from '@/stores/authStore'
 import { useProfileStore } from '@/stores/profileStore'
+import { useMatchStore } from '@/stores/matchStore'
 import { levelProgress } from '@/lib/leveling'
 
 interface ModeCard {
@@ -16,7 +17,7 @@ const MODES: ModeCard[] = [
   { to: '/jogar/normal', title: 'Normal', desc: 'Partida clássica, sem pressão', emoji: '🎯', available: true },
   { to: '/jogar/stop', title: 'Stop', desc: 'Contra o tempo', emoji: '⏱️', available: true },
   { to: '/jogar/challenge', title: 'Challenge', desc: 'Escada de dificuldade', emoji: '🪜', available: true },
-  { to: '/jogar/desafio', title: 'Desafio', desc: 'Contra um amigo', emoji: '⚔️', available: false },
+  { to: '/desafios', title: 'Desafio', desc: 'Contra um amigo', emoji: '⚔️', available: true },
 ]
 
 export function HomeScreen() {
@@ -24,6 +25,7 @@ export function HomeScreen() {
   const profile = useProfileStore((s) => s.profile)
   const streak = useProfileStore((s) => s.currentStreak())
   const prog = levelProgress(profile.xp)
+  const yourTurn = useMatchStore((s) => s.matches.filter((m) => m.status === 'WAITING').length)
 
   return (
     <div className="flex flex-col gap-6">
@@ -60,7 +62,14 @@ export function HomeScreen() {
             <motion.div key={m.to} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
               {m.available ? (
                 <Link to={m.to} className="card flex h-32 flex-col justify-between active:scale-[0.98]">
-                  <span className="text-3xl">{m.emoji}</span>
+                  <div className="flex items-start justify-between">
+                    <span className="text-3xl">{m.emoji}</span>
+                    {m.to === '/desafios' && yourTurn > 0 && (
+                      <span className="grid h-6 min-w-6 place-items-center rounded-full bg-red-500 px-1.5 text-xs font-bold text-white">
+                        {yourTurn}
+                      </span>
+                    )}
+                  </div>
                   <div>
                     <p className="font-bold text-gray-800">{m.title}</p>
                     <p className="text-xs text-gray-500">{m.desc}</p>
