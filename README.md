@@ -64,6 +64,17 @@ npm run cap:sync
 npx cap open android      # abre no Android Studio
 ```
 
+### Ícones do app
+
+O ícone-fonte fica em `resources/icon.png` (1024+px) e o splash em `resources/splash.png`.
+Os ícones web/PWA (`public/icon-*.png`, favicon, `manifest.webmanifest`) já estão prontos.
+Para gerar os ícones/splash **nativos** (Android/iOS) a partir do fonte:
+
+```bash
+npm run cap:add:android   # precisa da pasta nativa primeiro
+npm run assets            # gera todos os tamanhos via @capacitor/assets
+```
+
 ## Estrutura
 
 ```

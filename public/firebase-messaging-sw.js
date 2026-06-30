@@ -19,6 +19,6 @@ if (firebaseConfig.apiKey) {
   const messaging = firebase.messaging()
   messaging.onBackgroundMessage((payload) => {
     const { title, body } = payload.notification || {}
-    self.registration.showNotification(title || 'Sabido', { body: body || '', icon: '/icon-192.png' })
+    self.registration.showNotification(title || 'Sabido', { body: body || '', icon: '/icon-192.png', badge: '/icon-192.png' })
   })
 }

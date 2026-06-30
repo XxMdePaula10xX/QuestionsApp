@@ -11,7 +11,8 @@
     "typecheck": "tsc -b --noEmit",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "cap:sync": "npm run build && cap sync",
-    "cap:add:android": "cap add android"
+    "cap:add:android": "cap add android",
+    "assets": "npx @capacitor/assets generate --iconBackgroundColor '#1f66f0' --iconBackgroundColorDark '#1b3c8d' --splashBackgroundColor '#1f66f0' --splashBackgroundColorDark '#1b3c8d'"
   },
   "dependencies": {
     "@capacitor/app": "^6.0.0",
