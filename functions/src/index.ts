@@ -516,3 +516,33 @@ export const aggregateReports = onSchedule('0 */6 * * *', async () => {
   commits.push(batch.commit())
   await Promise.all(commits)
 })
+
+// =================== Username editável e único (reserva transacional) ===================
+export const changeUsername = onCall<{ username: string }>(async (request) => {
+  const uid = requireAuth(request)
+  const raw = (request.data.username || '').trim().toLowerCase()
+  if (!/^[a-z0-9_]{3,15}$/.test(raw)) {
+    throw new HttpsError('invalid-argument', 'Use 3 a 15 caracteres: letras minúsculas, números ou _')
+  }
+  // Já usado por outro perfil? (captura também usernames antigos não-reservados)
+  const existing = await db.collection('users').where('username', '==', raw).limit(1).get()
+  if (!existing.empty && existing.docs[0].id !== uid) {
+    throw new HttpsError('already-exists', 'Esse nome de usuário já está em uso')
+  }
+
+  const userRef = db.collection('users').doc(uid)
+  const newRef = db.collection('usernames').doc(raw)
+  return db.runTransaction(async (tx) => {
+    const me = await tx.get(userRef)
+    if (!me.exists) throw new HttpsError('failed-precondition', 'Perfil inexistente')
+    const resv = await tx.get(newRef)
+    if (resv.exists && resv.get('uid') !== uid) {
+      throw new HttpsError('already-exists', 'Esse nome de usuário já está em uso')
+    }
+    const old = me.get('username') as string | undefined
+    tx.set(newRef, { uid })
+    tx.update(userRef, { username: raw })
+    if (old && old !== raw) tx.delete(db.collection('usernames').doc(old))
+    return { username: raw }
+  })
+})

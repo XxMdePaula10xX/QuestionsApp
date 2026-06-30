@@ -119,6 +119,12 @@ service cloud.firestore {
       allow write: if false; // só Cloud Function (answerDaily)
     }
 
+    // -------- Reservas de username (unicidade) --------
+    match /usernames/{name} {
+      allow read: if isSignedIn();   // checar disponibilidade
+      allow write: if false;          // só Cloud Function (changeUsername)
+    }
+
     // -------- Config (manifest etc.) --------
     match /config/{docId} {
       allow read: if isSignedIn();

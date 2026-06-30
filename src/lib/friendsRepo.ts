@@ -49,6 +49,13 @@ export async function searchUsers(term: string): Promise<FoundUser[]> {
   return [...found.values()].slice(0, 10)
 }
 
+/** Altera o @username (único). Retorna o novo username ou lança erro legível. */
+export async function changeUsername(username: string): Promise<string> {
+  if (!functions) throw new Error('Entre com uma conta')
+  const res = await httpsCallable<{ username: string }, { username: string }>(functions, 'changeUsername')({ username })
+  return res.data.username
+}
+
 export async function sendFriendRequest(toUid: string): Promise<void> {
   if (!functions) throw new Error('Firebase não configurado')
   await httpsCallable(functions, 'sendFriendRequest')({ toUid })
