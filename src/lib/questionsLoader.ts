@@ -4,16 +4,16 @@ import { cacheRead, cacheWrite } from '@/lib/questionsCache'
 import type { CategoryFile, CategoryId, Question, QuestionsManifest } from '@/types/question'
 
 /**
- * Loader de perguntas (Seção 3/4 do PRD; Sprint 4 = caminho de produção).
+ * Loader de perguntas (Seção 3/4 do PRD).
  *
- * Ordem de resolução por categoria:
- *  1. Cache no device (Capacitor Filesystem) se a versão bate com o manifest
- *     → delta update: só rebaixa quando muda a versão.
- *  2. Download do Firebase Storage (quando configurado) → grava no cache.
- *  3. Fallback ao bundle estático em /public/questions (dev/offline/1ª carga).
+ * Princípio: o jogo NUNCA espera a rede. Servimos sempre da fonte mais rápida
+ * disponível (cache no device → bundle embutido) e atualizamos do Firebase
+ * Storage em SEGUNDO PLANO, para os deltas valerem na próxima partida. Assim
+ * uma leitura lenta/bloqueada do Storage jamais trava a tela (bug do Sprint 4).
  */
 
 const BUNDLE_BASE = '/questions'
+const STORAGE_TIMEOUT_MS = 5000
 
 const manifestCache: { value: QuestionsManifest | null } = { value: null }
 const categoryCache = new Map<CategoryId, Question[]>()
@@ -24,22 +24,30 @@ async function fetchBundle<T>(file: string): Promise<T> {
   return (await res.json()) as T
 }
 
+/** Best-effort: lê do Storage com timeout; nunca lança nem trava. */
 async function fetchFromStorage<T>(file: string): Promise<T | null> {
   if (!isFirebaseConfigured || !storage) return null
   try {
-    const bytes = await getBytes(ref(storage, `questions/${file}`))
+    const bytes = await Promise.race<ArrayBuffer | null>([
+      getBytes(ref(storage, `questions/${file}`)),
+      new Promise<null>((resolve) => setTimeout(() => resolve(null), STORAGE_TIMEOUT_MS)),
+    ])
+    if (!bytes) return null
     return JSON.parse(new TextDecoder().decode(bytes)) as T
   } catch {
-    return null // sem permissão/offline → cai no bundle
+    return null
   }
 }
 
 export async function loadManifest(): Promise<QuestionsManifest> {
   if (manifestCache.value) return manifestCache.value
-  const fromStorage = await fetchFromStorage<QuestionsManifest>('manifest.json')
-  const manifest = fromStorage ?? (await fetchBundle<QuestionsManifest>('manifest.json'))
-  if (fromStorage) await cacheWrite('manifest.json', manifest)
+  // Bundle é instantâneo e sempre presente.
+  const manifest = await fetchBundle<QuestionsManifest>('manifest.json')
   manifestCache.value = manifest
+  // Atualização do Storage em segundo plano (vale na próxima sessão).
+  void fetchFromStorage<QuestionsManifest>('manifest.json').then((remote) => {
+    if (remote) manifestCache.value = remote
+  })
   return manifest
 }
 
@@ -51,20 +59,28 @@ export async function loadCategory(categoryId: CategoryId): Promise<Question[]> 
   const entry = manifest.categories.find((c) => c.id === categoryId)
   if (!entry) throw new Error(`Categoria desconhecida no manifest: ${categoryId}`)
 
-  // 1. Cache local, válido se a versão bate (delta update).
+  // 1. Cache no device, se a versão bate (delta update).
   const cached = await cacheRead<CategoryFile>(entry.file)
+  let questions: Question[]
   if (cached && cached.version === entry.version) {
-    categoryCache.set(categoryId, cached.questions)
-    return cached.questions
+    questions = cached.questions
+  } else {
+    // 2. Bundle embutido (instantâneo, sempre disponível).
+    const file = await fetchBundle<CategoryFile>(entry.file)
+    questions = file.questions
+    void cacheWrite(entry.file, file)
   }
+  categoryCache.set(categoryId, questions)
 
-  // 2. Storage → grava no cache. 3. Fallback bundle.
-  const fromStorage = await fetchFromStorage<CategoryFile>(entry.file)
-  const file = fromStorage ?? (await fetchBundle<CategoryFile>(entry.file))
-  if (fromStorage) await cacheWrite(entry.file, file)
+  // 3. Refresh do Storage em segundo plano — atualiza o cache p/ a próxima vez.
+  void fetchFromStorage<CategoryFile>(entry.file).then((remote) => {
+    if (remote && remote.version >= entry.version) {
+      categoryCache.set(categoryId, remote.questions)
+      void cacheWrite(entry.file, remote)
+    }
+  })
 
-  categoryCache.set(categoryId, file.questions)
-  return file.questions
+  return questions
 }
 
 /** Embaralha (Fisher-Yates) sem mutar o array original. */
