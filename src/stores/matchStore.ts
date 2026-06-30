@@ -3,8 +3,9 @@ import { collection, doc, getDoc, onSnapshot, query, where } from 'firebase/fire
 import { httpsCallable } from 'firebase/functions'
 import type { CategoryId, Question } from '@/types/question'
 import type { Match } from '@/types/models'
-import { loadCategories, getQuestionsByIds, shuffle } from '@/lib/questionsLoader'
+import { loadCategories, getQuestionsByIds, preferUnseen, shuffle } from '@/lib/questionsLoader'
 import { PLAYABLE_CATEGORIES } from '@/lib/categories'
+import { useProfileStore } from '@/stores/profileStore'
 import { GAME_CONFIG } from '@/lib/gameConfig'
 import { botPlay, decideWinner, scoreAnswers } from '@/lib/matchEngine'
 import { loadJSON, saveJSON } from '@/lib/persist'
@@ -97,7 +98,8 @@ export const useMatchStore = create<MatchState>((set, get) => ({
     }
 
     // Caminho local (bot).
-    const pool = category ? await loadCategories([category]) : await loadCategories(PLAYABLE_CATEGORIES)
+    const allPool = category ? await loadCategories([category]) : await loadCategories(PLAYABLE_CATEGORIES)
+    const pool = preferUnseen(allPool, useProfileStore.getState().seenSet(), GAME_CONFIG.matchQuestionCount)
     const qs = shuffle(pool).slice(0, GAME_CONFIG.matchQuestionCount)
     const now = Date.now()
     const me = localUid()
@@ -124,7 +126,10 @@ export const useMatchStore = create<MatchState>((set, get) => ({
     const m = get().matches.find((x) => x.id === matchId)
     if (!m) throw new Error('Partida não encontrada')
     const from = m.category ? [m.category] : PLAYABLE_CATEGORIES
-    return getQuestionsByIds(m.questionIds, from)
+    const questions = await getQuestionsByIds(m.questionIds, from)
+    // Marca como vistas (evita repetir nos modos solo — #2).
+    void useProfileStore.getState().markSeen(questions.map((q) => q.id))
+    return questions
   },
 
   submitTurn: async (matchId, answers, timeMs) => {

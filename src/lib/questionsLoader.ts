@@ -93,14 +93,30 @@ export function shuffle<T>(arr: T[], rng: () => number = Math.random): T[] {
   return pool
 }
 
-/** Sorteia N perguntas distintas de uma categoria (modo Normal solo). */
+/**
+ * Prefere itens inéditos (não vistos). Se não houver inéditos suficientes para
+ * o necessário, libera o catálogo inteiro (evita travar quando a base esgota).
+ */
+export function preferUnseen<T extends { id: string }>(
+  items: T[],
+  exclude: Set<string> | undefined,
+  needed: number,
+): T[] {
+  if (!exclude || exclude.size === 0) return items
+  const unseen = items.filter((q) => !exclude.has(q.id))
+  return unseen.length >= needed ? unseen : items
+}
+
+/** Sorteia N perguntas distintas de uma categoria, priorizando inéditas (#2). */
 export async function drawQuestions(
   categoryId: CategoryId,
   count: number,
-  rng: () => number = Math.random,
+  opts: { exclude?: Set<string>; rng?: () => number } = {},
 ): Promise<Question[]> {
+  const rng = opts.rng ?? Math.random
   const all = await loadCategory(categoryId)
-  return shuffle(all, rng).slice(0, Math.min(count, all.length))
+  const pool = preferUnseen(all, opts.exclude, count)
+  return shuffle(pool, rng).slice(0, Math.min(count, pool.length))
 }
 
 /** Carrega e mescla várias categorias (modo Challenge mistura categorias). */

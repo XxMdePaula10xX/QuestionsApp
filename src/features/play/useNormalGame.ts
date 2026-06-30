@@ -21,6 +21,8 @@ export interface GameSummary {
  */
 export function useNormalGame() {
   const recordGameResult = useProfileStore((s) => s.recordGameResult)
+  const markSeen = useProfileStore((s) => s.markSeen)
+  const seenSet = useProfileStore((s) => s.seenSet)
 
   const [phase, setPhase] = useState<GamePhase>('idle')
   const [error, setError] = useState<string | null>(null)
@@ -40,15 +42,16 @@ export function useNormalGame() {
     setAnswers([])
     setSummary(null)
     try {
-      const qs = await drawQuestions(cat, GAME_CONFIG.normalQuestionCount)
+      const qs = await drawQuestions(cat, GAME_CONFIG.normalQuestionCount, { exclude: seenSet() })
       if (qs.length === 0) throw new Error('Categoria sem perguntas')
+      void markSeen(qs.map((q) => q.id))
       setQuestions(qs)
       setPhase('playing')
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Erro ao carregar perguntas')
       setPhase('error')
     }
-  }, [])
+  }, [markSeen, seenSet])
 
   const pick = useCallback(
     (i: number) => {

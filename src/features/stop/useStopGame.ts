@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { loadCategory, shuffle } from '@/lib/questionsLoader'
+import { loadCategory, preferUnseen, shuffle } from '@/lib/questionsLoader'
 import { GAME_CONFIG } from '@/lib/gameConfig'
 import { useProfileStore } from '@/stores/profileStore'
 import type { CategoryId, Question } from '@/types/question'
@@ -16,6 +16,8 @@ export type StopPhase = 'idle' | 'loading' | 'playing' | 'result' | 'error'
  */
 export function useStopGame() {
   const recordGameResult = useProfileStore((s) => s.recordGameResult)
+  const markSeen = useProfileStore((s) => s.markSeen)
+  const seenSet = useProfileStore((s) => s.seenSet)
 
   const [phase, setPhase] = useState<StopPhase>('idle')
   const [error, setError] = useState<string | null>(null)
@@ -73,7 +75,7 @@ export function useStopGame() {
     try {
       const all = await loadCategory(cat)
       if (all.length === 0) throw new Error('Categoria sem perguntas')
-      setPool(shuffle(all))
+      setPool(shuffle(preferUnseen(all, seenSet(), 20)))
       deadlineRef.current = Date.now() + GAME_CONFIG.stopDurationSeconds * 1000
       shownAtRef.current = Date.now()
       setTimeLeft(GAME_CONFIG.stopDurationSeconds)
@@ -82,12 +84,13 @@ export function useStopGame() {
       setError(e instanceof Error ? e.message : 'Erro ao carregar perguntas')
       setPhase('error')
     }
-  }, [])
+  }, [seenSet])
 
   const pick = useCallback(
     (i: number) => {
       if (picked !== null || phase !== 'playing') return
       const q = pool[idx]
+      void markSeen([q.id])
       setPicked(i)
       setAnswered((a) => a + 1)
       if (i === q.answerIndex) {
@@ -106,7 +109,7 @@ export function useStopGame() {
         shownAtRef.current = Date.now()
       }, 600)
     },
-    [picked, phase, pool, idx],
+    [picked, phase, pool, idx, markSeen],
   )
 
   const reset = useCallback(() => {

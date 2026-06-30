@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import { loadCategories, shuffle } from '@/lib/questionsLoader'
+import { loadCategories, preferUnseen, shuffle } from '@/lib/questionsLoader'
 import {
   GAME_CONFIG,
   challengeDifficultyForLevel,
@@ -24,6 +24,8 @@ export interface ChallengeSummary {
  */
 export function useChallengeGame() {
   const recordGameResult = useProfileStore((s) => s.recordGameResult)
+  const markSeen = useProfileStore((s) => s.markSeen)
+  const seenSet = useProfileStore((s) => s.seenSet)
 
   const [phase, setPhase] = useState<ChallengePhase>('idle')
   const [error, setError] = useState<string | null>(null)
@@ -56,27 +58,31 @@ export function useChallengeGame() {
     setSummary(null)
     try {
       const all = await loadCategories(PLAYABLE_CATEGORIES)
+      // Prefere inéditas (#2); cai no catálogo todo se não houver suficientes.
+      const pool0 = preferUnseen(all, seenSet(), GAME_CONFIG.challengeLevels)
       const byDiff = {
-        facil: shuffle(all.filter((q) => q.difficulty === 'facil')),
-        medio: shuffle(all.filter((q) => q.difficulty === 'medio')),
-        dificil: shuffle(all.filter((q) => q.difficulty === 'dificil')),
+        facil: shuffle(pool0.filter((q) => q.difficulty === 'facil')),
+        medio: shuffle(pool0.filter((q) => q.difficulty === 'medio')),
+        dificil: shuffle(pool0.filter((q) => q.difficulty === 'dificil')),
       }
       const cursor = { facil: 0, medio: 0, dificil: 0 }
       const picked: Question[] = []
+      const fallback = shuffle(all)
       for (let lvl = 1; lvl <= GAME_CONFIG.challengeLevels; lvl++) {
         const d = challengeDifficultyForLevel(lvl)
         const pool = byDiff[d]
-        const q = pool[cursor[d]++] ?? shuffle(all)[lvl]
+        const q = pool[cursor[d]++] ?? fallback[lvl]
         picked.push(q)
       }
       if (picked.some((q) => !q)) throw new Error('Perguntas insuficientes para o Challenge')
+      void markSeen(picked.map((q) => q.id))
       setLadder(picked)
       setPhase('playing')
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Erro ao carregar perguntas')
       setPhase('error')
     }
-  }, [])
+  }, [markSeen, seenSet])
 
   const pick = useCallback(
     (i: number) => {

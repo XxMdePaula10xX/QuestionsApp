@@ -25,6 +25,7 @@ setGlobalOptions({ region: 'southamerica-east1', maxInstances: 10 })
 type Difficulty = 'facil' | 'medio' | 'dificil'
 type GameMode = 'normal' | 'stop' | 'challenge'
 const POINTS: Record<Difficulty, number> = { facil: 100, medio: 200, dificil: 300 }
+const XP_PER_CORRECT = 10 // XP desacoplado dos pontos de ranking (ver leveling.ts)
 const MATCH_QUESTIONS = 5
 const MATCH_EXPIRY_MS = 3 * 86_400_000
 
@@ -124,7 +125,7 @@ export const submitScore = onCall<SubmitScorePayload>(async (request) => {
       'stats.totalCorrect': FieldValue.increment(correct),
       'stats.totalAnswered': FieldValue.increment(answers.length),
       'stats.gamesPlayed': FieldValue.increment(1),
-      xp: FieldValue.increment(score),
+      xp: FieldValue.increment(correct * XP_PER_CORRECT),
     })
     const entry = { uid, displayName, photoURL, score: FieldValue.increment(score), updatedAt: FieldValue.serverTimestamp() }
     for (const scope of ['global', mode, `weekly_${wId}`]) {

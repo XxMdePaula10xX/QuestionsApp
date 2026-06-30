@@ -1,10 +1,24 @@
 /**
- * Curva de XP/nível. Cada nível L exige 100*L de XP a mais que o anterior,
- * então o XP acumulado para ATINGIR o nível L é 100 * (L-1)*L/2.
+ * Curva de XP/nível.
+ *
+ * XP é DESACOPLADO dos pontos de ranking: cada acerto vale `XP_PER_CORRECT`,
+ * independente da dificuldade, para a progressão de nível ser estável e não
+ * "disparar" (os pontos de dificuldade alimentam só o ranking).
+ *
+ * XP acumulado para ATINGIR o nível L: 75 * (L-1) * L
+ *   L2=150, L3=450, L4=900, L5=1500, L10=6750.
+ * Com ~4 acertos/partida (≈40 XP), o nível 2 vem em ~4 partidas e a escalada
+ * fica progressivamente mais lenta.
  */
+export const XP_PER_CORRECT = 10
+
+export function xpForCorrect(correct: number): number {
+  return correct * XP_PER_CORRECT
+}
+
 export function xpToReachLevel(level: number): number {
   if (level <= 1) return 0
-  return 100 * ((level - 1) * level) / 2
+  return 75 * (level - 1) * level
 }
 
 export interface LevelProgress {

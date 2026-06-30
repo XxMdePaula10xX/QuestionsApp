@@ -3,7 +3,7 @@ import type { CategoryId } from '@/types/question'
 import type { GameMode } from '@/types/models'
 import { loadJSON, saveJSON } from '@/lib/persist'
 import { applyPlay, effectiveStreak, type StreakState } from '@/lib/streak'
-import { levelProgress } from '@/lib/leveling'
+import { levelProgress, xpForCorrect } from '@/lib/leveling'
 
 export interface LocalProfile {
   xp: number
@@ -13,6 +13,8 @@ export interface LocalProfile {
   bests: { stop: number; challengeLevel: number }
   streak: StreakState
   ftueDone: boolean
+  /** ids de perguntas já vistas — para NUNCA repetir (#2). */
+  seen: string[]
 }
 
 const EMPTY: LocalProfile = {
@@ -22,6 +24,7 @@ const EMPTY: LocalProfile = {
   bests: { stop: 0, challengeLevel: 0 },
   streak: { current: 0, longest: 0, lastPlayedDate: null },
   ftueDone: false,
+  seen: [],
 }
 
 const KEY = 'profile'
@@ -32,17 +35,20 @@ export interface GameResult {
   correct: number
   answered: number
   points: number
-  /** Stop: pontuação final da partida (para o recorde). */
   stopScore?: number
-  /** Challenge: nível alcançado. */
   challengeLevel?: number
 }
 
 interface ProfileState {
   profile: LocalProfile
   loaded: boolean
+  /** Set das perguntas vistas (memoizado por referência de `seen`). */
+  seenRef: { arr: string[]; set: Set<string> }
   load: () => Promise<void>
   recordGameResult: (r: GameResult) => Promise<void>
+  /** Marca perguntas como vistas (chamado pelos modos ao apresentá-las). */
+  markSeen: (ids: string[]) => Promise<void>
+  seenSet: () => Set<string>
   completeFtue: () => Promise<void>
   resetProgress: () => Promise<void>
   level: () => number
@@ -52,18 +58,19 @@ interface ProfileState {
 export const useProfileStore = create<ProfileState>((set, get) => ({
   profile: EMPTY,
   loaded: false,
+  seenRef: { arr: [], set: new Set() },
 
   load: async () => {
     const stored = await loadJSON<LocalProfile>(KEY, EMPTY)
-    // mescla com EMPTY para tolerar perfis salvos por versões antigas.
-    set({ profile: { ...EMPTY, ...stored, bests: { ...EMPTY.bests, ...stored.bests } }, loaded: true })
+    const profile = { ...EMPTY, ...stored, bests: { ...EMPTY.bests, ...stored.bests } }
+    set({ profile, loaded: true, seenRef: { arr: profile.seen, set: new Set(profile.seen) } })
   },
 
   recordGameResult: async (r) => {
     const p = get().profile
     const next: LocalProfile = {
       ...p,
-      xp: p.xp + r.points,
+      xp: p.xp + xpForCorrect(r.correct),
       stats: {
         totalCorrect: p.stats.totalCorrect + r.correct,
         totalAnswered: p.stats.totalAnswered + r.answered,
@@ -86,9 +93,21 @@ export const useProfileStore = create<ProfileState>((set, get) => ({
     }
     set({ profile: next })
     await saveJSON(KEY, next)
-    // TODO(Sprint 2 prod): a Cloud Function submitScore é a fonte autoritativa
-    // do score/ranking; aqui mantemos o estado local/offline reconciliável.
   },
+
+  markSeen: async (ids) => {
+    if (ids.length === 0) return
+    const { set: seen } = get().seenRef
+    const fresh = ids.filter((id) => !seen.has(id))
+    if (fresh.length === 0) return
+    fresh.forEach((id) => seen.add(id))
+    const p = get().profile
+    const next = { ...p, seen: [...p.seen, ...fresh] }
+    set({ profile: next, seenRef: { arr: next.seen, set: seen } })
+    await saveJSON(KEY, next)
+  },
+
+  seenSet: () => get().seenRef.set,
 
   completeFtue: async () => {
     const next = { ...get().profile, ftueDone: true }
@@ -97,7 +116,7 @@ export const useProfileStore = create<ProfileState>((set, get) => ({
   },
 
   resetProgress: async () => {
-    set({ profile: EMPTY })
+    set({ profile: EMPTY, seenRef: { arr: [], set: new Set() } })
     await saveJSON(KEY, EMPTY)
   },
 
