@@ -10,6 +10,7 @@ import { ChallengesScreen } from '@/features/challenges/ChallengesScreen'
 import { MatchPlayScreen } from '@/features/challenges/MatchPlayScreen'
 import { JoinMatchScreen } from '@/features/challenges/JoinMatchScreen'
 import { FriendsScreen } from '@/features/friends/FriendsScreen'
+import { ConviteScreen } from '@/features/friends/ConviteScreen'
 import { ConquistasScreen } from '@/features/achievements/ConquistasScreen'
 import { LigasScreen } from '@/features/leagues/LigasScreen'
 import { RoomScreen } from '@/features/room/RoomScreen'
@@ -36,6 +37,7 @@ export const router = createBrowserRouter([
       { path: 'desafios/:matchId', element: <MatchPlayScreen /> },
       { path: 'entrar/:matchId', element: <JoinMatchScreen /> },
       { path: 'amigos', element: <FriendsScreen /> },
+      { path: 'convite/:username', element: <ConviteScreen /> },
       { path: 'conquistas', element: <ConquistasScreen /> },
       { path: 'ligas', element: <LigasScreen /> },
       { path: 'sala', element: <RoomScreen /> },

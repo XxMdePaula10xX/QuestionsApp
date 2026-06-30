@@ -7,9 +7,11 @@ import {
   listFriendRequests,
   listFriends,
   respondFriendRequest,
-  searchByUsername,
+  searchUsers,
   sendFriendRequest,
+  type FoundUser,
 } from '@/lib/friendsRepo'
+import { fetchProfile } from '@/lib/userRepo'
 import type { Friend, FriendRequest } from '@/types/models'
 
 export function FriendsScreen() {
@@ -17,31 +19,29 @@ export function FriendsScreen() {
   const [friends, setFriends] = useState<Friend[]>([])
   const [requests, setRequests] = useState<FriendRequest[]>([])
   const [term, setTerm] = useState('')
-  const [found, setFound] = useState<{ uid: string; displayName: string; username: string } | null>(null)
+  const [results, setResults] = useState<FoundUser[]>([])
+  const [searched, setSearched] = useState(false)
+  const [myUsername, setMyUsername] = useState('voce')
+  const [sentTo, setSentTo] = useState<Set<string>>(new Set())
   const [msg, setMsg] = useState<string | null>(null)
-
-  const myUsername = user?.displayName ? user.displayName.toLowerCase().replace(/[^a-z0-9]/g, '') : 'voce'
 
   useEffect(() => {
     if (!user) return
     listFriends(user.uid).then(setFriends)
     listFriendRequests(user.uid).then(setRequests)
+    fetchProfile(user.uid).then((p) => p?.username && setMyUsername(p.username))
   }, [user])
 
   async function buscar() {
     setMsg(null)
-    setFound(null)
-    const r = await searchByUsername(term)
-    if (r) setFound(r)
-    else setMsg('Ninguém encontrado com esse usuário.')
+    setSearched(true)
+    setResults(await searchUsers(term))
   }
 
   async function adicionar(uid: string) {
     try {
       await sendFriendRequest(uid)
-      setMsg('Pedido enviado!')
-      setFound(null)
-      setTerm('')
+      setSentTo((s) => new Set(s).add(uid))
     } catch {
       setMsg('Não foi possível enviar o pedido.')
     }
@@ -82,30 +82,36 @@ export function FriendsScreen() {
         </div>
       </div>
 
-      {/* Busca por username */}
+      {/* Busca por nome ou @usuário */}
       <div className="card flex flex-col gap-2">
-        <p className="text-sm font-semibold text-gray-700">Adicionar por usuário</p>
+        <p className="text-sm font-semibold text-gray-700">Adicionar amigo</p>
         <div className="flex gap-2">
           <input
             value={term}
             onChange={(e) => setTerm(e.target.value)}
-            placeholder="usuario"
+            onKeyDown={(e) => e.key === 'Enter' && buscar()}
+            placeholder="Nome ou @usuário"
             className="flex-1 rounded-xl px-3 py-2 ring-1 ring-black/10 outline-none"
           />
-          <button className="btn-primary px-4 py-2 text-sm" onClick={buscar} disabled={!term.trim() || !isFirebaseConfigured}>
+          <button className="btn-primary px-4 py-2 text-sm" onClick={buscar} disabled={term.trim().length < 2 || !isFirebaseConfigured}>
             Buscar
           </button>
         </div>
-        {found && (
-          <div className="flex items-center justify-between rounded-xl bg-brand-50 p-2">
+        {results.map((r) => (
+          <div key={r.uid} className="flex items-center justify-between rounded-xl bg-brand-50 p-2">
             <span className="text-sm text-gray-700">
-              {found.displayName} <span className="text-gray-400">@{found.username}</span>
+              {r.displayName} <span className="text-gray-400">@{r.username}</span>
             </span>
-            <button className="btn-primary px-3 py-1 text-xs" onClick={() => adicionar(found.uid)}>
-              Adicionar
-            </button>
+            {sentTo.has(r.uid) ? (
+              <span className="px-3 py-1 text-xs font-semibold text-green-600">Enviado ✓</span>
+            ) : (
+              <button className="btn-primary px-3 py-1 text-xs" onClick={() => adicionar(r.uid)}>
+                Adicionar
+              </button>
+            )}
           </div>
-        )}
+        ))}
+        {searched && results.length === 0 && <p className="text-xs text-gray-500">Ninguém encontrado. Tente o nome exato ou o @usuário.</p>}
         {msg && <p className="text-xs text-gray-500">{msg}</p>}
       </div>
 

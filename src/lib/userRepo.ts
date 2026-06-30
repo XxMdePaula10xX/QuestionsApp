@@ -35,6 +35,7 @@ export async function ensureProfile(user: User, onboarding?: OnboardingData): Pr
     const profile: UserProfile = {
       uid: user.uid,
       displayName: user.displayName ?? 'Jogador',
+      nameLower: (user.displayName ?? 'Jogador').toLowerCase(),
       username: makeUsername(user.displayName ?? 'jogador', user.uid),
       photoURL: user.photoURL ?? null,
       level: 1,

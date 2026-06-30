@@ -13,6 +13,8 @@ export type GameMode = 'normal' | 'stop' | 'challenge'
 export interface UserProfile {
   uid: string
   displayName: string
+  /** displayName em minúsculas, para busca por prefixo de nome. */
+  nameLower: string
   /** handle único para busca/convite de amigos. */
   username: string
   photoURL: string | null
