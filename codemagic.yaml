@@ -84,7 +84,7 @@ workflows:
         - firebase   # VITE_FIREBASE_* configurados no Codemagic
       vars:
         BUNDLE_ID: 'com.sabido.app'
-        APP_STORE_APP_ID: '0000000000'   # ID numérico do app no App Store Connect
+        APP_STORE_APP_ID: '6786125665'   # ID numérico do app no App Store Connect
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.sabido.app
