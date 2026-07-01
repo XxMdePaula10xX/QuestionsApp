@@ -23,8 +23,8 @@ export function AchievementToast() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -40 }}
           onClick={clear}
-          className="fixed inset-x-0 top-4 z-[60] mx-auto flex max-w-md items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-xl ring-1 ring-black/5"
-          style={{ width: 'calc(100% - 2rem)' }}
+          className="fixed inset-x-0 z-[60] mx-auto flex max-w-md items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-xl ring-1 ring-black/5"
+          style={{ width: 'calc(100% - 2rem)', top: 'calc(0.75rem + env(safe-area-inset-top))' }}
         >
           <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-brand-100 text-2xl">{current.emoji}</span>
           <div>

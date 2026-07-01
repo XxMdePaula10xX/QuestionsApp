@@ -35,7 +35,7 @@ export function ReportButton({ questionId }: { questionId: string }) {
               animate={{ y: 0 }}
               exit={{ y: 40 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-md rounded-t-3xl bg-white p-5"
+              className="w-full max-w-md rounded-t-3xl bg-white p-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))]"
             >
               <p className="mb-3 font-bold text-gray-800">Qual o problema?</p>
               <div className="flex flex-col gap-2">

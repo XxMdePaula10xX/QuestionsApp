@@ -6,18 +6,22 @@
   color-scheme: light;
 }
 
-html,
+html {
+  height: 100%;
+}
+
+/* min-height (não height fixo) para o conteúdo poder crescer e ROLAR no celular.
+   As áreas seguras (notch/home indicator) são tratadas por elemento (ver AppLayout),
+   pois a bottom-nav é `fixed` e escaparia de um padding no body. */
 body,
 #root {
-  height: 100%;
+  min-height: 100%;
 }
 
 body {
   margin: 0;
   -webkit-tap-highlight-color: transparent;
-  /* Respeita áreas seguras de notch/ilha em mobile (Capacitor). */
-  padding: env(safe-area-inset-top) env(safe-area-inset-right)
-    env(safe-area-inset-bottom) env(safe-area-inset-left);
+  overflow-x: hidden; /* nunca rolar na horizontal */
 }
 
 @layer components {

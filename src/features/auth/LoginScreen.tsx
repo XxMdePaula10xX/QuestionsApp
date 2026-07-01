@@ -54,7 +54,7 @@ export function LoginScreen() {
   const validSignup = email && password.length >= 6 && displayName && year >= 1900 && year <= CURRENT_YEAR
 
   return (
-    <div className="mx-auto flex min-h-full max-w-md flex-col items-center justify-center gap-6 bg-gradient-to-b from-brand-600 to-brand-800 px-6 text-center text-white">
+    <div className="mx-auto flex min-h-[100dvh] max-w-md flex-col items-center justify-center gap-6 bg-gradient-to-b from-brand-600 to-brand-800 px-6 py-[calc(2rem+env(safe-area-inset-top))] text-center text-white">
       <div>
         <p className="text-5xl">🧠</p>
         <h1 className="mt-3 text-4xl font-extrabold">Sabido</h1>

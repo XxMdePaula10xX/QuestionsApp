@@ -136,7 +136,7 @@ export function FriendsScreen() {
       <div className="card flex flex-col gap-2">
         <p className="text-sm font-semibold text-gray-700">Seu link de convite</p>
         <div className="flex items-center gap-2">
-          <code className="flex-1 truncate rounded-lg bg-black/5 px-3 py-2 text-xs text-gray-600">{inviteLink(myUsername)}</code>
+          <code className="w-0 flex-1 truncate rounded-lg bg-black/5 px-3 py-2 text-xs text-gray-600">{inviteLink(myUsername)}</code>
           <button
             className="btn-primary px-3 py-2 text-sm"
             onClick={() => navigator.clipboard?.writeText(inviteLink(myUsername)).then(() => setMsg('Link copiado!'))}
@@ -155,21 +155,21 @@ export function FriendsScreen() {
             onChange={(e) => setTerm(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && buscar()}
             placeholder="Nome ou @usuário"
-            className="flex-1 rounded-xl px-3 py-2 ring-1 ring-black/10 outline-none"
+            className="w-0 flex-1 rounded-xl px-3 py-2 ring-1 ring-black/10 outline-none"
           />
           <button className="btn-primary px-4 py-2 text-sm" onClick={buscar} disabled={term.trim().length < 2 || !isFirebaseConfigured}>
             Buscar
           </button>
         </div>
         {results.map((r) => (
-          <div key={r.uid} className="flex items-center justify-between rounded-xl bg-brand-50 p-2">
-            <span className="text-sm text-gray-700">
+          <div key={r.uid} className="flex items-center justify-between gap-2 rounded-xl bg-brand-50 p-2">
+            <span className="w-0 flex-1 truncate text-sm text-gray-700">
               {r.displayName} <span className="text-gray-400">@{r.username}</span>
             </span>
             {sentTo.has(r.uid) ? (
-              <span className="px-3 py-1 text-xs font-semibold text-green-600">Enviado ✓</span>
+              <span className="shrink-0 px-3 py-1 text-xs font-semibold text-green-600">Enviado ✓</span>
             ) : (
-              <button className="btn-primary px-3 py-1 text-xs" onClick={() => adicionar(r.uid)}>
+              <button className="btn-primary shrink-0 px-3 py-1 text-xs" onClick={() => adicionar(r.uid)}>
                 Adicionar
               </button>
             )}
@@ -184,11 +184,11 @@ export function FriendsScreen() {
         <section className="flex flex-col gap-2">
           <h2 className="text-xs font-semibold uppercase tracking-wide text-gray-400">Pedidos</h2>
           {requests.map((r) => (
-            <div key={r.fromUid} className="card flex items-center justify-between">
-              <span className="text-sm text-gray-700">
+            <div key={r.fromUid} className="card flex items-center justify-between gap-2">
+              <span className="w-0 flex-1 truncate text-sm text-gray-700">
                 {r.fromName} <span className="text-gray-400">@{r.fromUsername}</span>
               </span>
-              <div className="flex gap-2">
+              <div className="flex shrink-0 gap-2">
                 <button className="btn-primary px-3 py-1 text-xs" onClick={() => responder(r.fromUid, true)}>
                   Aceitar
                 </button>
@@ -212,7 +212,7 @@ export function FriendsScreen() {
               <div className="grid h-9 w-9 place-items-center overflow-hidden rounded-full bg-brand-100 text-sm">
                 {f.photoURL ? <img src={f.photoURL} alt="" className="h-9 w-9 object-cover" /> : '👤'}
               </div>
-              <span className="flex-1 text-gray-800">{f.displayName}</span>
+              <span className="w-0 flex-1 truncate text-gray-800">{f.displayName}</span>
               <span className="text-xs text-gray-400">@{f.username}</span>
             </div>
           ))

@@ -152,12 +152,12 @@ function MatchRow({ m, me }: { m: Match; me: string }) {
   const outcome = m.status === 'FINISHED' ? (m.winnerId === me ? 'win' : m.winnerId === null ? 'tie' : 'loss') : null
 
   return (
-    <Link to={`/desafios/${m.id}`} className="card flex items-center justify-between">
-      <div className="flex items-center gap-3">
+    <Link to={`/desafios/${m.id}`} className="card flex items-center justify-between gap-3">
+      <div className="flex min-w-0 items-center gap-3">
         <span className="text-2xl">{cat?.emoji ?? '⚔️'}</span>
-        <div>
-          <p className="font-semibold text-gray-800">vs {oppName}</p>
-          <p className="text-xs text-gray-400">{cat?.nome ?? 'Categorias variadas'}</p>
+        <div className="min-w-0">
+          <p className="truncate font-semibold text-gray-800">vs {oppName}</p>
+          <p className="truncate text-xs text-gray-400">{cat?.nome ?? 'Categorias variadas'}</p>
         </div>
       </div>
       {needsMyTurn(m, me) ? (

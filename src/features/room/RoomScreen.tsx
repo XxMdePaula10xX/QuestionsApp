@@ -40,7 +40,7 @@ export function RoomScreen() {
               value={joinCode}
               onChange={(e) => setJoinCode(e.target.value.toUpperCase().slice(0, 4))}
               placeholder="ABCD"
-              className="flex-1 rounded-xl px-3 py-2 text-center text-lg font-bold uppercase tracking-widest ring-1 ring-black/10 outline-none"
+              className="w-0 flex-1 rounded-xl px-3 py-2 text-center text-lg font-bold uppercase tracking-widest ring-1 ring-black/10 outline-none"
             />
             <button className="btn-primary px-4 py-2" disabled={busy || joinCode.length < 4 || !isFirebaseConfigured} onClick={() => run(() => store.join(joinCode))}>
               Entrar
@@ -67,8 +67,8 @@ export function RoomScreen() {
           {players.map((p) => (
             <div key={p.uid} className="card flex items-center gap-2 py-2">
               <span>👤</span>
-              <span className="text-gray-800">{p.name}</span>
-              {p.uid === room.hostUid && <span className="ml-auto text-xs text-brand-600">anfitrião</span>}
+              <span className="truncate text-gray-800">{p.name}</span>
+              {p.uid === room.hostUid && <span className="ml-auto shrink-0 text-xs text-brand-600">anfitrião</span>}
             </div>
           ))}
         </div>
@@ -137,7 +137,7 @@ export function RoomScreen() {
         {podium.map((p, i) => (
           <div key={p.uid} className="card flex items-center gap-3">
             <span className="text-2xl">{medals[i]}</span>
-            <span className="flex-1 font-semibold text-gray-800">{p.name}</span>
+            <span className="w-0 flex-1 truncate font-semibold text-gray-800">{p.name}</span>
             <span className="font-bold text-brand-600">{p.score}</span>
           </div>
         ))}

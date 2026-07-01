@@ -82,7 +82,7 @@ export function RankingScreen() {
               <div className="grid h-9 w-9 place-items-center overflow-hidden rounded-full bg-brand-100 text-sm">
                 {e.photoURL ? <img src={e.photoURL} alt="" className="h-9 w-9 object-cover" /> : '👤'}
               </div>
-              <span className="flex-1 truncate text-gray-800">{e.displayName}</span>
+              <span className="w-0 flex-1 truncate text-gray-800">{e.displayName}</span>
               <span className="font-bold text-brand-600">{e.score}</span>
             </div>
           ))}

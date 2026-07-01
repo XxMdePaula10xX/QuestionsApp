@@ -39,15 +39,16 @@ export function AppLayout() {
   }, [user, initMatches])
 
   return (
-    <div className="mx-auto flex min-h-full max-w-md flex-col bg-gradient-to-b from-brand-50 to-white">
+    <div className="mx-auto flex min-h-[100dvh] max-w-md flex-col bg-gradient-to-b from-brand-50 to-white pt-[env(safe-area-inset-top)]">
       {profileLoaded && !ftueDone && <Ftue />}
       <AchievementToast />
 
-      <main className="flex-1 px-4 pb-24 pt-6">
+      {/* pb reserva espaço pra nav (fixa) + home indicator */}
+      <main className="flex-1 px-4 pt-6 pb-[calc(5.5rem+env(safe-area-inset-bottom))]">
         <Outlet />
       </main>
 
-      <nav className="fixed inset-x-0 bottom-0 z-10 mx-auto max-w-md border-t border-black/5 bg-white/90 backdrop-blur">
+      <nav className="fixed inset-x-0 bottom-0 z-10 mx-auto max-w-md border-t border-black/5 bg-white/90 pb-[env(safe-area-inset-bottom)] backdrop-blur">
         <ul className="flex items-stretch justify-around">
           {NAV.map((item) => (
             <li key={item.to} className="flex-1">

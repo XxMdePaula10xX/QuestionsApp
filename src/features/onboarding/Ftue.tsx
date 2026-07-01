@@ -44,7 +44,7 @@ export function Ftue() {
   }
 
   return (
-    <div className="fixed inset-0 z-50 mx-auto flex max-w-md flex-col justify-between bg-gradient-to-b from-brand-600 to-brand-800 px-6 py-10 text-white">
+    <div className="fixed inset-0 z-50 mx-auto flex max-w-md flex-col justify-between bg-gradient-to-b from-brand-600 to-brand-800 px-6 pb-[calc(2.5rem+env(safe-area-inset-bottom))] pt-[calc(2.5rem+env(safe-area-inset-top))] text-white">
       <AnimatePresence mode="wait">
         {!onGate ? (
           <motion.div
