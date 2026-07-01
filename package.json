@@ -15,7 +15,6 @@
     "assets": "npx @capacitor/assets generate --iconBackgroundColor '#1f66f0' --iconBackgroundColorDark '#1b3c8d' --splashBackgroundColor '#1f66f0' --splashBackgroundColorDark '#1b3c8d'"
   },
   "dependencies": {
-    "@capacitor-firebase/messaging": "^6.3.1",
     "@capacitor/app": "^6.0.0",
     "@capacitor/core": "^6.1.2",
     "@capacitor/filesystem": "^6.0.1",

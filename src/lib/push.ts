@@ -4,7 +4,7 @@ import { app, db, auth, isFirebaseConfigured } from '@/lib/firebase'
 
 /**
  * Registro do token FCM para push "sua vez" (desafios/amizades).
- * - NATIVO (iOS/Android): @capacitor-firebase/messaging → token FCM real (APNs por baixo no iOS).
+ * - NATIVO (iOS/Android): chega na v1.1 (requer GoogleService-Info.plist + APNs).
  * - WEB: firebase/messaging com VAPID + service worker.
  * Tudo best-effort e guardado: sem Firebase/login/permissão, vira no-op.
  * O envio é feito pela Cloud Function notify() (functions/src/index.ts).
@@ -20,11 +20,10 @@ export async function registerForPush(): Promise<void> {
 
   try {
     if (Capacitor.isNativePlatform()) {
-      const { FirebaseMessaging } = await import('@capacitor-firebase/messaging')
-      const perm = await FirebaseMessaging.requestPermissions()
-      if (perm.receive !== 'granted') return
-      const { token } = await FirebaseMessaging.getToken()
-      await storeToken(token, Capacitor.getPlatform())
+      // Push NATIVO (APNs/FCM) chega na v1.1: requer GoogleService-Info.plist no
+      // bundle iOS + capability de Push Notifications. Não usamos o plugin nativo
+      // de Firebase no v1 para NÃO inicializar o Firebase nativo no launch (o que
+      // crasha o app quando o plist não está presente). No-op por enquanto.
       return
     }
 
