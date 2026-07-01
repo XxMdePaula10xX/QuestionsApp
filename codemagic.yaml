@@ -102,18 +102,23 @@ workflows:
           ruby resources/add_privacy_manifest.rb
       - name: Gerar ícones/splash nativos
         script: npx @capacitor/assets generate --ios --iconBackgroundColor '#1f66f0' --splashBackgroundColor '#1f66f0' || true
-      - name: Preparar assinatura iOS (reaproveita certificado + cria o profile)
+      - name: Preparar assinatura iOS (cert + profile + força signing no target)
         script: |
+          set -e
           keychain initialize
           # Busca/cria o certificado de distribuição a partir da sua chave privada
-          # (a mesma dos outros apps -> reaproveita o certificado existente) e
-          # CRIA o provisioning profile de com.sabido.app se ainda não existir.
+          # (a mesma dos outros apps) e CRIA o provisioning profile de com.sabido.app.
           app-store-connect fetch-signing-files "$BUNDLE_ID" \
             --type IOS_APP_STORE \
             --certificate-key="@env:CERTIFICATE_PRIVATE_KEY" \
             --create
           keychain add-certificates
-          xcode-project use-profiles
+          # Gera o export_options.plist (usado no passo de export do IPA).
+          xcode-project use-profiles || true
+          # Força a assinatura manual no target App (o passo acima nem sempre grava
+          # as build settings no template do Capacitor -> corrige o erro de archive).
+          gem install xcodeproj --no-document 2>/dev/null || sudo gem install xcodeproj --no-document
+          ruby resources/set_ios_signing.rb
       - name: Build IPA assinado
         script: |
           xcode-project build-ipa \
