@@ -8,9 +8,18 @@
 require 'xcodeproj'
 require 'tmpdir'
 
-profiles_dir = File.expand_path('~/Library/MobileDevice/Provisioning Profiles')
-profile = Dir.glob(File.join(profiles_dir, '*.mobileprovision')).max_by { |f| File.mtime(f) }
-abort("Nenhum provisioning profile em #{profiles_dir}") unless profile
+# O Codemagic (`xcode-project use-profiles`) salva o profile no diretório UserData
+# do Xcode; a instalação clássica usa MobileDevice. Procuramos nos dois e pegamos
+# o mais recente (.mobileprovision de iOS ou .provisionprofile).
+profile_dirs = [
+  '~/Library/MobileDevice/Provisioning Profiles',
+  '~/Library/Developer/Xcode/UserData/Provisioning Profiles',
+].map { |d| File.expand_path(d) }
+profile = profile_dirs
+          .flat_map { |dir| Dir.glob(File.join(dir, '*.mobileprovision')) }
+          .max_by { |f| File.mtime(f) }
+abort("Nenhum provisioning profile em: #{profile_dirs.join(', ')}") unless profile
+puts "Usando profile: #{profile}"
 
 # Decodifica o .mobileprovision (plist assinado) e extrai Nome/UUID/Team.
 plist = File.join(Dir.tmpdir, 'profile.plist')
