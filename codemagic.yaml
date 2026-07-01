@@ -96,8 +96,11 @@ workflows:
         script: |
           [ -d ios ] || npx cap add ios
           npx cap sync ios
-      - name: Injetar Privacy Manifest
-        script: cp resources/PrivacyInfo.xcprivacy ios/App/App/PrivacyInfo.xcprivacy
+      - name: Injetar Privacy Manifest (copia + adiciona ao target do Xcode)
+        script: |
+          cp resources/PrivacyInfo.xcprivacy ios/App/App/PrivacyInfo.xcprivacy
+          gem install xcodeproj --no-document 2>/dev/null || sudo gem install xcodeproj --no-document
+          ruby resources/add_privacy_manifest.rb
       - name: Gerar ícones/splash nativos
         script: npx @capacitor/assets generate --ios --iconBackgroundColor '#1f66f0' --splashBackgroundColor '#1f66f0' || true
       - name: Aplicar perfis de assinatura
