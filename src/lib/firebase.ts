@@ -57,7 +57,12 @@ if (isFirebaseConfigured) {
   // para sempre. initializeAuth com uma lista ordenada de fallback evita o hang:
   // IndexedDB → localStorage → memória. Auth nunca fica pendurado no storage.
   authInstance = initializeAuth(app, {
-    persistence: [indexedDBLocalPersistence, browserLocalPersistence, inMemoryPersistence],
+    // localStorage PRIMEIRO (crítico): no WKWebView do iOS o teste de
+    // disponibilidade do IndexedDB pode TRAVAR — nem resolve, nem falha —
+    // pendurando createUser/signIn DEPOIS de a conta já ter sido criada no
+    // servidor (era o "Criando conta…" eterno). browserLocalPersistence usa
+    // localStorage (síncrono, nunca trava); IndexedDB fica só como fallback.
+    persistence: [browserLocalPersistence, indexedDBLocalPersistence, inMemoryPersistence],
   })
   // No WKWebView (app nativo) o transporte WebChannel do Firestore costuma
   // travar; autoDetectLongPolling cai para long-polling quando necessário.
