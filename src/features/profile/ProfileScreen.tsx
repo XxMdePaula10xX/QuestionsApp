@@ -15,6 +15,7 @@ export function ProfileScreen() {
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [deleting, setDeleting] = useState(false)
   const [delError, setDelError] = useState<string | null>(null)
+  const [confirmReset, setConfirmReset] = useState(false)
 
   async function handleDelete() {
     setDeleting(true)
@@ -134,9 +135,32 @@ export function ProfileScreen() {
           Entrar
         </a>
       )}
-      <button className="text-xs text-gray-400 underline" onClick={() => resetProgress()}>
-        Zerar progresso local
-      </button>
+      {!confirmReset ? (
+        <button className="text-xs text-gray-400 underline" onClick={() => setConfirmReset(true)}>
+          Zerar progresso local
+        </button>
+      ) : (
+        <div className="card flex flex-col gap-3 ring-1 ring-amber-200">
+          <p className="text-sm text-gray-700">
+            Isso apaga suas estatísticas, XP, conquistas e recordes salvos neste aparelho.{' '}
+            <strong>Não dá para desfazer.</strong>
+          </p>
+          <div className="flex gap-2">
+            <button
+              className="btn flex-1 bg-amber-500 text-white"
+              onClick={() => {
+                resetProgress()
+                setConfirmReset(false)
+              }}
+            >
+              Zerar mesmo
+            </button>
+            <button className="btn flex-1 bg-black/5 text-gray-600" onClick={() => setConfirmReset(false)}>
+              Cancelar
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

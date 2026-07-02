@@ -2,22 +2,26 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useRoomStore } from '@/stores/roomStore'
+import { useAuthStore } from '@/stores/authStore'
 import { isFirebaseConfigured } from '@/lib/firebase'
 
 export function RoomScreen() {
   const store = useRoomStore()
   const { code, room, players, questions, picked, error } = store
+  const user = useAuthStore((s) => s.user)
   const [joinCode, setJoinCode] = useState('')
   const [busy, setBusy] = useState(false)
+  const [runError, setRunError] = useState<string | null>(null)
 
   useEffect(() => () => store.leave(), []) // eslint-disable-line react-hooks/exhaustive-deps
 
   async function run(fn: () => Promise<unknown>) {
     setBusy(true)
+    setRunError(null)
     try {
       await fn()
-    } catch {
-      /* erro já vai pro store/estado */
+    } catch (e) {
+      setRunError(e instanceof Error ? e.message : 'Algo deu errado. Tente de novo.')
     } finally {
       setBusy(false)
     }
@@ -25,29 +29,47 @@ export function RoomScreen() {
 
   // Sem sala ainda → criar/entrar.
   if (!code || !room) {
+    const canPlay = isFirebaseConfigured && !!user
     return (
       <div className="flex flex-col gap-5">
         <Header />
         <p className="text-sm text-gray-500">Jogue ao vivo com a galera na mesma hora — no boteco, na sala de aula, no grupo.</p>
-        {!isFirebaseConfigured && <p className="rounded-xl bg-amber-50 p-3 text-sm text-amber-700">Entre com uma conta para criar ou entrar numa sala.</p>}
-        <button className="btn-primary" disabled={busy || !isFirebaseConfigured} onClick={() => run(() => store.create(null))}>
-          🎉 Criar uma sala
-        </button>
-        <div className="card flex flex-col gap-2">
-          <p className="text-sm font-semibold text-gray-700">Entrar com código</p>
-          <div className="flex gap-2">
-            <input
-              value={joinCode}
-              onChange={(e) => setJoinCode(e.target.value.toUpperCase().slice(0, 4))}
-              placeholder="ABCD"
-              className="w-0 flex-1 rounded-xl px-3 py-2 text-center text-lg font-bold uppercase tracking-widest ring-1 ring-black/10 outline-none"
-            />
-            <button className="btn-primary px-4 py-2" disabled={busy || joinCode.length < 4 || !isFirebaseConfigured} onClick={() => run(() => store.join(joinCode))}>
-              Entrar
-            </button>
+        {!canPlay ? (
+          <div className="card flex flex-col items-center gap-3 py-8 text-center">
+            <span className="text-4xl">🔒</span>
+            <p className="text-sm text-gray-600">
+              {isFirebaseConfigured
+                ? 'Entre com sua conta para criar uma sala ou entrar numa.'
+                : 'As salas ao vivo ficam disponíveis quando o app está conectado.'}
+            </p>
+            {isFirebaseConfigured && (
+              <Link to="/login" className="btn-primary w-full text-center">
+                Entrar
+              </Link>
+            )}
           </div>
-          {error && <p className="text-xs text-red-500">{error}</p>}
-        </div>
+        ) : (
+          <>
+            <button className="btn-primary" disabled={busy} onClick={() => run(() => store.create(null))}>
+              {busy ? 'Criando…' : '🎉 Criar uma sala'}
+            </button>
+            <div className="card flex flex-col gap-2">
+              <p className="text-sm font-semibold text-gray-700">Entrar com código</p>
+              <div className="flex gap-2">
+                <input
+                  value={joinCode}
+                  onChange={(e) => setJoinCode(e.target.value.toUpperCase().slice(0, 4))}
+                  placeholder="ABCD"
+                  className="w-0 flex-1 rounded-xl px-3 py-2 text-center text-lg font-bold uppercase tracking-widest ring-1 ring-black/10 outline-none"
+                />
+                <button className="btn-primary px-4 py-2" disabled={busy || joinCode.length < 4} onClick={() => run(() => store.join(joinCode))}>
+                  Entrar
+                </button>
+              </div>
+            </div>
+          </>
+        )}
+        {(runError || error) && <p className="rounded-xl bg-red-50 p-3 text-sm text-red-600">{runError || error}</p>}
       </div>
     )
   }

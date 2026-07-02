@@ -45,9 +45,25 @@ export function LigasScreen() {
       </header>
 
       <p className="text-sm text-gray-500">
-        Todo domingo, os melhores da sua divisão <strong>sobem</strong> e os últimos <strong>caem</strong>. Sua disputa é
-        contra jogadores do seu nível — não contra o Brasil inteiro.
+        Todo mundo começa na <strong>Várzea</strong>. Durante a semana você acumula pontos jogando — e é isso que define sua
+        divisão.
       </p>
+
+      <div className="card flex flex-col gap-2 bg-brand-50/60">
+        <p className="text-sm font-semibold text-brand-700">Como você sobe (ou cai)</p>
+        <p className="text-sm text-gray-600">
+          Toda <strong>segunda-feira</strong>, seus pontos da semana são comparados com os de todos os jogadores. Quem
+          pontua mais sobe para as divisões de elite; quem fica para trás desce. Como todo mundo parte da Várzea, é a
+          primeira semana que já separa a galera por desempenho — depois é só manter o ritmo pra continuar subindo.
+        </p>
+      </div>
+
+      {league === 0 && !loading && isFirebaseConfigured && user && (
+        <p className="rounded-xl bg-amber-50 p-3 text-xs text-amber-700">
+          Você começa na Várzea. Jogue partidas durante a semana e, na virada de segunda, sua pontuação define até onde
+          você sobe. 🚀
+        </p>
+      )}
 
       {loading ? (
         <div className="card py-8 text-center text-gray-400">Carregando…</div>

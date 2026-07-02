@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { fetchRanking, type RankingScope } from '@/lib/rankingRepo'
 import { isFirebaseConfigured } from '@/lib/firebase'
+import { useAuthStore } from '@/stores/authStore'
 import { useProfileStore } from '@/stores/profileStore'
 import { weekId } from '@/lib/weekId'
 import type { RankingEntry } from '@/types/models'
@@ -24,18 +25,35 @@ export function RankingScreen() {
   const [tab, setTab] = useState<Tab>('global')
   const [entries, setEntries] = useState<RankingEntry[]>([])
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const user = useAuthStore((s) => s.user)
   const bests = useProfileStore((s) => s.profile.bests)
 
+  // O ranking exige login (regras do Firestore). Sem conta, nem consultamos.
   useEffect(() => {
+    if (!isFirebaseConfigured || !user) {
+      setEntries([])
+      setLoading(false)
+      setError(null)
+      return
+    }
     let active = true
     setLoading(true)
+    setError(null)
     fetchRanking(scopeFor(tab))
-      .then((e) => active && setEntries(e))
-      .finally(() => active && setLoading(false))
+      .then((e) => {
+        if (active) setEntries(e)
+      })
+      .catch(() => {
+        if (active) setError('Não foi possível carregar o ranking. Tente de novo.')
+      })
+      .finally(() => {
+        if (active) setLoading(false)
+      })
     return () => {
       active = false
     }
-  }, [tab])
+  }, [tab, user])
 
   return (
     <div className="flex flex-col gap-5">
@@ -72,8 +90,21 @@ export function RankingScreen() {
         ))}
       </div>
 
-      {loading ? (
+      {!isFirebaseConfigured || !user ? (
+        <div className="card flex flex-col items-center gap-3 py-12 text-center">
+          <span className="text-4xl">🏆</span>
+          <p className="font-medium text-gray-600">Entre para competir</p>
+          <p className="text-sm text-gray-400">Crie uma conta para aparecer no ranking e comparar sua pontuação com a galera.</p>
+          {isFirebaseConfigured && (
+            <Link to="/login" className="btn-primary mt-1 w-full text-center">
+              Entrar
+            </Link>
+          )}
+        </div>
+      ) : loading ? (
         <div className="card py-10 text-center text-gray-400">Carregando…</div>
+      ) : error ? (
+        <div className="card py-10 text-center text-sm text-red-500">{error}</div>
       ) : entries.length > 0 ? (
         <div className="card flex flex-col divide-y divide-black/5">
           {entries.map((e, i) => (
@@ -91,9 +122,7 @@ export function RankingScreen() {
         <div className="card flex flex-col items-center gap-2 py-12 text-center text-gray-400">
           <span className="text-4xl">🏆</span>
           <p className="font-medium text-gray-600">Ranking {tab}</p>
-          <p className="text-sm">
-            {isFirebaseConfigured ? 'Ainda sem jogadores. Seja o primeiro!' : 'Entre com uma conta para competir no ranking.'}
-          </p>
+          <p className="text-sm">Ainda sem jogadores por aqui. Jogue uma partida e seja o primeiro!</p>
         </div>
       )}
     </div>
