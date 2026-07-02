@@ -52,17 +52,19 @@ if (isFirebaseConfigured) {
     })
   }
 
-  // getAuth() detecta a persistência automaticamente e, no WKWebView (iOS
-  // nativo), esse probe de IndexedDB pode TRAVAR — segurando createUser/signIn
-  // para sempre. initializeAuth com uma lista ordenada de fallback evita o hang:
-  // IndexedDB → localStorage → memória. Auth nunca fica pendurado no storage.
+  // Persistência do Auth. CRÍTICO: o SDK NÃO faz fallback ordenado com
+  // curto-circuito — PersistenceUserManager faz `Promise.all(lista.map(p =>
+  // p._isAvailable()))`, ou seja, aguarda o teste de TODAS as persistências da
+  // lista. No WKWebView do iOS o teste do IndexedDB (indexedDB.open versionado
+  // + transação, sem timeout/onblocked) frequentemente NÃO dispara evento
+  // algum → a Promise nunca resolve → createUser/signIn ficam pendurados DEPOIS
+  // de a conta já ter sido criada no servidor (era o "Criando conta…" eterno).
+  // Por isso, no nativo, o IndexedDB é REMOVIDO da lista (não basta reordenar).
+  // localStorage é síncrono e nunca trava; inMemory é a rede final.
   authInstance = initializeAuth(app, {
-    // localStorage PRIMEIRO (crítico): no WKWebView do iOS o teste de
-    // disponibilidade do IndexedDB pode TRAVAR — nem resolve, nem falha —
-    // pendurando createUser/signIn DEPOIS de a conta já ter sido criada no
-    // servidor (era o "Criando conta…" eterno). browserLocalPersistence usa
-    // localStorage (síncrono, nunca trava); IndexedDB fica só como fallback.
-    persistence: [browserLocalPersistence, indexedDBLocalPersistence, inMemoryPersistence],
+    persistence: Capacitor.isNativePlatform()
+      ? [browserLocalPersistence, inMemoryPersistence]
+      : [indexedDBLocalPersistence, browserLocalPersistence, inMemoryPersistence],
   })
   // No WKWebView (app nativo) o transporte WebChannel do Firestore costuma
   // travar; autoDetectLongPolling cai para long-polling quando necessário.

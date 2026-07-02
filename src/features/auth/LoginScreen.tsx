@@ -58,9 +58,7 @@ export function LoginScreen() {
       navigate('/', { replace: true })
     } catch (e) {
       if (e instanceof Error && e.message === '__timeout__') {
-        setError(
-          'Está demorando demais para responder. Verifique sua conexão. Se persistir, veja se o App Check está como "Não forçado" no console do Firebase.',
-        )
+        setError('Não foi possível concluir agora. Verifique sua conexão e tente novamente.')
       } else {
         setError(authErrorText(e))
       }
