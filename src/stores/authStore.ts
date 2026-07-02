@@ -53,22 +53,21 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   signUpWithEmail: async (email, password, displayName, onboarding) => {
     if (!auth) throw new Error('Firebase não configurado')
-    // A ÚNICA etapa que pode falhar o cadastro é criar a conta no Auth.
+    // A ÚNICA etapa que pode (e deve) segurar o cadastro é criar a conta no Auth.
     const cred = await createUserWithEmailAndPassword(auth, email, password)
-    try {
-      // Best-effort: nome e perfil/PII no Firestore. Um blip de rede aqui não
-      // deve reverter a conta já criada (senão a 2ª tentativa dá "e-mail já em
-      // uso"). São refeitos no próximo carregamento (init → ensureProfile).
-      await updateProfile(cred.user, { displayName })
-      await ensureProfile(cred.user, onboarding)
-    } catch (e) {
-      // A conta JÁ foi criada no Auth. Gravar o perfil/PII no Firestore é
-      // best-effort (pode falhar por regra/App Check/offline) e é refeito no
-      // próximo carregamento (init → ensureProfile). Não derrubamos o cadastro
-      // por isso — senão o usuário fica "sem conseguir criar conta" mesmo já
-      // estando logado, e vê "e-mail já em uso" ao tentar de novo.
-      console.warn('[Sabido] cadastro: perfil não gravado agora (segue logado):', e)
-    }
+    // Nome + perfil/PII no Firestore rodam em SEGUNDO PLANO e NÃO são aguardados.
+    // Motivo: no WKWebView um setDoc do Firestore pode ficar PENDENTE para sempre
+    // (offline/WebChannel) — ele não lança erro, só nunca resolve. Aguardar isso
+    // travava o botão em "Criando conta…" eternamente. O perfil é refeito no
+    // próximo carregamento (init → onAuthStateChanged → ensureProfile).
+    void (async () => {
+      try {
+        await updateProfile(cred.user, { displayName })
+        await ensureProfile(cred.user, onboarding)
+      } catch (e) {
+        console.warn('[Sabido] cadastro: perfil em segundo plano não gravou agora:', e)
+      }
+    })()
   },
 
   resetPassword: async (email) => {
