@@ -119,6 +119,14 @@ workflows:
           # as build settings no template do Capacitor -> corrige o erro de archive).
           gem install xcodeproj --no-document 2>/dev/null || sudo gem install xcodeproj --no-document
           ruby resources/set_ios_signing.rb
+      - name: Número de build (maior que o último no App Store Connect)
+        script: |
+          LATEST=$(app-store-connect get-latest-build-number "$APP_STORE_APP_ID" 2>/dev/null || echo 0)
+          NEXT=$(( ${LATEST:-0} + 1 ))
+          # piso de segurança: contador de builds do Codemagic (caso a consulta falhe)
+          if [ "${BUILD_NUMBER:-0}" -gt "$NEXT" ]; then NEXT=$BUILD_NUMBER; fi
+          echo "App Store Connect: último=${LATEST:-0} | BUILD_NUMBER=${BUILD_NUMBER:-0} -> CFBundleVersion=$NEXT"
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $NEXT" ios/App/App/Info.plist
       - name: Build IPA assinado
         script: |
           xcode-project build-ipa \
