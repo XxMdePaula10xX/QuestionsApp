@@ -1,5 +1,12 @@
 import { initializeApp, type FirebaseApp } from 'firebase/app'
-import { getAuth, connectAuthEmulator, type Auth } from 'firebase/auth'
+import {
+  initializeAuth,
+  indexedDBLocalPersistence,
+  browserLocalPersistence,
+  inMemoryPersistence,
+  connectAuthEmulator,
+  type Auth,
+} from 'firebase/auth'
 import { initializeFirestore, connectFirestoreEmulator, type Firestore } from 'firebase/firestore'
 import { getStorage, connectStorageEmulator, type FirebaseStorage } from 'firebase/storage'
 import { getFunctions, connectFunctionsEmulator, type Functions } from 'firebase/functions'
@@ -45,7 +52,13 @@ if (isFirebaseConfigured) {
     })
   }
 
-  authInstance = getAuth(app)
+  // getAuth() detecta a persistência automaticamente e, no WKWebView (iOS
+  // nativo), esse probe de IndexedDB pode TRAVAR — segurando createUser/signIn
+  // para sempre. initializeAuth com uma lista ordenada de fallback evita o hang:
+  // IndexedDB → localStorage → memória. Auth nunca fica pendurado no storage.
+  authInstance = initializeAuth(app, {
+    persistence: [indexedDBLocalPersistence, browserLocalPersistence, inMemoryPersistence],
+  })
   // No WKWebView (app nativo) o transporte WebChannel do Firestore costuma
   // travar; autoDetectLongPolling cai para long-polling quando necessário.
   dbInstance = initializeFirestore(app, { experimentalAutoDetectLongPolling: true })
