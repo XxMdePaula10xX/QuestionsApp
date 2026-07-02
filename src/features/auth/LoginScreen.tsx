@@ -51,7 +51,24 @@ export function LoginScreen() {
   }
 
   const year = Number(birthYear)
-  const validSignup = email && password.length >= 6 && displayName && year >= 1900 && year <= CURRENT_YEAR
+
+  // Validação com FEEDBACK: em vez de desabilitar o botão silenciosamente
+  // (usuário clica e "nada acontece"), avisamos exatamente o que falta.
+  function submitLogin() {
+    if (!isFirebaseConfigured) return setError('Login indisponível no momento. Tente novamente mais tarde.')
+    if (!email.trim()) return setError('Digite seu e-mail.')
+    if (password.length < 6) return setError('A senha precisa ter ao menos 6 caracteres.')
+    run(() => signInWithEmail(email.trim(), password))
+  }
+
+  function submitSignup() {
+    if (!isFirebaseConfigured) return setError('Cadastro indisponível no momento. Tente novamente mais tarde.')
+    if (!email.trim()) return setError('Digite seu e-mail.')
+    if (password.length < 6) return setError('A senha precisa ter ao menos 6 caracteres.')
+    if (!displayName.trim()) return setError('Digite seu nome.')
+    if (!(year >= 1900 && year <= CURRENT_YEAR)) return setError('Informe um ano de nascimento válido (ex.: 1998).')
+    run(() => signUpWithEmail(email.trim(), password, displayName.trim(), { birthYear: year }))
+  }
 
   return (
     <div className="mx-auto flex min-h-[100dvh] max-w-md flex-col items-center justify-center gap-6 bg-gradient-to-b from-brand-600 to-brand-800 px-6 py-[calc(2rem+env(safe-area-inset-top))] text-center text-white">
@@ -95,20 +112,12 @@ export function LoginScreen() {
         )}
 
         {mode === 'login' ? (
-          <button
-            className="btn bg-white text-brand-700"
-            disabled={busy || !isFirebaseConfigured || !email || !password}
-            onClick={() => run(() => signInWithEmail(email, password))}
-          >
-            Entrar
+          <button className="btn bg-white text-brand-700 disabled:opacity-50" disabled={busy} onClick={submitLogin}>
+            {busy ? 'Entrando…' : 'Entrar'}
           </button>
         ) : (
-          <button
-            className="btn bg-white text-brand-700 disabled:opacity-50"
-            disabled={busy || !isFirebaseConfigured || !validSignup}
-            onClick={() => run(() => signUpWithEmail(email, password, displayName, { birthYear: year }))}
-          >
-            Criar conta
+          <button className="btn bg-white text-brand-700 disabled:opacity-50" disabled={busy} onClick={submitSignup}>
+            {busy ? 'Criando conta…' : 'Criar conta'}
           </button>
         )}
 
