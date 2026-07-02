@@ -3,7 +3,14 @@ import react from '@vitejs/plugin-react'
 import { fileURLToPath, URL } from 'node:url'
 
 // https://vitejs.dev/config/
+// Carimbo de versão: usa o commit do Codemagic (CM_COMMIT) quando disponível,
+// para conferir NA TELA qual build está rodando no dispositivo.
+const BUILD_ID = (process.env.CM_COMMIT || process.env.BUILD_ID || 'dev').slice(0, 7)
+
 export default defineConfig({
+  define: {
+    __BUILD_ID__: JSON.stringify(BUILD_ID),
+  },
   plugins: [react()],
   resolve: {
     alias: {

@@ -188,6 +188,8 @@ export function LoginScreen() {
       )}
       {info && <p className="text-sm text-green-200">{info}</p>}
       {error && <p className="text-sm text-red-200">{error}</p>}
+
+      <p className="text-[10px] text-brand-300/70">build {__BUILD_ID__}</p>
     </div>
   )
 }

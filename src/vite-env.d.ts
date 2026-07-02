@@ -15,3 +15,6 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv
 }
+
+/** Carimbo de build injetado pelo Vite (define). Ver vite.config.ts. */
+declare const __BUILD_ID__: string
