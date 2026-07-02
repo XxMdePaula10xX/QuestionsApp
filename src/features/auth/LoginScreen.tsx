@@ -45,12 +45,27 @@ export function LoginScreen() {
     setBusy(true)
     setError(null)
     setInfo(null)
+    let timer: ReturnType<typeof setTimeout> | undefined
     try {
-      await fn()
+      // Rede de segurança: se a operação não resolver em 20s (ex.: chamada
+      // pendurada no WebView), abortamos com mensagem em vez de girar pra sempre.
+      await Promise.race([
+        fn(),
+        new Promise<never>((_, reject) => {
+          timer = setTimeout(() => reject(new Error('__timeout__')), 20000)
+        }),
+      ])
       navigate('/', { replace: true })
     } catch (e) {
-      setError(authErrorText(e))
+      if (e instanceof Error && e.message === '__timeout__') {
+        setError(
+          'Está demorando demais para responder. Verifique sua conexão. Se persistir, veja se o App Check está como "Não forçado" no console do Firebase.',
+        )
+      } else {
+        setError(authErrorText(e))
+      }
     } finally {
+      if (timer) clearTimeout(timer)
       setBusy(false)
     }
   }
