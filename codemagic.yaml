@@ -138,5 +138,11 @@ workflows:
       app_store_connect:
         auth: integration
         submit_to_testflight: true
-        # submit_to_app_store: false   # ligue quando for promover de TestFlight p/ produção
+        # Promoção para PRODUÇÃO (App Store). A Apple revisa e SÓ libera ao público
+        # depois que VOCÊ clicar em "Release" (release_type: MANUAL) — controle final seu.
+        # Pré-requisito: ficha da loja 100% preenchida no App Store Connect
+        # (screenshots, descrição, classificação etária, privacidade, preço).
+        submit_to_app_store: true
+        release_type: MANUAL
+        cancel_previous_submissions: true
 
