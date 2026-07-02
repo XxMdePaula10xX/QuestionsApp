@@ -4,6 +4,7 @@ import { getFirestore, connectFirestoreEmulator, type Firestore } from 'firebase
 import { getStorage, connectStorageEmulator, type FirebaseStorage } from 'firebase/storage'
 import { getFunctions, connectFunctionsEmulator, type Functions } from 'firebase/functions'
 import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check'
+import { Capacitor } from '@capacitor/core'
 
 /**
  * Inicialização do Firebase. A config vem de variáveis VITE_* (.env.local).
@@ -30,9 +31,14 @@ let functionsInstance: Functions | undefined
 if (isFirebaseConfigured) {
   app = initializeApp(firebaseConfig)
 
-  // App Check (B1) — reCAPTCHA v3 na web; Play Integrity no Android (nativo).
+  // App Check (B1) — reCAPTCHA v3 SÓ funciona em navegador com domínio
+  // autorizado. No app nativo (WKWebView em capacitor://localhost) o reCAPTCHA
+  // não gera token; se o App Check estiver *enforced*, isso derruba Auth/
+  // Firestore e QUEBRA o cadastro/login. Por isso inicializamos apenas na web.
+  // Para proteger o app nativo, configure App Check nativo (DeviceCheck/App
+  // Attest no iOS, Play Integrity no Android) — não via este SDK web.
   const siteKey = import.meta.env.VITE_RECAPTCHA_V3_SITE_KEY
-  if (siteKey) {
+  if (siteKey && Capacitor.getPlatform() === 'web') {
     initializeAppCheck(app, {
       provider: new ReCaptchaV3Provider(siteKey),
       isTokenAutoRefreshEnabled: true,

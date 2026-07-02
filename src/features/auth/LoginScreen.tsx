@@ -6,6 +6,29 @@ import { isFirebaseConfigured } from '@/lib/firebase'
 type Mode = 'login' | 'signup'
 const CURRENT_YEAR = new Date().getFullYear()
 
+/** Traduz o erro do Firebase para PT-BR e SEMPRE inclui o código quando útil,
+ *  para o problema deixar de ser invisível ("nada acontece"). */
+function authErrorText(e: unknown): string {
+  const code = (e as { code?: string })?.code ?? ''
+  const map: Record<string, string> = {
+    'auth/email-already-in-use': 'Este e-mail já tem conta. Toque em "Já tem conta? Entrar".',
+    'auth/invalid-email': 'E-mail inválido.',
+    'auth/weak-password': 'Senha fraca — use ao menos 6 caracteres.',
+    'auth/operation-not-allowed':
+      'Login por e-mail/senha não está habilitado no Firebase (Authentication → Sign-in method).',
+    'auth/network-request-failed': 'Sem conexão. Verifique a internet e tente de novo.',
+    'auth/too-many-requests': 'Muitas tentativas. Aguarde um pouco e tente novamente.',
+    'auth/invalid-credential': 'E-mail ou senha incorretos.',
+    'auth/user-not-found': 'Não encontramos conta com esse e-mail.',
+    'auth/wrong-password': 'Senha incorreta.',
+  }
+  if (map[code]) return map[code]
+  if (code.toLowerCase().includes('app-check') || code.toLowerCase().includes('appcheck'))
+    return `Falha de verificação de segurança (App Check) — ${code}`
+  const msg = e instanceof Error ? e.message : 'Falha na autenticação'
+  return code ? `${msg} (${code})` : msg
+}
+
 export function LoginScreen() {
   const navigate = useNavigate()
   const { signInWithEmail, signUpWithEmail, resetPassword } = useAuthStore()
@@ -26,7 +49,7 @@ export function LoginScreen() {
       await fn()
       navigate('/', { replace: true })
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Falha na autenticação')
+      setError(authErrorText(e))
     } finally {
       setBusy(false)
     }
@@ -44,7 +67,7 @@ export function LoginScreen() {
       await resetPassword(email.trim())
       setInfo('Enviamos um link de redefinição para o seu e-mail.')
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Não foi possível enviar o e-mail.')
+      setError(authErrorText(e))
     } finally {
       setBusy(false)
     }

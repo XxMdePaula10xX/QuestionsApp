@@ -55,7 +55,16 @@ export const useAuthStore = create<AuthState>((set) => ({
     if (!auth) throw new Error('Firebase não configurado')
     const cred = await createUserWithEmailAndPassword(auth, email, password)
     await updateProfile(cred.user, { displayName })
-    await ensureProfile(cred.user, onboarding)
+    try {
+      await ensureProfile(cred.user, onboarding)
+    } catch (e) {
+      // A conta JÁ foi criada no Auth. Gravar o perfil/PII no Firestore é
+      // best-effort (pode falhar por regra/App Check/offline) e é refeito no
+      // próximo carregamento (init → ensureProfile). Não derrubamos o cadastro
+      // por isso — senão o usuário fica "sem conseguir criar conta" mesmo já
+      // estando logado, e vê "e-mail já em uso" ao tentar de novo.
+      console.warn('[Sabido] cadastro: perfil não gravado agora (segue logado):', e)
+    }
   },
 
   resetPassword: async (email) => {
