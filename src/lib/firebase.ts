@@ -1,6 +1,6 @@
 import { initializeApp, type FirebaseApp } from 'firebase/app'
 import { getAuth, connectAuthEmulator, type Auth } from 'firebase/auth'
-import { getFirestore, connectFirestoreEmulator, type Firestore } from 'firebase/firestore'
+import { initializeFirestore, connectFirestoreEmulator, type Firestore } from 'firebase/firestore'
 import { getStorage, connectStorageEmulator, type FirebaseStorage } from 'firebase/storage'
 import { getFunctions, connectFunctionsEmulator, type Functions } from 'firebase/functions'
 import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check'
@@ -46,7 +46,9 @@ if (isFirebaseConfigured) {
   }
 
   authInstance = getAuth(app)
-  dbInstance = getFirestore(app)
+  // No WKWebView (app nativo) o transporte WebChannel do Firestore costuma
+  // travar; autoDetectLongPolling cai para long-polling quando necessário.
+  dbInstance = initializeFirestore(app, { experimentalAutoDetectLongPolling: true })
   storageInstance = getStorage(app)
   functionsInstance = getFunctions(app, 'southamerica-east1')
 

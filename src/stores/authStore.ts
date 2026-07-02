@@ -53,9 +53,13 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   signUpWithEmail: async (email, password, displayName, onboarding) => {
     if (!auth) throw new Error('Firebase não configurado')
+    // A ÚNICA etapa que pode falhar o cadastro é criar a conta no Auth.
     const cred = await createUserWithEmailAndPassword(auth, email, password)
-    await updateProfile(cred.user, { displayName })
     try {
+      // Best-effort: nome e perfil/PII no Firestore. Um blip de rede aqui não
+      // deve reverter a conta já criada (senão a 2ª tentativa dá "e-mail já em
+      // uso"). São refeitos no próximo carregamento (init → ensureProfile).
+      await updateProfile(cred.user, { displayName })
       await ensureProfile(cred.user, onboarding)
     } catch (e) {
       // A conta JÁ foi criada no Auth. Gravar o perfil/PII no Firestore é
