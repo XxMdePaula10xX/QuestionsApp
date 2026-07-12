@@ -86,6 +86,10 @@ workflows:
       vars:
         BUNDLE_ID: 'com.sabido.app'
         APP_STORE_APP_ID: '6786125665'   # ID numérico do app no App Store Connect
+        # Versão de marketing (CFBundleShortVersionString). A Apple FECHA uma
+        # versão depois que ela é enviada/aprovada — então, para subir builds
+        # novos, incremente aqui (1.0 -> 1.0.1 -> 1.0.2 ...).
+        MARKETING_VERSION: '1.0.1'
     scripts:
       - name: Instalar dependências
         script: npm ci
@@ -127,6 +131,9 @@ workflows:
           if [ "${BUILD_NUMBER:-0}" -gt "$NEXT" ]; then NEXT=$BUILD_NUMBER; fi
           echo "App Store Connect: último=${LATEST:-0} | BUILD_NUMBER=${BUILD_NUMBER:-0} -> CFBundleVersion=$NEXT"
           /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $NEXT" ios/App/App/Info.plist
+          # Versão de marketing: precisa ser MAIOR que a última já enviada/aprovada.
+          echo "CFBundleShortVersionString -> $MARKETING_VERSION"
+          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $MARKETING_VERSION" ios/App/App/Info.plist
       - name: Build IPA assinado
         script: |
           xcode-project build-ipa \
@@ -138,11 +145,11 @@ workflows:
       app_store_connect:
         auth: integration
         submit_to_testflight: true
-        # Promoção para PRODUÇÃO (App Store). A Apple revisa e SÓ libera ao público
-        # depois que VOCÊ clicar em "Release" (release_type: MANUAL) — controle final seu.
-        # Pré-requisito: ficha da loja 100% preenchida no App Store Connect
-        # (screenshots, descrição, classificação etária, privacidade, preço).
-        submit_to_app_store: true
-        release_type: MANUAL
-        cancel_previous_submissions: true
+        # PRODUÇÃO desligada enquanto validamos as correções no TestFlight.
+        # Não faz sentido mandar builds com bug para a revisão da Apple.
+        # Para promover à App Store de novo, reative as 3 linhas abaixo
+        # (e garanta que MARKETING_VERSION seja maior que a última aprovada):
+        # submit_to_app_store: true
+        # release_type: MANUAL
+        # cancel_previous_submissions: true
 
