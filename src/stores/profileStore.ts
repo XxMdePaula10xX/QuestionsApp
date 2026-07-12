@@ -83,12 +83,18 @@ export const useProfileStore = create<ProfileState>((set, get) => ({
   clearJustUnlocked: () => set({ justUnlocked: [] }),
 
   load: async () => {
+    // Idempotente: uma vez carregado, o estado em memória é a fonte da verdade.
+    // Evita que um load tardio sobrescreva progresso recém-gravado.
+    if (get().loaded) return
     const stored = await loadJSON<LocalProfile>(KEY, EMPTY)
     const profile = { ...EMPTY, ...stored, bests: { ...EMPTY.bests, ...stored.bests } }
     set({ profile, loaded: true, seenRef: { arr: profile.seen, set: new Set(profile.seen) } })
   },
 
   recordGameResult: async (r) => {
+    // Garante que o perfil salvo já foi carregado — senão gravaríamos por cima
+    // com o EMPTY (perda de progresso ao terminar a 1ª partida do lançamento).
+    if (!get().loaded) await get().load()
     const p = get().profile
     const next: LocalProfile = {
       ...p,
@@ -128,6 +134,7 @@ export const useProfileStore = create<ProfileState>((set, get) => ({
 
   markSeen: async (ids) => {
     if (ids.length === 0) return
+    if (!get().loaded) await get().load()
     const { set: seen } = get().seenRef
     const fresh = ids.filter((id) => !seen.has(id))
     if (fresh.length === 0) return
@@ -141,6 +148,7 @@ export const useProfileStore = create<ProfileState>((set, get) => ({
   seenSet: () => get().seenRef.set,
 
   completeFtue: async () => {
+    if (!get().loaded) await get().load()
     const next = { ...get().profile, ftueDone: true }
     set({ profile: next })
     await saveJSON(KEY, next)
