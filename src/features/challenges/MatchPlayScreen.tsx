@@ -20,6 +20,8 @@ export function MatchPlayScreen() {
   const [index, setIndex] = useState(0)
   const [answers, setAnswers] = useState<number[]>([])
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
   const startRef = useRef<number>(0)
 
   const match = matches.find((m) => m.id === matchId)
@@ -62,10 +64,21 @@ export function MatchPlayScreen() {
       setIndex((n) => n + 1)
       return
     }
+    if (submitting) return
     const timeMs = Date.now() - startRef.current
     const filled = questions!.map((_, i) => answers[i] ?? -1)
-    setSubmitted(true)
-    await submitTurn(matchId!, filled, timeMs)
+    setSubmitting(true)
+    setSubmitError(null)
+    try {
+      // Só marca como enviado APÓS o sucesso — antes, uma falha de rede mostrava
+      // "Respostas enviadas!" e descartava a jogada silenciosamente (P1.9).
+      await submitTurn(matchId!, filled, timeMs)
+      setSubmitted(true)
+    } catch {
+      setSubmitError('Não foi possível enviar suas respostas. Verifique a conexão e tente de novo.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -100,10 +113,11 @@ export function MatchPlayScreen() {
             ))}
           </div>
           {picked !== undefined && (
-            <button className="btn-primary" onClick={next}>
-              {index + 1 < questions.length ? 'Próxima' : 'Enviar respostas'}
+            <button className="btn-primary disabled:opacity-50" onClick={next} disabled={submitting}>
+              {submitting ? 'Enviando…' : index + 1 < questions.length ? 'Próxima' : 'Enviar respostas'}
             </button>
           )}
+          {submitError && <p className="rounded-xl bg-red-50 p-3 text-sm text-red-600">{submitError}</p>}
         </motion.div>
       </AnimatePresence>
 
