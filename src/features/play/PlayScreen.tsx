@@ -97,6 +97,12 @@ export function PlayScreen() {
 
               {game.picked !== null && (
                 <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col gap-3">
+                  {/* Anúncio para leitores de tela — feedback não depende só da cor (P1.13). */}
+                  <p className="sr-only" role="status" aria-live="polite">
+                    {game.isCorrect
+                      ? 'Resposta correta!'
+                      : `Resposta errada. A correta era: ${game.question.options[game.question.answerIndex]}`}
+                  </p>
                   {game.question.explanation && (
                     <p className="rounded-xl bg-brand-50 p-3 text-sm text-brand-800">{game.question.explanation}</p>
                   )}
