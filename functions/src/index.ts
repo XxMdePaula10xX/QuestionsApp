@@ -94,12 +94,27 @@ export const submitScore = onCall<SubmitScorePayload>(async (request) => {
   }
   if (!['normal', 'stop', 'challenge'].includes(mode)) throw new HttpsError('invalid-argument', 'Modo inválido')
 
+  // Anti-inflação (P0.5): limita a quantidade de perguntas ao máximo plausível
+  // do modo e pontua cada pergunta DISTINTA no máximo uma vez. Sem isto, o
+  // cliente podia enviar milhares de ids (ou o mesmo id repetido) com respostas
+  // certas e inflar o score arbitrariamente (ex.: 1000 × difícil = 300.000).
+  const MAX_BY_MODE: Record<GameMode, number> = { normal: 10, stop: 40, challenge: 15 }
+  if (questionIds.length === 0 || questionIds.length > MAX_BY_MODE[mode]) {
+    throw new HttpsError('invalid-argument', 'Sessão inválida')
+  }
+
   const key = await loadAnswerKey()
+  const seen = new Set<string>()
   let correct = 0
   let score = 0
+  let answered = 0
   questionIds.forEach((qid, i) => {
+    if (seen.has(qid)) return // ignora id repetido — cada pergunta conta uma vez
     const k = key.get(qid)
-    if (k && answers[i] === k.index) {
+    if (!k) return // id desconhecido não pontua nem conta
+    seen.add(qid)
+    answered++
+    if (answers[i] === k.index) {
       correct++
       score += POINTS[k.difficulty]
     }
@@ -123,7 +138,7 @@ export const submitScore = onCall<SubmitScorePayload>(async (request) => {
       [`scores.${mode}`]: FieldValue.increment(score),
       'scores.global': FieldValue.increment(score),
       'stats.totalCorrect': FieldValue.increment(correct),
-      'stats.totalAnswered': FieldValue.increment(answers.length),
+      'stats.totalAnswered': FieldValue.increment(answered),
       'stats.gamesPlayed': FieldValue.increment(1),
       xp: FieldValue.increment(correct * XP_PER_CORRECT),
     })
