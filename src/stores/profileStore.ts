@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import type { CategoryId } from '@/types/question'
 import type { GameMode } from '@/types/models'
-import { loadJSON, saveJSON } from '@/lib/persist'
+import { loadJSON, loadJSONSync, saveJSON } from '@/lib/persist'
 import { applyPlay, effectiveStreak, type StreakState } from '@/lib/streak'
 import { levelProgress, xpForCorrect } from '@/lib/leveling'
 import { ACHIEVEMENTS, unlockedIds, type Achievement, type AchievementContext } from '@/lib/achievements'
@@ -45,6 +45,18 @@ const EMPTY: LocalProfile = {
 
 const KEY = 'profile'
 
+// Hidratação SÍNCRONA a partir do localStorage: evita o flash de perfil zerado
+// no cold start (auditoria P1.2). O load() assíncrono reconcilia com o
+// Preferences (durável) logo em seguida.
+const HYDRATED: LocalProfile = (() => {
+  const s = loadJSONSync<LocalProfile>(KEY, EMPTY)
+  return { ...EMPTY, ...s, bests: { ...EMPTY.bests, ...s.bests } }
+})()
+
+// Load single-flight: todos os chamadores aguardam a MESMA leitura, evitando
+// que um load em voo sobrescreva progresso recém-gravado (auditoria P0.2).
+let loadPromise: Promise<void> | null = null
+
 export interface GameResult {
   mode: GameMode
   category?: CategoryId
@@ -75,20 +87,31 @@ interface ProfileState {
 }
 
 export const useProfileStore = create<ProfileState>((set, get) => ({
-  profile: EMPTY,
+  profile: HYDRATED,
   loaded: false,
-  seenRef: { arr: [], set: new Set() },
+  seenRef: { arr: HYDRATED.seen, set: new Set(HYDRATED.seen) },
   justUnlocked: [],
 
   clearJustUnlocked: () => set({ justUnlocked: [] }),
 
   load: async () => {
-    // Idempotente: uma vez carregado, o estado em memória é a fonte da verdade.
-    // Evita que um load tardio sobrescreva progresso recém-gravado.
+    // Idempotente + single-flight: uma vez carregado, o estado em memória é a
+    // fonte da verdade; enquanto carrega, todos aguardam a MESMA leitura.
     if (get().loaded) return
-    const stored = await loadJSON<LocalProfile>(KEY, EMPTY)
-    const profile = { ...EMPTY, ...stored, bests: { ...EMPTY.bests, ...stored.bests } }
-    set({ profile, loaded: true, seenRef: { arr: profile.seen, set: new Set(profile.seen) } })
+    if (loadPromise) return loadPromise
+    loadPromise = (async () => {
+      const stored = await loadJSON<LocalProfile>(KEY, EMPTY)
+      // Re-checa DEPOIS do await: se outra via já marcou loaded (ex.: gravou uma
+      // partida), NÃO sobrescreve o progresso recém-salvo (auditoria P0.2).
+      if (get().loaded) return
+      const profile = { ...EMPTY, ...stored, bests: { ...EMPTY.bests, ...stored.bests } }
+      set({ profile, loaded: true, seenRef: { arr: profile.seen, set: new Set(profile.seen) } })
+    })()
+    try {
+      await loadPromise
+    } finally {
+      loadPromise = null
+    }
   },
 
   recordGameResult: async (r) => {
