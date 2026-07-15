@@ -39,7 +39,7 @@ export function LigasScreen() {
     <div className="flex flex-col gap-5">
       <header className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-brand-700">🏆 Ligas</h1>
-        <Link to="/ranking" className="text-sm text-gray-400">
+        <Link to="/ranking" className="text-sm text-gray-500">
           Ranking
         </Link>
       </header>
@@ -66,7 +66,7 @@ export function LigasScreen() {
       )}
 
       {loading ? (
-        <div className="card py-8 text-center text-gray-400">Carregando…</div>
+        <div className="card py-8 text-center text-gray-500">Carregando…</div>
       ) : (
         <div className="flex flex-col gap-2">
           {TIERS.map((t, i) => {
@@ -81,7 +81,7 @@ export function LigasScreen() {
                   <p className="font-bold text-gray-800">{t.name}</p>
                   {isCurrent && <p className="text-xs font-semibold text-brand-600">Você está aqui</p>}
                 </div>
-                {i === TIERS.length - 1 && <span className="text-xs text-gray-400">elite</span>}
+                {i === TIERS.length - 1 && <span className="text-xs text-gray-500">elite</span>}
               </div>
             )
           })}

@@ -57,7 +57,7 @@ export function AppLayout() {
                 end={item.end}
                 className={({ isActive }) =>
                   `relative flex flex-col items-center gap-0.5 py-2 text-xs font-medium ${
-                    isActive ? 'text-brand-600' : 'text-gray-400'
+                    isActive ? 'text-brand-600' : 'text-gray-500'
                   }`
                 }
               >

@@ -11,7 +11,7 @@ export function PlayScreen() {
     <div className="flex min-h-[70vh] flex-col gap-5">
       <header className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-brand-700">Modo Normal</h1>
-        <Link to="/" className="text-sm text-gray-400">
+        <Link to="/" className="text-sm text-gray-500">
           Sair
         </Link>
       </header>
@@ -41,7 +41,7 @@ export function PlayScreen() {
       )}
 
       {game.phase === 'loading' && (
-        <div className="flex flex-1 items-center justify-center text-gray-400">Carregando…</div>
+        <div className="flex flex-1 items-center justify-center text-gray-500">Carregando…</div>
       )}
 
       {game.phase === 'playing' && game.question && (
@@ -53,7 +53,7 @@ export function PlayScreen() {
                 style={{ width: `${((game.index + 1) / game.total) * 100}%` }}
               />
             </div>
-            <span className="text-xs font-medium text-gray-400">
+            <span className="text-xs font-medium text-gray-500">
               {game.index + 1}/{game.total}
             </span>
           </div>
@@ -67,7 +67,7 @@ export function PlayScreen() {
               className="flex flex-col gap-4"
             >
               <div className="card">
-                <p className="text-xs uppercase tracking-wide text-gray-400">{game.question.difficulty}</p>
+                <p className="text-xs uppercase tracking-wide text-gray-500">{game.question.difficulty}</p>
                 <p className="mt-1 text-lg font-semibold text-gray-800">{game.question.question}</p>
               </div>
 
@@ -79,7 +79,7 @@ export function PlayScreen() {
                   let style = 'bg-white text-gray-800 ring-1 ring-black/5'
                   if (answered && isCorrect) style = 'bg-green-500 text-white'
                   else if (answered && isPicked) style = 'bg-red-500 text-white'
-                  else if (answered) style = 'bg-white text-gray-400 ring-1 ring-black/5'
+                  else if (answered) style = 'bg-white text-gray-500 ring-1 ring-black/5'
                   return (
                     <button
                       key={i}

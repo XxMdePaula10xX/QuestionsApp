@@ -77,7 +77,7 @@ export function FriendsScreen() {
     <div className="flex flex-col gap-5">
       <header className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-brand-700">Amigos</h1>
-        <Link to="/perfil" className="text-sm text-gray-400">
+        <Link to="/perfil" className="text-sm text-gray-500">
           Perfil
         </Link>
       </header>
@@ -109,7 +109,7 @@ export function FriendsScreen() {
           ) : (
             <>
               <div className="flex items-center gap-2">
-                <span className="text-gray-400">@</span>
+                <span className="text-gray-500">@</span>
                 <input
                   value={newUser}
                   onChange={(e) => setNewUser(e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, '').slice(0, 15))}
@@ -126,7 +126,7 @@ export function FriendsScreen() {
                 </button>
               </div>
               {userErr && <p className="text-xs text-red-500">{userErr}</p>}
-              <p className="text-xs text-gray-400">3 a 15 caracteres: letras minúsculas, números ou _.</p>
+              <p className="text-xs text-gray-500">3 a 15 caracteres: letras minúsculas, números ou _.</p>
             </>
           )}
         </div>
@@ -164,7 +164,7 @@ export function FriendsScreen() {
         {results.map((r) => (
           <div key={r.uid} className="flex items-center justify-between gap-2 rounded-xl bg-brand-50 p-2">
             <span className="w-0 flex-1 truncate text-sm text-gray-700">
-              {r.displayName} <span className="text-gray-400">@{r.username}</span>
+              {r.displayName} <span className="text-gray-500">@{r.username}</span>
             </span>
             {sentTo.has(r.uid) ? (
               <span className="shrink-0 px-3 py-1 text-xs font-semibold text-green-600">Enviado ✓</span>
@@ -182,11 +182,11 @@ export function FriendsScreen() {
       {/* Pedidos pendentes */}
       {requests.length > 0 && (
         <section className="flex flex-col gap-2">
-          <h2 className="text-xs font-semibold uppercase tracking-wide text-gray-400">Pedidos</h2>
+          <h2 className="text-xs font-semibold uppercase tracking-wide text-gray-500">Pedidos</h2>
           {requests.map((r) => (
             <div key={r.fromUid} className="card flex items-center justify-between gap-2">
               <span className="w-0 flex-1 truncate text-sm text-gray-700">
-                {r.fromName} <span className="text-gray-400">@{r.fromUsername}</span>
+                {r.fromName} <span className="text-gray-500">@{r.fromUsername}</span>
               </span>
               <div className="flex shrink-0 gap-2">
                 <button className="btn-primary px-3 py-1 text-xs" onClick={() => responder(r.fromUid, true)}>
@@ -203,9 +203,9 @@ export function FriendsScreen() {
 
       {/* Lista de amigos */}
       <section className="flex flex-col gap-2">
-        <h2 className="text-xs font-semibold uppercase tracking-wide text-gray-400">Seus amigos</h2>
+        <h2 className="text-xs font-semibold uppercase tracking-wide text-gray-500">Seus amigos</h2>
         {friends.length === 0 ? (
-          <div className="card py-8 text-center text-sm text-gray-400">Você ainda não tem amigos no Sabido.</div>
+          <div className="card py-8 text-center text-sm text-gray-500">Você ainda não tem amigos no Sabido.</div>
         ) : (
           friends.map((f) => (
             <div key={f.uid} className="card flex items-center gap-3">
@@ -213,7 +213,7 @@ export function FriendsScreen() {
                 {f.photoURL ? <img src={f.photoURL} alt="" className="h-9 w-9 object-cover" /> : '👤'}
               </div>
               <span className="w-0 flex-1 truncate text-gray-800">{f.displayName}</span>
-              <span className="text-xs text-gray-400">@{f.username}</span>
+              <span className="text-xs text-gray-500">@{f.username}</span>
             </div>
           ))
         )}

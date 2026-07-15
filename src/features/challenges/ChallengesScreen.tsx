@@ -62,7 +62,7 @@ export function ChallengesScreen() {
     <div className="flex flex-col gap-5">
       <header className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-brand-700">Desafios</h1>
-        <Link to="/" className="text-sm text-gray-400">
+        <Link to="/" className="text-sm text-gray-500">
           Início
         </Link>
       </header>
@@ -84,17 +84,17 @@ export function ChallengesScreen() {
               </button>
               {friends.map((f) => (
                 <button key={f.uid} className="rounded-2xl bg-black/5 px-4 py-3 text-left font-medium text-gray-700" disabled={busy} onClick={() => start(f.uid)}>
-                  {f.displayName} <span className="text-gray-400">@{f.username}</span>
+                  {f.displayName} <span className="text-gray-500">@{f.username}</span>
                 </button>
               ))}
-              {friends.length === 0 && <p className="px-1 text-xs text-gray-400">Adicione amigos no Perfil → Amigos para desafiá-los diretamente.</p>}
+              {friends.length === 0 && <p className="px-1 text-xs text-gray-500">Adicione amigos no Perfil → Amigos para desafiá-los diretamente.</p>}
             </>
           ) : (
             <button className="rounded-2xl bg-brand-50 px-4 py-3 text-left font-medium text-brand-700" disabled={busy} onClick={() => start('bot')}>
               🤖 Treinar com o Robô Sabido
             </button>
           )}
-          <button className="mt-1 text-sm text-gray-400" onClick={() => setChoosing(false)}>
+          <button className="mt-1 text-sm text-gray-500" onClick={() => setChoosing(false)}>
             Cancelar
           </button>
         </div>
@@ -102,10 +102,10 @@ export function ChallengesScreen() {
 
       {error && <p className="rounded-xl bg-red-50 p-3 text-sm text-red-600">{error}</p>}
 
-      {!loaded && <div className="card py-8 text-center text-gray-400">Carregando…</div>}
+      {!loaded && <div className="card py-8 text-center text-gray-500">Carregando…</div>}
 
       {loaded && matches.length === 0 && !choosing && (
-        <div className="card flex flex-col items-center gap-2 py-12 text-center text-gray-400">
+        <div className="card flex flex-col items-center gap-2 py-12 text-center text-gray-500">
           <span className="text-4xl">⚔️</span>
           <p className="text-sm">Nenhum desafio ainda. Crie o primeiro!</p>
         </div>
@@ -139,7 +139,7 @@ export function ChallengesScreen() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="flex flex-col gap-2">
-      <h2 className="text-xs font-semibold uppercase tracking-wide text-gray-400">{title}</h2>
+      <h2 className="text-xs font-semibold uppercase tracking-wide text-gray-500">{title}</h2>
       {children}
     </section>
   )
@@ -157,13 +157,13 @@ function MatchRow({ m, me }: { m: Match; me: string }) {
         <span className="text-2xl">{cat?.emoji ?? '⚔️'}</span>
         <div className="min-w-0">
           <p className="truncate font-semibold text-gray-800">vs {oppName}</p>
-          <p className="truncate text-xs text-gray-400">{cat?.nome ?? 'Categorias variadas'}</p>
+          <p className="truncate text-xs text-gray-500">{cat?.nome ?? 'Categorias variadas'}</p>
         </div>
       </div>
       {needsMyTurn(m, me) ? (
         <span className="rounded-full bg-brand-100 px-3 py-1 text-xs font-bold text-brand-700">Jogar</span>
       ) : m.status === 'EXPIRED' ? (
-        <span className="text-sm font-bold text-gray-400">Expirado</span>
+        <span className="text-sm font-bold text-gray-500">Expirado</span>
       ) : outcome === 'win' ? (
         <span className="text-sm font-bold text-green-600">Vitória 🏆</span>
       ) : outcome === 'tie' ? (
@@ -171,7 +171,7 @@ function MatchRow({ m, me }: { m: Match; me: string }) {
       ) : outcome === 'loss' ? (
         <span className="text-sm font-bold text-red-500">Derrota</span>
       ) : (
-        <span className="text-xs text-gray-400">Aguardando…</span>
+        <span className="text-xs text-gray-500">Aguardando…</span>
       )}
     </Link>
   )

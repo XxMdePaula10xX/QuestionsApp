@@ -21,7 +21,7 @@ export function ConquistasScreen() {
     <div className="flex flex-col gap-5">
       <header className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-brand-700">Conquistas</h1>
-        <Link to="/perfil" className="text-sm text-gray-400">
+        <Link to="/perfil" className="text-sm text-gray-500">
           Perfil
         </Link>
       </header>
@@ -51,7 +51,7 @@ export function ConquistasScreen() {
                     <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-black/5">
                       <div className="h-full bg-brand-400" style={{ width: `${pct}%` }} />
                     </div>
-                    <span className="text-[10px] text-gray-400">
+                    <span className="text-[10px] text-gray-500">
                       {Math.min(current, target)}/{target}
                     </span>
                   </div>

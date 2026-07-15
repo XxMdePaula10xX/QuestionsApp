@@ -13,11 +13,11 @@ export function ReportButton({ questionId }: { questionId: string }) {
     setOpen(false)
   }
 
-  if (done) return <p className="text-center text-xs text-gray-400">Obrigado! Reporte enviado. 🙏</p>
+  if (done) return <p className="text-center text-xs text-gray-500">Obrigado! Reporte enviado. 🙏</p>
 
   return (
     <>
-      <button onClick={() => setOpen(true)} className="mx-auto text-xs text-gray-400 underline">
+      <button onClick={() => setOpen(true)} className="mx-auto text-xs text-gray-500 underline">
         Reportar pergunta
       </button>
 
@@ -49,7 +49,7 @@ export function ReportButton({ questionId }: { questionId: string }) {
                   </button>
                 ))}
               </div>
-              <button onClick={() => setOpen(false)} className="mt-3 w-full py-2 text-sm text-gray-400">
+              <button onClick={() => setOpen(false)} className="mt-3 w-full py-2 text-sm text-gray-500">
                 Cancelar
               </button>
             </motion.div>

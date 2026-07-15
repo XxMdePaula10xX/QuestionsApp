@@ -53,7 +53,7 @@ export function HomeScreen() {
         <div className="h-2 overflow-hidden rounded-full bg-black/5">
           <div className="h-full bg-brand-500 transition-all" style={{ width: `${Math.round(prog.ratio * 100)}%` }} />
         </div>
-        <span className="text-xs text-gray-400">
+        <span className="text-xs text-gray-500">
           {prog.intoLevel}/{prog.span} XP para o nível {prog.level + 1}
         </span>
       </div>
@@ -71,7 +71,7 @@ export function HomeScreen() {
       </Link>
 
       <section>
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-400">Modos de jogo</h2>
+        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-500">Modos de jogo</h2>
         <div className="grid grid-cols-2 gap-3">
           {MODES.map((m, i) => (
             <motion.div key={m.to} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
@@ -95,7 +95,7 @@ export function HomeScreen() {
                   <span className="text-3xl grayscale">{m.emoji}</span>
                   <div>
                     <p className="font-bold text-gray-800">{m.title}</p>
-                    <p className="text-xs text-gray-400">Em breve</p>
+                    <p className="text-xs text-gray-500">Em breve</p>
                   </div>
                 </div>
               )}

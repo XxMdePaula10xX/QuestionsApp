@@ -72,7 +72,7 @@ export function MatchPlayScreen() {
     <div className="flex min-h-[70vh] flex-col gap-5">
       <header className="flex items-center justify-between">
         <h1 className="text-xl font-bold text-brand-700">Seu turno</h1>
-        <span className="text-xs text-gray-400">
+        <span className="text-xs text-gray-500">
           {index + 1}/{questions.length}
         </span>
       </header>
@@ -107,7 +107,7 @@ export function MatchPlayScreen() {
         </motion.div>
       </AnimatePresence>
 
-      <p className="text-center text-xs text-gray-300">O resultado aparece quando os dois jogadores terminam.</p>
+      <p className="text-center text-xs text-gray-500">O resultado aparece quando os dois jogadores terminam.</p>
     </div>
   )
 }
@@ -133,7 +133,7 @@ function WaitingView({ match, me }: { match: Match; me: string }) {
           <button className="btn-primary mt-6" onClick={share}>
             🔗 Compartilhar desafio
           </button>
-          <p className="mt-2 max-w-full truncate text-xs text-gray-400">{link}</p>
+          <p className="mt-2 max-w-full truncate text-xs text-gray-500">{link}</p>
         </>
       ) : (
         <p className="mt-1 text-sm text-gray-500">
@@ -162,7 +162,7 @@ function ResultView({ match, navigate }: { match: Match; navigate: (to: string) 
       </p>
       <div className="card flex w-full justify-around">
         <Score name={match.playerNames[me] ?? 'Você'} res={myRes} highlight={outcome === 'win'} />
-        <span className="self-center text-gray-300">×</span>
+        <span className="self-center text-gray-500">×</span>
         <Score name={match.playerNames[opp] ?? 'Oponente'} res={oppRes} highlight={outcome === 'loss'} />
       </div>
       <div className="flex w-full flex-col gap-2">

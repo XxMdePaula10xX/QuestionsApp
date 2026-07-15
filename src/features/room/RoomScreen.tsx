@@ -82,10 +82,10 @@ export function RoomScreen() {
         <div className="card text-center">
           <p className="text-sm text-gray-500">Código da sala</p>
           <p className="text-5xl font-extrabold tracking-widest text-brand-700">{room.code}</p>
-          <p className="mt-1 text-xs text-gray-400">Compartilhe o código para a galera entrar.</p>
+          <p className="mt-1 text-xs text-gray-500">Compartilhe o código para a galera entrar.</p>
         </div>
         <div className="flex flex-col gap-2">
-          <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">Na sala ({players.length})</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">Na sala ({players.length})</p>
           {players.map((p) => (
             <div key={p.uid} className="card flex items-center gap-2 py-2">
               <span>👤</span>
@@ -99,7 +99,7 @@ export function RoomScreen() {
             Começar ({players.length} {players.length === 1 ? 'jogador' : 'jogadores'})
           </button>
         ) : (
-          <p className="text-center text-sm text-gray-400">Aguardando o anfitrião começar…</p>
+          <p className="text-center text-sm text-gray-500">Aguardando o anfitrião começar…</p>
         )}
       </div>
     )
@@ -112,7 +112,7 @@ export function RoomScreen() {
     return (
       <div className="flex min-h-[70vh] flex-col gap-5">
         <Header />
-        <div className="flex items-center justify-between text-sm text-gray-400">
+        <div className="flex items-center justify-between text-sm text-gray-500">
           <span>Pergunta {room.currentIndex + 1}/{questions.length}</span>
           <span>{answeredCount}/{players.length} responderam</span>
         </div>
@@ -143,7 +143,7 @@ export function RoomScreen() {
             {room.currentIndex + 1 >= questions.length ? 'Ver pódio' : 'Próxima pergunta'}
           </button>
         )}
-        {!store.isHost() && <p className="mt-auto text-center text-xs text-gray-400">O anfitrião controla o ritmo.</p>}
+        {!store.isHost() && <p className="mt-auto text-center text-xs text-gray-500">O anfitrião controla o ritmo.</p>}
       </div>
     )
   }
@@ -175,7 +175,7 @@ function Header() {
   return (
     <header className="flex items-center justify-between">
       <h1 className="text-2xl font-bold text-brand-700">🎉 Sala</h1>
-      <Link to="/" className="text-sm text-gray-400">
+      <Link to="/" className="text-sm text-gray-500">
         Sair
       </Link>
     </header>

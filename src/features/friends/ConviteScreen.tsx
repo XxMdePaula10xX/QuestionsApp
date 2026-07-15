@@ -42,7 +42,7 @@ export function ConviteScreen() {
           </Link>
         </>
       ) : state === 'loading' ? (
-        <p className="text-gray-400">Carregando convite…</p>
+        <p className="text-gray-500">Carregando convite…</p>
       ) : state === 'notfound' ? (
         <>
           <p className="text-gray-600">Usuário @{username} não encontrado.</p>
@@ -61,11 +61,11 @@ export function ConviteScreen() {
       ) : (
         <>
           <p className="text-lg font-bold text-gray-800">{found?.displayName}</p>
-          <p className="text-sm text-gray-400">@{found?.username}</p>
+          <p className="text-sm text-gray-500">@{found?.username}</p>
           <button className="btn-primary" disabled={busy} onClick={add}>
             Adicionar amigo
           </button>
-          <Link to="/" className="text-sm text-gray-400">
+          <Link to="/" className="text-sm text-gray-500">
             Agora não
           </Link>
         </>

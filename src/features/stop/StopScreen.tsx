@@ -13,7 +13,7 @@ export function StopScreen() {
     <div className="flex min-h-[70vh] flex-col gap-5">
       <header className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-brand-700">⏱️ Stop</h1>
-        <Link to="/" className="text-sm text-gray-400">
+        <Link to="/" className="text-sm text-gray-500">
           Sair
         </Link>
       </header>
@@ -39,7 +39,7 @@ export function StopScreen() {
         </div>
       )}
 
-      {game.phase === 'loading' && <div className="flex flex-1 items-center justify-center text-gray-400">Carregando…</div>}
+      {game.phase === 'loading' && <div className="flex flex-1 items-center justify-center text-gray-500">Carregando…</div>}
 
       {game.phase === 'playing' && game.question && (
         <div className="flex flex-col gap-5">
@@ -76,6 +76,14 @@ export function StopScreen() {
                   )
                 })}
               </div>
+              {/* Feedback para leitor de tela — não depende só da cor (P1.13). */}
+              <p className="sr-only" role="status" aria-live="assertive">
+                {game.picked !== null
+                  ? game.picked === game.question.answerIndex
+                    ? 'Resposta correta!'
+                    : `Resposta errada. A correta era: ${game.question.options[game.question.answerIndex]}`
+                  : ''}
+              </p>
             </motion.div>
           </AnimatePresence>
         </div>

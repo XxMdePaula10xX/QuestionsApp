@@ -66,9 +66,9 @@ export function ProfileScreen() {
       </div>
 
       <div className="card flex flex-col gap-3">
-        <p className="text-sm font-semibold uppercase tracking-wide text-gray-400">Precisão por categoria</p>
+        <p className="text-sm font-semibold uppercase tracking-wide text-gray-500">Precisão por categoria</p>
         {catRows.length === 0 ? (
-          <p className="py-6 text-center text-sm text-gray-400">Jogue uma partida para ver suas estatísticas.</p>
+          <p className="py-6 text-center text-sm text-gray-500">Jogue uma partida para ver suas estatísticas.</p>
         ) : (
           catRows.map((r) => (
             <div key={r.id} className="flex flex-col gap-1">
@@ -93,7 +93,7 @@ export function ProfileScreen() {
 
       <Link to="/conquistas" className="card flex items-center justify-between">
         <span className="font-semibold text-gray-800">
-          🏅 Conquistas <span className="text-sm text-gray-400">({profile.achievements.length})</span>
+          🏅 Conquistas <span className="text-sm text-gray-500">({profile.achievements.length})</span>
         </span>
         <span className="text-brand-600">Ver →</span>
       </Link>
@@ -136,7 +136,7 @@ export function ProfileScreen() {
         </a>
       )}
       {!confirmReset ? (
-        <button className="text-xs text-gray-400 underline" onClick={() => setConfirmReset(true)}>
+        <button className="text-xs text-gray-500 underline" onClick={() => setConfirmReset(true)}>
           Zerar progresso local
         </button>
       ) : (
@@ -169,7 +169,7 @@ function Stat({ label, value }: { label: string; value: number | string }) {
   return (
     <div className="card flex flex-col items-center py-4">
       <span className="text-2xl font-extrabold text-brand-700">{value}</span>
-      <span className="text-xs text-gray-400">{label}</span>
+      <span className="text-xs text-gray-500">{label}</span>
     </div>
   )
 }

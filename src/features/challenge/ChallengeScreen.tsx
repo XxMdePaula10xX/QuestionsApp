@@ -12,7 +12,7 @@ export function ChallengeScreen() {
     <div className="flex min-h-[70vh] flex-col gap-5">
       <header className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-brand-700">🪜 Challenge</h1>
-        <Link to="/" className="text-sm text-gray-400">
+        <Link to="/" className="text-sm text-gray-500">
           Sair
         </Link>
       </header>
@@ -32,7 +32,7 @@ export function ChallengeScreen() {
         </div>
       )}
 
-      {game.phase === 'loading' && <div className="flex flex-1 items-center justify-center text-gray-400">Carregando…</div>}
+      {game.phase === 'loading' && <div className="flex flex-1 items-center justify-center text-gray-500">Carregando…</div>}
 
       {game.phase === 'playing' && game.question && (
         <div className="flex flex-col gap-5">
@@ -47,7 +47,7 @@ export function ChallengeScreen() {
                 <div
                   key={lvl}
                   className={`flex h-7 flex-1 items-center justify-center rounded text-[10px] font-bold ${
-                    done ? 'bg-green-500 text-white' : current ? 'bg-brand-600 text-white' : 'bg-black/5 text-gray-400'
+                    done ? 'bg-green-500 text-white' : current ? 'bg-brand-600 text-white' : 'bg-black/5 text-gray-500'
                   }`}
                 >
                   {isCheckpoint ? '🚩' : lvl}
@@ -59,7 +59,7 @@ export function ChallengeScreen() {
           <AnimatePresence mode="wait">
             <motion.div key={game.question.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="flex flex-col gap-4">
               <div className="card">
-                <p className="text-xs uppercase tracking-wide text-gray-400">
+                <p className="text-xs uppercase tracking-wide text-gray-500">
                   Nível {game.level} · {challengeDifficultyForLevel(game.level)}
                 </p>
                 <p className="mt-1 text-lg font-semibold text-gray-800">{game.question.question}</p>
@@ -81,6 +81,14 @@ export function ChallengeScreen() {
                   )
                 })}
               </div>
+              {/* Feedback para leitor de tela — não depende só da cor (P1.13). */}
+              <p className="sr-only" role="status" aria-live="assertive">
+                {game.picked !== null
+                  ? game.picked === game.question!.answerIndex
+                    ? 'Resposta correta!'
+                    : `Resposta errada. A correta era: ${game.question!.options[game.question!.answerIndex]}`
+                  : ''}
+              </p>
             </motion.div>
           </AnimatePresence>
         </div>

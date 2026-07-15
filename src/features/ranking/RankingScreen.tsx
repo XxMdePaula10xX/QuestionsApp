@@ -67,11 +67,11 @@ export function RankingScreen() {
       {/* Suas marcas locais — sempre visíveis. */}
       <div className="card flex justify-around text-center">
         <div>
-          <p className="text-xs text-gray-400">Recorde Stop</p>
+          <p className="text-xs text-gray-500">Recorde Stop</p>
           <p className="text-xl font-bold text-brand-700">{bests.stop}</p>
         </div>
         <div>
-          <p className="text-xs text-gray-400">Challenge</p>
+          <p className="text-xs text-gray-500">Challenge</p>
           <p className="text-xl font-bold text-brand-700">Nível {bests.challengeLevel}</p>
         </div>
       </div>
@@ -94,7 +94,7 @@ export function RankingScreen() {
         <div className="card flex flex-col items-center gap-3 py-12 text-center">
           <span className="text-4xl">🏆</span>
           <p className="font-medium text-gray-600">Entre para competir</p>
-          <p className="text-sm text-gray-400">Crie uma conta para aparecer no ranking e comparar sua pontuação com a galera.</p>
+          <p className="text-sm text-gray-500">Crie uma conta para aparecer no ranking e comparar sua pontuação com a galera.</p>
           {isFirebaseConfigured && (
             <Link to="/login" className="btn-primary mt-1 w-full text-center">
               Entrar
@@ -102,14 +102,14 @@ export function RankingScreen() {
           )}
         </div>
       ) : loading ? (
-        <div className="card py-10 text-center text-gray-400">Carregando…</div>
+        <div className="card py-10 text-center text-gray-500">Carregando…</div>
       ) : error ? (
         <div className="card py-10 text-center text-sm text-red-500">{error}</div>
       ) : entries.length > 0 ? (
         <div className="card flex flex-col divide-y divide-black/5">
           {entries.map((e, i) => (
             <div key={e.uid} className="flex items-center gap-3 py-2">
-              <span className="w-6 text-center font-bold text-gray-400">{i + 1}</span>
+              <span className="w-6 text-center font-bold text-gray-500">{i + 1}</span>
               <div className="grid h-9 w-9 place-items-center overflow-hidden rounded-full bg-brand-100 text-sm">
                 {e.photoURL ? <img src={e.photoURL} alt="" className="h-9 w-9 object-cover" /> : '👤'}
               </div>
@@ -119,7 +119,7 @@ export function RankingScreen() {
           ))}
         </div>
       ) : (
-        <div className="card flex flex-col items-center gap-2 py-12 text-center text-gray-400">
+        <div className="card flex flex-col items-center gap-2 py-12 text-center text-gray-500">
           <span className="text-4xl">🏆</span>
           <p className="font-medium text-gray-600">Ranking {tab}</p>
           <p className="text-sm">Ainda sem jogadores por aqui. Jogue uma partida e seja o primeiro!</p>
