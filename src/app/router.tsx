@@ -16,6 +16,7 @@ import { LigasScreen } from '@/features/leagues/LigasScreen'
 import { RoomScreen } from '@/features/room/RoomScreen'
 import { DailyScreen } from '@/features/daily/DailyScreen'
 import { LoginScreen } from '@/features/auth/LoginScreen'
+import { RouteError } from '@/app/RouteError'
 
 /**
  * Rotas do MVP (escopo enxuto do Sprint 0):
@@ -23,10 +24,11 @@ import { LoginScreen } from '@/features/auth/LoginScreen'
  * Modos Stop/Challenge e Desafios entram em sprints seguintes.
  */
 export const router = createBrowserRouter([
-  { path: '/login', element: <LoginScreen /> },
+  { path: '/login', element: <LoginScreen />, errorElement: <RouteError /> },
   {
     path: '/',
     element: <AppLayout />,
+    errorElement: <RouteError />,
     children: [
       { index: true, element: <HomeScreen /> },
       { path: 'jogar', element: <PlayScreen /> },

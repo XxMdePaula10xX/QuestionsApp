@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { drawQuestions } from '@/lib/questionsLoader'
 import { GAME_CONFIG } from '@/lib/gameConfig'
 import { submitScore } from '@/lib/scoreService'
@@ -66,6 +66,10 @@ export function useNormalGame() {
     [picked, index],
   )
 
+  // Guarda de reentrância: um toque duplo em "finalizar" não pode submeter a
+  // pontuação nem contar a partida duas vezes (auditoria P1.1).
+  const submittingRef = useRef(false)
+
   const next = useCallback(async () => {
     const isLast = index + 1 >= questions.length
     if (!isLast) {
@@ -73,18 +77,24 @@ export function useNormalGame() {
       setPicked(null)
       return
     }
-    const result = await submitScore({ mode: 'normal', questions, answers })
-    if (category) {
-      await recordGameResult({
-        mode: 'normal',
-        category,
-        correct: result.correct,
-        answered: questions.length,
-        points: result.points,
-      })
-      setSummary({ category, total: questions.length, correct: result.correct, points: result.points })
+    if (submittingRef.current) return
+    submittingRef.current = true
+    try {
+      const result = await submitScore({ mode: 'normal', questions, answers })
+      if (category) {
+        await recordGameResult({
+          mode: 'normal',
+          category,
+          correct: result.correct,
+          answered: questions.length,
+          points: result.points,
+        })
+        setSummary({ category, total: questions.length, correct: result.correct, points: result.points })
+      }
+      setPhase('result')
+    } finally {
+      submittingRef.current = false
     }
-    setPhase('result')
   }, [index, questions, answers, category, recordGameResult])
 
   const reset = useCallback(() => {

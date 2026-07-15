@@ -118,6 +118,9 @@ export function LoginScreen() {
         <input
           type="email"
           placeholder="E-mail"
+          aria-label="E-mail"
+          autoComplete="email"
+          inputMode="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="rounded-2xl px-4 py-3 text-gray-800 outline-none"
@@ -125,6 +128,8 @@ export function LoginScreen() {
         <input
           type="password"
           placeholder="Senha (mín. 6)"
+          aria-label="Senha"
+          autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="rounded-2xl px-4 py-3 text-gray-800 outline-none"
@@ -133,6 +138,8 @@ export function LoginScreen() {
           <>
             <input
               placeholder="Seu nome"
+              aria-label="Seu nome"
+              autoComplete="name"
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
               className="rounded-2xl px-4 py-3 text-gray-800 outline-none"
@@ -140,6 +147,8 @@ export function LoginScreen() {
             <input
               inputMode="numeric"
               placeholder="Ano de nascimento"
+              aria-label="Ano de nascimento"
+              autoComplete="bday-year"
               value={birthYear}
               onChange={(e) => setBirthYear(e.target.value.replace(/\D/g, '').slice(0, 4))}
               className="rounded-2xl px-4 py-3 text-gray-800 outline-none"
