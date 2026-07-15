@@ -319,6 +319,10 @@ export const sendFriendRequest = onCall<{ toUid: string }>(async (request) => {
 export const deleteAccount = onCall(async (request) => {
   const uid = requireAuth(request)
 
+  // Lê o username reservado ANTES de apagar o doc do usuário (LGPD — libera o handle).
+  const userSnap = await db.collection('users').doc(uid).get()
+  const username = userSnap.get('username') as string | undefined
+
   // 1. Remove a amizade do lado dos amigos (relação é mútua).
   const friendsSnap = await db.collection('users').doc(uid).collection('friends').get()
   await Promise.all(
@@ -333,8 +337,28 @@ export const deleteAccount = onCall(async (request) => {
   const reportsSnap = await db.collection('reports').where('uid', '==', uid).get()
   await Promise.all(reportsSnap.docs.map((d) => d.ref.delete().catch(() => {})))
 
+  // 3b. Remove os pedidos de amizade ENVIADOS pelo usuário (ficam na subcoleção
+  //     de OUTROS usuários — não são apagados pelo recursiveDelete abaixo).
+  try {
+    const sent = await db.collectionGroup('friendRequests').where('fromUid', '==', uid).get()
+    await Promise.all(sent.docs.map((d) => d.ref.delete().catch(() => {})))
+  } catch {
+    /* índice de collectionGroup ausente/offline — não bloqueia a exclusão */
+  }
+
+  // 3c. Remove as partidas em que o usuário participa (+ submissions), contêm PII do jogo.
+  try {
+    const matches = await db.collection('matches').where('players', 'array-contains', uid).get()
+    await Promise.all(matches.docs.map((d) => db.recursiveDelete(d.ref).catch(() => {})))
+  } catch {
+    /* índice ausente/offline — não bloqueia a exclusão */
+  }
+
   // 4. Apaga o doc do usuário + subcoleções (private, sessions, friends, tokens, friendRequests).
   await db.recursiveDelete(db.collection('users').doc(uid))
+
+  // 4b. Libera a reserva de username (senão fica órfã e bloqueia o handle para sempre).
+  if (username) await db.collection('usernames').doc(username).delete().catch(() => {})
 
   // 5. Apaga a conta de autenticação.
   await getAuth().deleteUser(uid)
