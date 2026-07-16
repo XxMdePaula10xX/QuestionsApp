@@ -41,7 +41,7 @@ workflows:
         - keystore   # CM_KEYSTORE, CM_KEYSTORE_PASSWORD, CM_KEY_ALIAS, CM_KEY_PASSWORD
       vars:
         PACKAGE_NAME: 'com.sabido.app'
-        MARKETING_VERSION: '1.0.1'   # versionName; suba junto com o iOS a cada release
+        MARKETING_VERSION: '1.0.2'   # versionName; suba junto com o iOS a cada release
     scripts:
       - name: Instalar dependências
         script: npm ci
@@ -101,7 +101,7 @@ workflows:
         # Versão de marketing (CFBundleShortVersionString). A Apple FECHA uma
         # versão depois que ela é enviada/aprovada — então, para subir builds
         # novos, incremente aqui (1.0 -> 1.0.1 -> 1.0.2 ...).
-        MARKETING_VERSION: '1.0.1'
+        MARKETING_VERSION: '1.0.2'
     scripts:
       - name: Instalar dependências
         script: npm ci
