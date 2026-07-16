@@ -37,6 +37,12 @@ export interface Question {
   source?: string
   /** Default: 'estavel'. Perecíveis disparam re-verificação. */
   volatility?: Volatility
+  /**
+   * Transiente: quando as opções são embaralhadas na exibição, guarda o mapa
+   * novaPosição→índiceOriginal, para traduzir a resposta ao gabarito ORIGINAL
+   * na submissão ao servidor. Não é persistido.
+   */
+  __order?: number[]
 }
 
 /** Pergunta servida ao device em modos competitivos: sem gabarito. */

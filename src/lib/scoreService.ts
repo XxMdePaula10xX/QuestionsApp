@@ -43,23 +43,32 @@ function scoreLocally({ questions, answers }: ScoreInput): ScoreResult {
 }
 
 export async function submitScore(input: ScoreInput): Promise<ScoreResult> {
-  const canServer = isFirebaseConfigured && functions && auth?.currentUser
-  if (!canServer) return scoreLocally(input)
+  // Fonte da verdade para EXIBIÇÃO e perfil local: pontuação LOCAL com o gabarito
+  // do bundle. Confiável e offline — não depende de o Storage do servidor estar
+  // em sincronia (antes, logado, o servidor podia devolver 0 e "zerar" o
+  // resultado visível). O ranking competitivo é enviado em segundo plano.
+  const local = scoreLocally(input)
 
-  try {
+  const canServer = isFirebaseConfigured && functions && auth?.currentUser
+  if (canServer) {
+    // As opções foram embaralhadas na exibição; traduz a resposta para o índice
+    // ORIGINAL, que é como o gabarito do servidor (Storage) está gravado.
+    const answers = input.answers.map((a, i) => {
+      const order = input.questions[i]?.__order
+      return order && a >= 0 && a < order.length ? order[a] : a
+    })
     const callable = httpsCallable<
       { sessionId: string; mode: GameMode; answers: number[]; questionIds: string[] },
       { score: number; correct: number; alreadyScored: boolean }
     >(functions!, 'submitScore')
-    const res = await callable({
+    void callable({
       sessionId: newSessionId(),
       mode: input.mode,
-      answers: input.answers,
+      answers,
       questionIds: input.questions.map((q) => q.id),
+    }).catch(() => {
+      /* ranking best-effort — não afeta o resultado exibido */
     })
-    return { correct: res.data.correct, points: res.data.score, fromServer: true }
-  } catch {
-    // Falha de rede/Function — usa local como provisório (reconciliação depois).
-    return scoreLocally(input)
   }
+  return local
 }

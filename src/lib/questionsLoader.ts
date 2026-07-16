@@ -123,6 +123,24 @@ export function preferUnseen<T extends { id: string }>(
   return unseen.length >= needed ? unseen : items
 }
 
+/**
+ * Embaralha as ALTERNATIVAS de uma pergunta e remapeia o answerIndex. Sem isto,
+ * o gabarito da base (enviesado: ~46% B, ~41% A) faz a resposta certa cair quase
+ * sempre em A/B. `__order[novaPos] = índiceOriginal` permite traduzir de volta.
+ */
+export function shuffleOptions(q: Question, rng: () => number = Math.random): Question {
+  const order = shuffle(
+    q.options.map((_, i) => i),
+    rng,
+  )
+  return {
+    ...q,
+    options: order.map((oi) => q.options[oi]),
+    answerIndex: order.indexOf(q.answerIndex),
+    __order: order,
+  }
+}
+
 /** Sorteia N perguntas distintas de uma categoria, priorizando inéditas (#2). */
 export async function drawQuestions(
   categoryId: CategoryId,
@@ -132,7 +150,9 @@ export async function drawQuestions(
   const rng = opts.rng ?? Math.random
   const all = await loadCategory(categoryId)
   const pool = preferUnseen(all, opts.exclude, count)
-  return shuffle(pool, rng).slice(0, Math.min(count, pool.length))
+  return shuffle(pool, rng)
+    .slice(0, Math.min(count, pool.length))
+    .map((q) => shuffleOptions(q, rng))
 }
 
 /** Carrega e mescla várias categorias (modo Challenge mistura categorias). */
